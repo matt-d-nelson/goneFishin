@@ -17,6 +17,8 @@ const flouderRouter = require("./routes/flounder.router");
 const catfishRouter = require('./routes/catfish.router');
 // Get all designs made by a specific user
 const carpRouter = require('./routes/carp.router');
+// Add a design
+const bluegillRouter = require('./routes/bluegill.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -36,6 +38,7 @@ app.use("/api/flouder", flouderRouter);
 app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);
+app.use('/api/bluegill', bluegillRouter);
 
 // Serve static files
 app.use(express.static("build"));
