@@ -19,6 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Design from '../Design/Design';
+import Edit from '../Edit/Edit';
+import Cart from '../Cart/Cart';
+import Admin from '../Admin/Admin';
 
 import './App.css';
 
@@ -66,6 +70,38 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Design page else shows LoginPage
+            exact
+            path="/design"
+          >
+            <Design />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Edit page else shows LoginPage
+            exact
+            path="/edit/:id"
+          >
+            <Edit />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Cart page else shows LoginPage
+            exact
+            path="/cart"
+          >
+            <Cart />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Admin page else shows LoginPage
+            exact
+            path="/admin"
+          >
+            <Admin />
           </ProtectedRoute>
 
           <Route
