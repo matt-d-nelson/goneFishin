@@ -8,15 +8,17 @@ const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
 // Route includes
-const userRouter = require('./routes/user.router');
+const userRouter = require("./routes/user.router");
 // Get all cart items from a specific user where ordered = false
-const guppyRouter = require('./routes/guppy.router');
+const guppyRouter = require("./routes/guppy.router");
 // Get all public designs
-const flouderRouter = require("./routes/flounder.router");
+const flounderRouter = require("./routes/flounder.router");
 // Get all cart items where fulfilled = false and ordered = true
-const catfishRouter = require('./routes/catfish.router');
+const catfishRouter = require("./routes/catfish.router");
 // Get all designs made by a specific user
-const carpRouter = require('./routes/carp.router');
+const carpRouter = require("./routes/carp.router");
+// Delete a design and its associated cart_item rows
+const blobfishRouter = require("./routes/blobfish.router");
 
 // Update or Get a specific design
 const anglerfishRouter = require('./routes/anglerfish.router');
@@ -38,11 +40,12 @@ app.use(passport.session());
 
 /* Routes */
 
-app.use('/api/user', userRouter);
-app.use("/api/flouder", flouderRouter);
-app.use('/api/guppy', guppyRouter );
-app.use('/api/catfish', catfishRouter);
-app.use('/api/carp', carpRouter);
+app.use("/api/user", userRouter);
+app.use("/api/flounder", flounderRouter);
+app.use("/api/guppy", guppyRouter);
+app.use("/api/catfish", catfishRouter);
+app.use("/api/carp", carpRouter);
+app.use("/api/blobfish", blobfishRouter);
 
 app.use('/api/anglerfish', anglerfishRouter);
 
