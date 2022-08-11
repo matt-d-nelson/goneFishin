@@ -1,9 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
-
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
  const queryText = `SELECT * FROM "cart_items" WHERE fulfilled = true AND ordered = true;`;
  pool.query(queryText)
  .then((result) =>{
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
  });
 });
 
-router.put('/:id/:fulfilled', (req, res) =>{
+router.put('/:id/:fulfilled', rejectUnauthenticated, (req, res) =>{
   const queryText = `UPDATE "cart_items" SET fulfilled = $1 WHERE user_id = $2;`;
   const values = [req.params.fulfilled, req.user.id]
   pool.query( queryText, values)

@@ -1,11 +1,14 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 /**
  * GET route guppy
  */
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   // Get all cart items from a specific user where ordered = false
   const queryString = `SELECT * FROM cart_items WHERE ordered = false AND WHERE cart_items.user_id = $1`;
   const value = [req.user.id];

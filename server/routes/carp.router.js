@@ -1,11 +1,14 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 /**
  * GET carp route
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const query = `SELECT * FROM "design" WHERE user_id=$1;`;
   const value = [req.user.id]
   pool.query(query, value)
