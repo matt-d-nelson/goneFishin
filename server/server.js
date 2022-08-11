@@ -8,13 +8,15 @@ const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
 // Route includes
-const userRouter = require("./routes/user.router");
+const userRouter = require('./routes/user.router');
+// Get all cart items from a specific user where ordered = false
+const guppyRouter = require('./routes/guppy.router');
 // Get all public designs
 const flouderRouter = require("./routes/flounder.router");
-
+// Get all cart items where fulfilled = false and ordered = true
 const catfishRouter = require('./routes/catfish.router');
+// Get all designs made by a specific user
 const carpRouter = require('./routes/carp.router');
-
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,8 +31,9 @@ app.use(passport.session());
 
 /* Routes */
 
-app.use("/api/flouder", flouderRouter);
 app.use('/api/user', userRouter);
+app.use("/api/flouder", flouderRouter);
+app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);
 
