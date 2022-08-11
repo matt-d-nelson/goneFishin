@@ -17,8 +17,13 @@ const flouderRouter = require("./routes/flounder.router");
 const catfishRouter = require('./routes/catfish.router');
 // Get all designs made by a specific user
 const carpRouter = require('./routes/carp.router');
+
 // Update or Get a specific design
 const anglerfishRouter = require('./routes/anglerfish.router');
+
+// Add a design to a user’s cart/Delete an item from cart_items where id = id (serial key)
+const bassRouter = require( './routes/bass.router');
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -38,7 +43,11 @@ app.use("/api/flouder", flouderRouter);
 app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);
-app.use('/api/anglerfish');
+
+app.use('/api/anglerfish', anglerfishRouter);
+
+app.use('api/bass', bassRouter)
+
 
 // Serve static files
 app.use(express.static("build"));
