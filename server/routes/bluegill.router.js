@@ -1,7 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 /**
  * GET route template
  */
@@ -12,7 +14,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/bluegill', (req, res) => {
+router.post('/bluegill', rejectUnauthenticated, (req, res) => {
   const user_id = req.user.id;
   const svg_colors = req.body.svg_colors;
   const description = req.body.description;

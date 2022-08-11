@@ -1,11 +1,13 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
-
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 /**
  * GET route catfish
  */
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   // Get all cart items where fulfilled = false and ordered = true
   const queryString = `SELECT * FROM cart_items WHERE fulfilled = false AND ordered = true`;
   pool
