@@ -22,8 +22,6 @@ const bluegillRouter = require('./routes/bluegill.router');
 // Update cart_item to be fulfilled/unfulfilled
 // Get all cart items where fulfilled = true and ordered = true
 const swordfishRouter = require('./routes/swordfish.router');
-
-const carpRouter = require("./routes/carp.router");
 // Delete a design and its associated cart_item rows
 const blobfishRouter = require("./routes/blobfish.router");
 // Update or Get a specific design
@@ -46,7 +44,7 @@ app.use(passport.session());
 /* Routes */
 
 app.use('/api/user', userRouter);
-app.use("/api/flouder", flouderRouter);
+app.use("/api/flouder", flounderRouter);
 app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);
