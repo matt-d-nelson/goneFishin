@@ -12,6 +12,10 @@ const userRouter = require("./routes/user.router");
 // Get all public designs
 const flouderRouter = require("./routes/flounder.router");
 
+const catfishRouter = require('./routes/catfish.router');
+const carpRouter = require('./routes/carp.router');
+
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,14 +28,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-app.use("/api/user", userRouter);
+
 app.use("/api/flouder", flouderRouter);
+app.use('/api/user', userRouter);
+app.use('/api/catfish', catfishRouter);
+app.use('/api/carp', carpRouter);
 
 // Serve static files
 app.use(express.static("build"));
 
 // App Set //
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 /** Listen * */
 app.listen(PORT, () => {
