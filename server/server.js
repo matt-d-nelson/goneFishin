@@ -19,6 +19,9 @@ const catfishRouter = require('./routes/catfish.router');
 const carpRouter = require('./routes/carp.router');
 // Add a design
 const bluegillRouter = require('./routes/bluegill.router');
+// Update cart_item to be fulfilled/unfulfilled
+// Get all cart items where fulfilled = true and ordered = true
+const swordfishRouter = require('./routes/swordfish.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -39,6 +42,7 @@ app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);
 app.use('/api/bluegill', bluegillRouter);
+app.use('/api/swordfish', swordfishRouter)
 
 // Serve static files
 app.use(express.static("build"));
