@@ -7,12 +7,18 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function Design() {
+  //------------------OBJECTS------------------//
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   //------------------REDUCER STATE------------------//
   const user = useSelector((store) => store.user);
 
@@ -56,8 +62,11 @@ function Design() {
   };
 
   // button clicks
-  const onCancel = () => {};
+  const onCancel = () => {
+    history.push("/home");
+  };
   const onSave = () => {
+    // TODO - input validation
     const newDesign = {
       user_id: user.id,
       svg_colors: {
@@ -71,6 +80,9 @@ function Design() {
       public: publicDesign,
     };
     console.log(newDesign);
+    // send saga request
+    dispatch({ type: "SAVE_DESIGN", payload: newDesign });
+    // TODO - navigate to /home after modal confirmation
   };
   const updatePublic = (event) => {
     setPublicDesign(event.target.checked);
