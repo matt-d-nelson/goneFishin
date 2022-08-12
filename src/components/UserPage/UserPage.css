@@ -5,14 +5,51 @@
     color: rgb(171, 33, 33);
 }
 
-.buttonPlacement {
-    margin-top: 10em;
-}
+/* .buttonPlacement {
+    margin-top: em;
+} */
 
 .imageSlider {
     color: black;
     font-size: 28px;
 }
 .cardButtons {
-    padding-left: 765px;
+    padding-left:75px;
+}
+
+.container {
+    display: inline-block;
+}
+
+/* 
+.left-button{
+    position: absolute;
+    top: 50%;
+    left:600px;
+    font-size: 1rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.right-button{
+    position: absolute;
+    top: 50%;
+    right:600px;
+    font-size: 1rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+
+} */
+
+.slider {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
