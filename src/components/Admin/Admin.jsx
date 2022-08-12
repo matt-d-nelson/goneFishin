@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 //MUI style imports
 // import Stack from '@mui/material/Stack';
 // import Typography from '@mui/material/Typography';
+import {Typography, Box, Grid, Card} from "@material-ui/core";
 
 function Admin( props ){
     // hook to toggle fulfilled/unfulfilled orders view
@@ -20,30 +21,42 @@ function Admin( props ){
     return(
         <div>
             <h2>Admin</h2>
-            <div>
-                {/* // direction="column"
-                // justifyContent="flex-start"
-                // alignItems="stretch"
-                // spacing={1}> */}
+            <Card>
                 {/* render either fulfilled or unfulfilled orders depending on hook state */}
-                {/* {
-                    fulfilled ?
+                {
+                    !fulfilled ?
                     unfulfilled.map(item =>{
                         return (
-                            <Stack 
+                            <Grid container
                                 key={item.id}
+                                container-spacing={2}
                                 direction="row"
                                 justifyContent="space-between"
-                                alignItems="stretch"
-                                spacing={1}>
+                                alignItems="center">
+                                    <Grid item xs={2}>
+                                        <img src={item.image} alt="lure image" />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography variant='body1'>
+                                            Title: {item.title} <br/> 
+                                            Description: {item.description}
+                                        </Typography>
 
+                                    </Grid>
+                                    <Grid>
 
-                            </Stack>
+                                    </Grid>
+                            </Grid>
                         )
-                    })
-                } */}
+                    }
+                    ) : (
+                        
+                            <p>to do: fulfilled items</p>
+                        
+                    )
+                }
 
-            </div>
+            </Card>
         </div>
     );
 }
