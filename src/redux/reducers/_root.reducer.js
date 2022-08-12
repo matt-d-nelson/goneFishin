@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import unfulfilled from './unfulfilled.reducer';
+import orders from './orders.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,7 +12,7 @@ import unfulfilled from './unfulfilled.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  unfulfilled, // contains an array of all unfulfilled orders
+  orders, // contains an array of all unfulfilled orders
 });
 
 export default rootReducer;
