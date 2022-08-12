@@ -1,4 +1,11 @@
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { useState } from "react";
 import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
@@ -33,9 +40,9 @@ function Design() {
     <div style={{ textAlign: "center" }}>
       <h2>Design</h2>
       <Grid container spacing={2} justifyContent="center">
-        {/* //------------TEXT INPUTS------------// */}
-        <Grid item xs={4}>
+        <Grid item xs={6} align="right">
           <Grid container direction="column">
+            {/* //------------LURE SVG FLAT------------// */}
             <Grid item>
               <LureSVG
                 bodyColor={bodyColor}
@@ -47,13 +54,14 @@ function Design() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={6}>
           <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <TextField fullWidth label="title" />
+            {/* //------------TEXT INPUTS------------// */}
+            <Grid item align="left">
+              <TextField label="title" />
             </Grid>
-            <Grid item>
-              <TextField fullWidth label="description" minRows={8} multiline />
+            <Grid item align="left">
+              <TextField label="description" minRows={8} multiline />
             </Grid>
             {/* //------------COLOR INPUTS------------// */}
             <Grid item align="left">
@@ -99,9 +107,18 @@ function Design() {
             </Grid>
           </Grid>
         </Grid>
-        {/* //------------LURE SVG FLAT------------// */}
+        {/* //------------BUTTONS------------// */}
         <Grid item>
-          <Grid container direction="column"></Grid>
+          <Grid container>
+            <ButtonGroup>
+              <Button>Cancel</Button>
+              <Button>Save</Button>
+              <Button component="label">
+                Public:
+                <Checkbox label="public" />
+              </Button>
+            </ButtonGroup>
+          </Grid>
         </Grid>
       </Grid>
     </div>

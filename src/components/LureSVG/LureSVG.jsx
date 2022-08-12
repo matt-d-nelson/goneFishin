@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import { useCallback } from "react";
 import { useRef } from "react";
 
@@ -25,6 +26,9 @@ function LureSVG(props) {
 
   return (
     <div>
+      <Button onClick={downloadSVG} style={{ marginRight: "110px" }}>
+        download svg
+      </Button>
       <div ref={fishSVG}>
         <svg
           width="360"
@@ -321,8 +325,6 @@ function LureSVG(props) {
           </g>
         </svg>
       </div>
-
-      <button onClick={downloadSVG}>download svg</button>
     </div>
   );
 }
