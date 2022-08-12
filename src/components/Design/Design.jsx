@@ -1,3 +1,4 @@
+//------------------IMPORTS------------------//
 import {
   Button,
   ButtonGroup,
@@ -9,8 +10,14 @@ import {
 import { useState } from "react";
 import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
+import { useSelector } from "react-redux";
 
 function Design() {
+  //------------------REDUCER STATE------------------//
+  const user = useSelector((store) => store.user);
+
+  //------------------LOCAL STATE------------------//
+  // lure colors
   const [bodyColor, setBodyColor] = useState("#00FF00");
   const [bodyShadeColor, setBodyShadeColor] = useState(
     chroma("#00FF00").darken()
@@ -19,21 +26,54 @@ function Design() {
   const [dorsalColor, setDorsalColor] = useState("#3C2210");
   const [eyeColor, setEyeColor] = useState("#FFFF00");
 
+  // inputs
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [publicDesign, setPublicDesign] = useState(false);
+
+  //------------------EVENT HANDLERS------------------//
+  // lure colors
   const handleBodyColorChange = (event) => {
     setBodyColor(event.target.value);
     setBodyShadeColor(chroma(event.target.value).darken());
   };
-
   const handleFinColorChange = (event) => {
     setFinColor(event.target.value);
   };
-
   const handleDorsalColorChange = (event) => {
     setDorsalColor(event.target.value);
   };
-
   const handleEyeColorChange = (event) => {
     setEyeColor(event.target.value);
+  };
+
+  // text inputs
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  // button clicks
+  const onCancel = () => {};
+  const onSave = () => {
+    const newDesign = {
+      user_id: user.id,
+      svg_colors: {
+        bodyColor: bodyColor,
+        finColor: finColor,
+        dorsalColor: dorsalColor,
+        eyeColor: eyeColor,
+      },
+      description: description,
+      title: title,
+      public: publicDesign,
+    };
+    console.log(newDesign);
+  };
+  const updatePublic = (event) => {
+    setPublicDesign(event.target.checked);
   };
 
   return (
@@ -58,10 +98,15 @@ function Design() {
           <Grid container direction="column" spacing={2}>
             {/* //------------TEXT INPUTS------------// */}
             <Grid item align="left">
-              <TextField label="title" />
+              <TextField label="title" onChange={handleTitleChange} />
             </Grid>
             <Grid item align="left">
-              <TextField label="description" minRows={8} multiline />
+              <TextField
+                label="description"
+                minRows={8}
+                multiline
+                onChange={handleDescriptionChange}
+              />
             </Grid>
             {/* //------------COLOR INPUTS------------// */}
             <Grid item align="left">
@@ -111,11 +156,11 @@ function Design() {
         <Grid item>
           <Grid container>
             <ButtonGroup>
-              <Button>Cancel</Button>
-              <Button>Save</Button>
+              <Button onClick={onCancel}>Cancel</Button>
+              <Button onClick={onSave}>Save</Button>
               <Button component="label">
                 Public:
-                <Checkbox label="public" />
+                <Checkbox label="public" onChange={updatePublic} />
               </Button>
             </ButtonGroup>
           </Grid>
