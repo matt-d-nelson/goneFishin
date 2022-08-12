@@ -9,7 +9,10 @@ const {
  */
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Get all cart items where fulfilled = false and ordered = true
-  const queryString = `SELECT * FROM cart_items WHERE fulfilled = false AND ordered = true`;
+  const queryString = `SELECT cart_items.id, design_id, cart_items.user_id, order_date, fulfilled, ordered, svg_colors, description, title, image, email FROM cart_items
+    JOIN "design" ON design.id = cart_items.design_id
+    JOIN "user" ON "user".id = cart_items.user_id
+    WHERE fulfilled = false AND ordered = true;`;
   pool
     .query(queryString)
     .then((result) => {
