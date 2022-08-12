@@ -4,11 +4,11 @@ import {useHistory} from 'react-router-dom';
 //MUI style imports
 // import Stack from '@mui/material/Stack';
 // import Typography from '@mui/material/Typography';
-import {Typography, Box, Grid, Card} from "@material-ui/core";
+import {Typography, Grid, Card, Button} from "@material-ui/core";
 
 function Admin( props ){
     // hook to toggle fulfilled/unfulfilled orders view
-    const [ fulfilled, setFulfilled ] = useState( false );
+    const [ fulfilled, setFulfilled ] = useState( 'unfulfilled' );
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -21,38 +21,40 @@ function Admin( props ){
     return(
         <div>
             <h2>Admin</h2>
-            <Card>
+            <Button>{fulfilled}</Button>
+            <Card>     
                 {/* render either fulfilled or unfulfilled orders depending on hook state */}
                 {
-                    !fulfilled ?
+                    fulfilled === 'unfulfilled' ?
+                    
                     unfulfilled.map(item =>{
                         return (
                             <Grid container
                                 key={item.id}
-                                container-spacing={2}
+                                spacing={6}
                                 direction="row"
-                                justifyContent="space-between"
+                                justifyContent="flex-start"
                                 alignItems="center">
-                                    <Grid item xs={2}>
+                                    <Grid item xs={3}>
                                         <img src={item.image} alt="lure image" />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={5}>
                                         <Typography variant='body1'>
                                             Title: {item.title} <br/> 
-                                            Description: {item.description}
+                                            Description: {item.description} <br/>
+                                            User Email: {item.email}
                                         </Typography>
-
                                     </Grid>
-                                    <Grid>
-
+                                    <Grid item xs={3}>
+                                        <Button>Cancel</Button>
+                                        <br/>
+                                        <Button>Fulfilled</Button>
                                     </Grid>
                             </Grid>
-                        )
-                    }
+                            
+                        )}
                     ) : (
-                        
                             <p>to do: fulfilled items</p>
-                        
                     )
                 }
 
