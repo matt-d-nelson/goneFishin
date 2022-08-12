@@ -1,0 +1,18 @@
+.companyTitle {
+    text-align: center;
+    font-family: serif;
+    font-size: 35px;
+    color: rgb(171, 33, 33);
+}
+
+.buttonPlacement {
+    margin-top: 10em;
+}
+
+.imageSlider {
+    color: black;
+    font-size: 28px;
+}
+.cardButtons {
+    padding-left: 765px;
+}
