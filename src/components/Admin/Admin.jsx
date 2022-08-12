@@ -9,7 +9,6 @@ import {Typography, Grid, Card, Button} from "@material-ui/core";
 function Admin( props ){
     // hook to set fulfilled/unfulfilled orders view
     const [ fulfilled, setFulfilled ] = useState( false );
-    //
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -18,11 +17,15 @@ function Admin( props ){
     useEffect(()=>{
         dispatch({type: 'FETCH_ORDERS'});
     }, []);
+
+    function toggleView(){
+        setFulfilled(!fulfilled);
+    }
      
     return(
         <div>
             <h2>Admin</h2>
-            <Button></Button>
+            <Button onClick={toggleView}>{fulfilled ? "Show Unfulfilled" : "Show Fulfilled"}</Button>
             <Card>     
                 {/* render either fulfilled or unfulfilled orders depending on hook state. Items will
                 render only if fulfilled field from database matches hook */}
