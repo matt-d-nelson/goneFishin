@@ -4,18 +4,7 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
-const multer = require("multer");
-
-const imageStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/image");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
-  },
-});
-
-const upload = multer({ storage: imageStorage });
+const upload = require("../modules/multer.js");
 
 // Save new design
 router.post(
