@@ -101,7 +101,15 @@ function App() {
             exact
             path="/admin"
           >
-            <Admin />
+            {user.role>0 ?
+              // if user is an admin, show admin page
+              <Admin />
+              :
+              // Otherwise, go to login page
+              <UserPage />
+            }
+            
+
           </ProtectedRoute>
 
           <Route
