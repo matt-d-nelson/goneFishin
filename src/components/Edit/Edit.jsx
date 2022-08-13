@@ -123,18 +123,20 @@ function Edit(props) {
       // convert the drawn image to a blob of data
       pngCanvas.toBlob(function (blob) {
         // create form data and append it with current values
-        const newDesign = new FormData();
-        newDesign.append("designPng", blob, "design.png");
-        newDesign.append("bodyColor", bodyColor);
-        newDesign.append("finColor", finColor);
-        newDesign.append("dorsalColor", dorsalColor);
-        newDesign.append("eyeColor", eyeColor);
-        newDesign.append("description", description);
-        newDesign.append("title", title);
-        newDesign.append("public", publicDesign);
+        const updateDesign = new FormData();
+        updateDesign.append("designPng", blob, "design.png");
+        updateDesign.append("bodyColor", bodyColor);
+        updateDesign.append("finColor", finColor);
+        updateDesign.append("dorsalColor", dorsalColor);
+        updateDesign.append("eyeColor", eyeColor);
+        updateDesign.append("description", description);
+        updateDesign.append("title", title);
+        updateDesign.append("public", publicDesign);
+        updateDesign.append("id", design[0].id);
+        updateDesign.append("user_id", design[0].user_id);
 
         // send saga request to save the design to DB
-        dispatch({ type: "UPDATE_DESIGN", payload: newDesign });
+        dispatch({ type: "UPDATE_DESIGN", payload: updateDesign });
       });
     };
   };
