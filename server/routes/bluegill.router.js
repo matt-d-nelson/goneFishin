@@ -4,6 +4,19 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
+const multer = require("multer");
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/image");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({ storage: imageStorage });
+
 // Save new design
 router.post("/", rejectUnauthenticated, (req, res) => {
   const user_id = req.user.id;
@@ -21,6 +34,11 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       console.log("error in adding design POST", error);
       res.sendStatus(500);
     });
+});
+
+router.post("/png", upload.single("designPng"), (req, res) => {
+  console.log(req.file);
+  res.sendStatus(200);
 });
 
 module.exports = router;

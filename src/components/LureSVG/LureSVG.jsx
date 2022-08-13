@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import { useCallback } from "react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 
 function downloadBlob(blob, filename) {
   const objectUrl = URL.createObjectURL(blob);
@@ -16,7 +17,10 @@ function downloadBlob(blob, filename) {
 }
 
 function LureSVG(props) {
+  const dispatch = useDispatch();
+
   const fishSVG = useRef();
+  const pngCanvas = useRef();
 
   const downloadSVG = useCallback(() => {
     const svg = fishSVG.current.innerHTML;
@@ -24,11 +28,34 @@ function LureSVG(props) {
     downloadBlob(blob, "lure.svg");
   }, []);
 
+  const uploadPNG = () => {
+    const svg = fishSVG.current.innerHTML;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const objectUrl = URL.createObjectURL(blob);
+    let ctx = pngCanvas.current.getContext("2d");
+    let png = new Image();
+    png.onload = function () {
+      ctx.drawImage(png, 0, 0);
+      const pngBlob = pngCanvas.current.toBlob(function (blob) {
+        // props.setPngBlob(blob);
+        const pngData = new FormData();
+        console.log(blob);
+        pngData.append("designPng", blob, "design.png");
+        dispatch({ type: "UPLOAD_PNG", payload: pngData });
+      });
+      //dispatch to upload png
+      // console.log(pngBlob);
+      // ctx.clearRect(0, 0, 360, 504);
+    };
+    png.src = objectUrl;
+  };
+
   return (
     <div>
       <Button onClick={downloadSVG} style={{ marginRight: "110px" }}>
         download svg
       </Button>
+      <Button onClick={uploadPNG}>upload png</Button>
       <div ref={fishSVG}>
         <svg
           width="360"
@@ -325,6 +352,7 @@ function LureSVG(props) {
           </g>
         </svg>
       </div>
+      <canvas ref={pngCanvas} width="360" height="504"></canvas>
     </div>
   );
 }

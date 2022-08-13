@@ -37,6 +37,9 @@ function Design() {
   const [description, setDescription] = useState("");
   const [publicDesign, setPublicDesign] = useState(false);
 
+  //png blob
+  const [pngBlob, setPngBlob] = useState(null);
+
   //------------------EVENT HANDLERS------------------//
   // lure colors
   const handleBodyColorChange = (event) => {
@@ -102,6 +105,7 @@ function Design() {
                 finColor={finColor}
                 dorsalColor={dorsalColor}
                 eyeColor={eyeColor}
+                setPngBlob={setPngBlob}
               />
             </Grid>
           </Grid>
