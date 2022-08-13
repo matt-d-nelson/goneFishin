@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
   //Add a design to a user’s cart
   const queryString = `INSERT INTO cart_items ( design_id, user_id, order_date, fulfilled, ordered ) VALUES ( $1, $2 )`;
-  values = [req.body.id, req.user.id, req.body.order_date , req.body.fulfilled , req.body.ordered ];
+  const values = [req.body.id, req.user.id, req.body.order_date , req.body.fulfilled , req.body.ordered ];
   pool
     .query(queryString, values)
     .then((results) => {
@@ -31,13 +31,17 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-/**
- * DELETE bass route 
- */
+//----DELETE ITEM FROM CART, works for admin and users----//
  router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // Delete an item from cart_items where id = id (serial key)
-  const queryString = `DELETE FROM "cart_items" WHERE "design_id" = $1 AND "user_id" = $2;`;
-  values = [req.params.id, req.user.id];
+  // Default queryString and values for users to only delete from their own cart
+  let queryString = `DELETE FROM "cart_items" WHERE "id" = $1 AND "user_id" = $2;`;
+  let values = [req.params.id, req.user.id];
+  // if user is an admin, allow them to delete any items from cart
+  if (req.user.role > 0){
+    queryString = `DELETE FROM "cart_items" WHERE "id" = $1`;
+    values = [req.params.id];
+  }
   pool
     .query(queryString, values)
     .then((results) => {

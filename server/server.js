@@ -57,7 +57,7 @@ app.use("/api/catfish", catfishRouter);
 app.use("/api/carp", carpRouter);
 app.use("/api/blobfish", blobfishRouter);
 app.use('/api/anglerfish', anglerfishRouter);
-app.use('api/bass', bassRouter)
+app.use('/api/bass', bassRouter);
 
 
 // Serve static files

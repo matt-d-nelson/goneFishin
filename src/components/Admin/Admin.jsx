@@ -24,6 +24,10 @@ function Admin( props ){
     function fulfillOrder(cartID){
         dispatch({type: 'FULFILL_ORDER', payload: cartID});
     }
+
+    function deleteOrder(cartID){
+        dispatch({type: 'DELETE_ORDER', payload: cartID});
+    }
      
     return(
         <div>
@@ -59,7 +63,7 @@ function Admin( props ){
                                 </Grid>
                                     {/* render different buttons depending on selected view */}                               
                                     <Grid item xs={3}>
-                                        <Button>{!fulfilled ? "Cancel" : "Delete"}</Button>
+                                        <Button onClick={()=>{deleteOrder(order.id)}}>{!fulfilled ? "Cancel" : "Delete"}</Button>
                                         <br/>
                                         <Button onClick={()=>{fulfillOrder(order.id)}}>{!fulfilled ? "Fulfill" : "Un-Fulfill"}</Button>
                                     </Grid>                                                     
