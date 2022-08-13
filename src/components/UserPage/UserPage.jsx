@@ -8,7 +8,12 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-} from "@material-ui/core";
+} from "@mui/material";
+// import {Button} from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import DownloadIcon from '@mui/icons-material/Download';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -26,7 +31,8 @@ function UserPage() {
   }, []);
 
   const addDesignToCart = () => {
-    console.log("in addDesignToCart");
+    console.log("in addDesignToCart", designs[current].id);
+    dispatch({type: "ADD_DESIGN_TO_CART", payload: designs[current].id})
   };
 
   const downloadDesign = () => {
@@ -38,7 +44,9 @@ function UserPage() {
   };
 
   const deleteDesign = () => {
-    console.log("in deleteDesign");
+    console.log("in deleteDesign", designs[current].id, 'userID', user.id);
+    dispatch({type: "DELETE_DESIGN", payload: designs[current].id, id: designs[current].user_id})
+    dispatch({ type: "FETCH_USER_DESIGNS" });
   };
 
   const nextSlide = () => {
@@ -57,7 +65,7 @@ function UserPage() {
     display: "grid",
     width: "26vw",
     transitionDuration: "0.3s",
-    height: "26vw",
+    height: "30vw",
     background: "#637a6b",
     color: "white",
   };
@@ -77,6 +85,8 @@ function UserPage() {
                 </Button>
           <div className="slider">
 
+       
+
           {designs.map((design, index) => {
             return (
               <div key={index}>
@@ -86,26 +96,27 @@ function UserPage() {
                 
                   <Card variant="outlined" style={cardStyle}>
                     <CardMedia>
-                      {" "}
                       <br />
                       <img src={design.image} alt="" />
-                      <br /> Title: {design.title}{" "}
+                      <br /> Title: {design.title}
+                      <p>id:{design.id}</p>
+                      <p>svg colors: {design.svg_colors}</p>
                     </CardMedia>
                     <CardContent>Description: {design.description}</CardContent>
                     <div className="cardButtons">
                       <CardActions>
-                        <Button size="small" onClick={addDesignToCart}>
+                        <ShoppingCartIcon size="small" onClick={addDesignToCart}>
                           Add To Cart
-                        </Button>
-                        <Button size="small" onClick={downloadDesign}>
+                        </ShoppingCartIcon>
+                        <DownloadIcon size="small" onClick={downloadDesign}>
                           Download
-                        </Button>
-                        <Button size="small" onClick={editDesign}>
+                        </DownloadIcon>
+                        <EditIcon size="small" onClick={editDesign}>
                           Edit
-                        </Button>
-                        <Button size="small" onClick={deleteDesign}>
+                        </EditIcon>
+                        < DeleteIcon size="small" onClick={deleteDesign}>
                           Delete
-                        </Button>
+                        </ DeleteIcon>
                       </CardActions>
                     </div>
                   </Card>

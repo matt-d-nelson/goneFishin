@@ -15,10 +15,11 @@ router.get('/', (req, res) => {
 /**
  * POST bass route 
  */
-router.post('/', rejectUnauthenticated, (req, res) => {
+router.post('/:id', rejectUnauthenticated, (req, res) => {
   //Add a design to a user’s cart
-  const queryString = `INSERT INTO cart_items ( design_id, user_id, order_date, fulfilled, ordered ) VALUES ( $1, $2 )`;
-  values = [req.body.id, req.user.id, req.body.order_date , req.body.fulfilled , req.body.ordered ];
+  console.log('req.body.id', req.body)
+  const queryString = `INSERT INTO cart_items ( design_id, user_id) VALUES ( $1, $2 )`;
+  values = [req.params.id, req.user.id];
   pool
     .query(queryString, values)
     .then((results) => {
