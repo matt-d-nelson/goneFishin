@@ -1,3 +1,4 @@
+//------------------IMPORTS------------------//
 import {
   Button,
   ButtonGroup,
@@ -141,6 +142,7 @@ function Edit(props) {
     };
   };
 
+  //------------------JSX RETURN------------------//
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Edit</h2>

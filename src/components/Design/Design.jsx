@@ -111,6 +111,7 @@ function Design() {
     };
   };
 
+  //------------------JSX RETURN------------------//
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Design</h2>
