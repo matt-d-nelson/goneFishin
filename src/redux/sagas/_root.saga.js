@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import ordersSaga from './orders.saga';
 import fulfillSaga from './fulfill.saga';
 import deleteOrderSaga from './delete.order.saga';
+import saveDesignSaga from "./saveDesign.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     ordersSaga(),
     fulfillSaga(),
     deleteOrderSaga(),
+    saveDesignSaga(), // adds new lure design to DB
   ]);
 }
