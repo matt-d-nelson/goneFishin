@@ -13,14 +13,12 @@ import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useRef } from "react";
 
 function Design() {
   //------------------OBJECTS------------------//
   const dispatch = useDispatch();
   const history = useHistory();
-
-  //------------------REDUCER STATE------------------//
-  const user = useSelector((store) => store.user);
 
   //------------------LOCAL STATE------------------//
   // lure colors
@@ -40,6 +38,9 @@ function Design() {
   //png blob
   const [pngBlob, setPngBlob] = useState(null);
 
+  //lure SVG ref
+  const fishSVG = useRef();
+
   //------------------EVENT HANDLERS------------------//
   // lure colors
   const handleBodyColorChange = (event) => {
@@ -56,12 +57,15 @@ function Design() {
     setEyeColor(event.target.value);
   };
 
-  // text inputs
+  // text/checkbox inputs
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
+  };
+  const updatePublic = (event) => {
+    setPublicDesign(event.target.checked);
   };
 
   // button clicks
@@ -70,25 +74,34 @@ function Design() {
   };
   const onSave = () => {
     // TODO - input validation
-    const newDesign = {
-      user_id: user.id,
-      svg_colors: {
-        bodyColor: bodyColor,
-        finColor: finColor,
-        dorsalColor: dorsalColor,
-        eyeColor: eyeColor,
-      },
-      description: description,
-      title: title,
-      public: publicDesign,
+
+    const svg = fishSVG.current.innerHTML;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const objectUrl = URL.createObjectURL(blob);
+    const pngCanvas = document.createElement(`canvas`);
+    pngCanvas.width = 360;
+    pngCanvas.height = 504;
+    let ctx = pngCanvas.getContext("2d");
+    let png = new Image();
+    png.onload = function () {
+      ctx.drawImage(png, 0, 0);
+      pngCanvas.toBlob(function (blob) {
+        const newDesign = new FormData();
+        console.log(blob);
+        newDesign.append("designPng", blob, "design.png");
+        newDesign.append("bodyColor", bodyColor);
+        newDesign.append("finColor", finColor);
+        newDesign.append("dorsalColor", dorsalColor);
+        newDesign.append("eyeColor", eyeColor);
+        newDesign.append("description", description);
+        newDesign.append("title", title);
+        newDesign.append("public", publicDesign);
+
+        // send saga request
+        dispatch({ type: "SAVE_DESIGN", payload: newDesign });
+      });
     };
-    console.log(newDesign);
-    // send saga request
-    dispatch({ type: "SAVE_DESIGN", payload: newDesign });
-    // TODO - navigate to /home after modal confirmation
-  };
-  const updatePublic = (event) => {
-    setPublicDesign(event.target.checked);
+    png.src = objectUrl;
   };
 
   return (
@@ -99,14 +112,16 @@ function Design() {
           <Grid container direction="column">
             {/* //------------LURE SVG FLAT------------// */}
             <Grid item>
-              <LureSVG
-                bodyColor={bodyColor}
-                bodyShadeColor={bodyShadeColor}
-                finColor={finColor}
-                dorsalColor={dorsalColor}
-                eyeColor={eyeColor}
-                setPngBlob={setPngBlob}
-              />
+              <div ref={fishSVG}>
+                <LureSVG
+                  bodyColor={bodyColor}
+                  bodyShadeColor={bodyShadeColor}
+                  finColor={finColor}
+                  dorsalColor={dorsalColor}
+                  eyeColor={eyeColor}
+                  setPngBlob={setPngBlob}
+                />
+              </div>
             </Grid>
           </Grid>
         </Grid>

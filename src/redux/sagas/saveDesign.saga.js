@@ -15,25 +15,8 @@ function* saveDesign(action) {
   }
 }
 
-function* uploadPNG(action) {
-  try {
-    yield axios({
-      method: "post",
-      url: "/api/bluegill/png",
-      data: action.payload,
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    alert("error uploading png");
-  }
-}
-
 function* saveDesignSaga() {
   yield takeEvery("SAVE_DESIGN", saveDesign);
-  yield takeEvery("UPLOAD_PNG", uploadPNG);
 }
 
 export default saveDesignSaga;
