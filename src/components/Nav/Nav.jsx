@@ -32,6 +32,13 @@ function Nav() {
               Info Page
             </Link>
 
+            {/* If user is also an admin, show this link too */}
+            {user.role > 0 && (
+              <Link className='navLink' to="/admin">
+                Admin
+              </Link>
+            )}
+
             <LogOutButton className="navLink" />
           </>
         )}
