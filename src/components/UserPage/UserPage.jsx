@@ -26,6 +26,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const designs = useSelector((store) => store.home);
   const [current, setCurrent] = useState(0);
+  const [showFeed, setShowFeed] = useState(true)
   const history = useHistory();
 
   const length = designs.length;
@@ -35,6 +36,11 @@ function UserPage() {
     console.log(length);
     // dispatch({ type: "SEND_ID", payload:user.id});
   }, []);
+
+  const toggleFeed = () => {
+    console.log('toggle feed');
+    setShowFeed(!showFeed);
+}; // end toggleShow
 
   const addDesignToCart = () => {
     console.log("in addDesignToCart", designs[current].id);
@@ -51,6 +57,7 @@ function UserPage() {
 
   const downloadDesign = () => {
     console.log("in download design");
+    alert('Download Successful')
   };
 
   const editDesign = () => {
@@ -95,6 +102,8 @@ function UserPage() {
         <br />
         COMPANY
         <p>{user.username}'s Designs</p>
+
+        
         {designs.map((design, index) => {
           return (
             <div className="designs" key={index}>
@@ -174,12 +183,14 @@ function UserPage() {
             </div>
           );
         })}
-      </div>
+
+      </div> 
       <div className="buttonPlacement">
         <Button
           className="feedButton"
           variant="contained"
           sx={{ fontSize: "25px", background: "#EDD892" }}
+          onClick={toggleFeed}
         >
           FEED
         </Button>
