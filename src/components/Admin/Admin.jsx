@@ -57,14 +57,12 @@ function Admin( props ){
                                         User Email: {order.email}
                                     </Typography>
                                 </Grid>
-                                    {/* if showing unfulfilled orders, render buttons */}
-                                    {!fulfilled && 
-                                        <Grid item xs={3}>
-                                        <Button>Cancel</Button>
+                                    {/* render different buttons depending on selected view */}                               
+                                    <Grid item xs={3}>
+                                        <Button>{!fulfilled ? "Cancel" : "Delete"}</Button>
                                         <br/>
-                                        <Button onClick={()=>{fulfillOrder(order.id)}}>Fulfill</Button>
-                                        </Grid>
-                                    }                             
+                                        <Button onClick={()=>{fulfillOrder(order.id)}}>{!fulfilled ? "Fulfill" : "Un-Fulfill"}</Button>
+                                    </Grid>                                                     
                             </Grid>
                         }
                     </div>
