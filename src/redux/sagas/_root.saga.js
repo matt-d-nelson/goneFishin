@@ -10,7 +10,7 @@ import saveDesignSaga from "./saveDesign.saga";
 import getDesignSaga from "./getDesign.saga";
 import updateDesignSaga from "./updateDesign.saga";
 import cartItemsSaga from './cart.saga';
-
+import submitOrderSaga from './submit.order.saga';
 
 
 
@@ -34,5 +34,6 @@ export default function* rootSaga() {
     getDesignSaga(), // gets data for a single design
     updateDesignSaga(), // update a design
     cartItemsSaga(), // get unordered items currently in a user's cart
+    submitOrderSaga(), // submits a user's cart item as ordered
   ]);
 }

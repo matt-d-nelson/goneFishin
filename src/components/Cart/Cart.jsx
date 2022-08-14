@@ -16,7 +16,11 @@ function Cart(){
     useEffect(()=>{
         dispatch({type: "FETCH_CART_ITEMS"});
     }, []);
-     
+    
+    const submitOrder =(cartID)=>{
+        dispatch({type: "ORDER_CART_ITEM", payload: cartID});
+    }
+
     return(
         <div>
             <Typography variant='h4' m={2}>{user.username}'s Cart</Typography>
@@ -41,7 +45,7 @@ function Cart(){
                                 </Typography>
                             </Grid>
                             <Grid item xs={2} m={2}>
-                                <Button>Order</Button>
+                                <Button onClick={()=>{submitOrder(item.id)}}>Order</Button>
                                 <Button>Remove</Button>
                             </Grid>
                     </Grid>
