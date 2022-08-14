@@ -24,7 +24,7 @@ router.post(
     };
     const description = req.body.description;
     const title = req.body.title;
-    const image = req.file.path;
+    const image = req.file.path.slice(7);
     const public = req.body.public;
     const queryText = `INSERT INTO "design" (user_id, svg_colors, description, title, image, public)
     VALUES ($1, $2, $3, $4, $5, $6);`;

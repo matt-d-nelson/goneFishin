@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import "./UserPage.css";
 import {
   Button,
@@ -26,7 +26,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const designs = useSelector((store) => store.home);
   const [current, setCurrent] = useState(0);
-  const [showFeed, setShowFeed] = useState(true)
+  const [showFeed, setShowFeed] = useState(true);
   const history = useHistory();
 
   const length = designs.length;
@@ -38,31 +38,30 @@ function UserPage() {
   }, []);
 
   const toggleFeed = () => {
-    console.log('toggle feed');
+    console.log("toggle feed");
     setShowFeed(!showFeed);
-}; // end toggleShow
+  }; // end toggleShow
 
   const addDesignToCart = () => {
     console.log("in addDesignToCart", designs[current].id);
     // const today = new Date().toLocaleDateString();
     // console.log(today);
     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current].id });
-   
   };
 
   const newDesign = () => {
-    console.log('in newDesign');
-    history.push('/design')
-  }
+    console.log("in newDesign");
+    history.push("/design");
+  };
 
   const downloadDesign = () => {
     console.log("in download design");
-    alert('Download Successful')
+    alert("Download Successful");
   };
 
   const editDesign = () => {
     console.log("in editDesign");
-    history.push('/edit/:id')
+    history.push(`/edit/${designs[current].id}`);
   };
 
   const deleteDesign = () => {
@@ -72,7 +71,6 @@ function UserPage() {
       payload: designs[current].id,
       id: designs[current].user_id,
     });
-    dispatch({ type: "FETCH_USER_DESIGNS" });
   };
 
   const nextSlide = () => {
@@ -102,27 +100,23 @@ function UserPage() {
         <br />
         COMPANY
         <p>{user.username}'s Designs</p>
-
-        
         {designs.map((design, index) => {
           return (
             <div className="designs" key={index}>
               {index === current && (
                 <div className="container">
-                  <IconButton>
+                  <IconButton onClick={prevSlide}>
                     <ChevronLeftIcon
                       sx={{ fontSize: "80px" }}
                       className="left-button"
-                      onClick={prevSlide}
                     >
                       Previous
                     </ChevronLeftIcon>
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={nextSlide}>
                     <ChevronRightIcon
                       sx={{ fontSize: "80px" }}
                       className="right-button"
-                      onClick={nextSlide}
                     >
                       Next
                     </ChevronRightIcon>
@@ -151,28 +145,19 @@ function UserPage() {
                     <div className="cardButtons">
                       <div className="centerButton">
                         <CardActions>
-                          <IconButton>
-                            <ShoppingCartIcon
-                              size="small"
-                              onClick={addDesignToCart}
-                            >
+                          <IconButton onClick={addDesignToCart}>
+                            <ShoppingCartIcon size="small">
                               Add To Cart
                             </ShoppingCartIcon>
                           </IconButton>
-                          <IconButton>
-                            <DownloadIcon size="small" onClick={downloadDesign}>
-                              Download
-                            </DownloadIcon>
+                          <IconButton onClick={downloadDesign}>
+                            <DownloadIcon size="small">Download</DownloadIcon>
                           </IconButton>
-                          <IconButton>
-                            <EditIcon size="small" onClick={editDesign}>
-                              Edit
-                            </EditIcon>
+                          <IconButton onClick={editDesign}>
+                            <EditIcon size="small">Edit</EditIcon>
                           </IconButton>
-                          <IconButton>
-                            <DeleteIcon size="small" onClick={deleteDesign}>
-                              Delete
-                            </DeleteIcon>
+                          <IconButton onClick={deleteDesign}>
+                            <DeleteIcon size="small">Delete</DeleteIcon>
                           </IconButton>
                         </CardActions>
                       </div>
@@ -183,8 +168,7 @@ function UserPage() {
             </div>
           );
         })}
-
-      </div> 
+      </div>
       <div className="buttonPlacement">
         <Button
           className="feedButton"

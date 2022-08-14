@@ -25,7 +25,7 @@ router.put(
         svg_colors,
         req.body.description,
         req.body.title,
-        req.file.path,
+        req.file.path.slice(7),
         req.body.public,
         req.body.id,
       ];

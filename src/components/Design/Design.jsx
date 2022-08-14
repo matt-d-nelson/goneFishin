@@ -6,7 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import chroma from "chroma-js";
