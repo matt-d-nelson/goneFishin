@@ -11,16 +11,13 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useRef } from "react";
 
 function Design() {
   //------------------OBJECTS------------------//
   const dispatch = useDispatch();
   const history = useHistory();
-
-  //------------------REDUCER STATE------------------//
-  const user = useSelector((store) => store.user);
 
   //------------------LOCAL STATE------------------//
   // lure colors
@@ -36,6 +33,9 @@ function Design() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [publicDesign, setPublicDesign] = useState(false);
+
+  //lure SVG ref
+  const fishSVG = useRef();
 
   //------------------EVENT HANDLERS------------------//
   // lure colors
@@ -53,12 +53,15 @@ function Design() {
     setEyeColor(event.target.value);
   };
 
-  // text inputs
+  // text/checkbox inputs
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
+  };
+  const updatePublic = (event) => {
+    setPublicDesign(event.target.checked);
   };
 
   // button clicks
@@ -67,27 +70,48 @@ function Design() {
   };
   const onSave = () => {
     // TODO - input validation
-    const newDesign = {
-      user_id: user.id,
-      svg_colors: {
-        bodyColor: bodyColor,
-        finColor: finColor,
-        dorsalColor: dorsalColor,
-        eyeColor: eyeColor,
-      },
-      description: description,
-      title: title,
-      public: publicDesign,
+
+    // get the current svg HTML
+    const svg = fishSVG.current.innerHTML;
+    // create a blob of raw data from the svg
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    // create a URL for the svg blob data
+    const objectUrl = URL.createObjectURL(blob);
+    // create a new <image> element
+    let img = document.createElement("img");
+    // set it's source to the url of the svg blob
+    img.src = objectUrl;
+    // create a new <canvas> element
+    const pngCanvas = document.createElement(`canvas`);
+    // define its width and height to that of the svg (hard coded)
+    pngCanvas.width = 360;
+    pngCanvas.height = 504;
+    // set the canvas drawing context
+    let ctx = pngCanvas.getContext("2d");
+    // when the svg blob is loaded into the img element
+    img.onload = function () {
+      // draw the img (sourced with the svg blob) to the canvas
+      ctx.drawImage(img, 0, 0);
+      // convert the drawn image to a blob of data
+      pngCanvas.toBlob(function (blob) {
+        // create form data and append it with current values
+        const newDesign = new FormData();
+        newDesign.append("designPng", blob, "design.png");
+        newDesign.append("bodyColor", bodyColor);
+        newDesign.append("finColor", finColor);
+        newDesign.append("dorsalColor", dorsalColor);
+        newDesign.append("eyeColor", eyeColor);
+        newDesign.append("description", description);
+        newDesign.append("title", title);
+        newDesign.append("public", publicDesign);
+
+        // send saga request to save the design to DB
+        dispatch({ type: "SAVE_DESIGN", payload: newDesign });
+      });
     };
-    console.log(newDesign);
-    // send saga request
-    dispatch({ type: "SAVE_DESIGN", payload: newDesign });
-    // TODO - navigate to /home after modal confirmation
-  };
-  const updatePublic = (event) => {
-    setPublicDesign(event.target.checked);
   };
 
+  //------------------JSX RETURN------------------//
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Design</h2>
@@ -96,13 +120,15 @@ function Design() {
           <Grid container direction="column">
             {/* //------------LURE SVG FLAT------------// */}
             <Grid item>
-              <LureSVG
-                bodyColor={bodyColor}
-                bodyShadeColor={bodyShadeColor}
-                finColor={finColor}
-                dorsalColor={dorsalColor}
-                eyeColor={eyeColor}
-              />
+              <div ref={fishSVG}>
+                <LureSVG
+                  bodyColor={bodyColor}
+                  bodyShadeColor={bodyShadeColor}
+                  finColor={finColor}
+                  dorsalColor={dorsalColor}
+                  eyeColor={eyeColor}
+                />
+              </div>
             </Grid>
           </Grid>
         </Grid>

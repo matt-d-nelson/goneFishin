@@ -1,6 +1,8 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
+import editDesign from "./editDesign.reducer";
+import home from './home.reducer';
 import orders from './orders.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -11,8 +13,12 @@ import orders from './orders.reducer';
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
+
   user, // will have an id and username if someone is logged in
   orders, // contains an array of all orders
+  editDesign, // will have data for a single post
+  home,// will have an id and username if someone is logged in
+
 });
 
 export default rootReducer;

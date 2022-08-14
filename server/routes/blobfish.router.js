@@ -6,8 +6,8 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 // DELETE A DESIGN
-router.get("/:id/:designer_id", rejectUnauthenticated, (req, res) => {
-  console.log("DELETE", req.params.id, req.params.designer_id);
+router.delete("/:id/:designer_id", rejectUnauthenticated, (req, res) => {
+  console.log("DELETE", 'design id',req.params.id, 'designer id:',req.params.designer_id);
   console.log(req.user.id);
   // ensure the currently logged in user is the user that created the design
   if (req.user.id === Number(req.params.designer_id)) {
