@@ -1,8 +1,10 @@
-
 import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import ordersSaga from './orders.saga';
+import fulfillSaga from './fulfill.saga';
+import deleteOrderSaga from './delete.order.saga';
 import homeSaga from './home.saga';
 import saveDesignSaga from "./saveDesign.saga";
 
@@ -24,6 +26,9 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    ordersSaga(),
+    fulfillSaga(),
+    deleteOrderSaga(),
     homeSaga(),
     saveDesignSaga(), // adds new lure design to DB
     getDesignSaga(), // gets data for a single design
