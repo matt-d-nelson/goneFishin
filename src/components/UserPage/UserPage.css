@@ -1,0 +1,73 @@
+.companyTitle {
+    text-align: center;
+    font-family: serif;
+    font-size: 35px;
+    color: rgb(0, 0, 0);
+}
+
+/* .buttonPlacement {
+    margin-top: em;
+} */
+
+.imageSlider {
+    color: black;
+    font-size: 28px;
+}
+.cardButtons {
+    display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+    display: inline-block;
+}
+
+.centerButton{
+    margin: 0;
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.buttonPlacement{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+
+.right-button{
+    position: absolute;
+    top:300px;
+    left: 300px;
+    font-size: 1rem;
+    color: #010101;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+
+.left-button{
+    position: absolute;
+    top:300px;
+    right: 300px;
+    font-size: 1rem;
+    color: #010101;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+
+} 
+
+.slider {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
