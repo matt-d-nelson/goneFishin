@@ -18,8 +18,8 @@ const {
 // });
 
 router.put('/:id', rejectUnauthenticated, (req, res) =>{
-  const queryText = `UPDATE "cart_items" SET fulfilled = NOT fulfilled WHERE user_id = $2 AND id=$1;`;
-  const values = [req.params.id, req.user.id];
+  const queryText = `UPDATE "cart_items" SET fulfilled = NOT fulfilled WHERE id=$1;`;
+  const values = [req.params.id];
   pool.query( queryText, values)
   .then(()=> res.sendStatus(200))
   .catch((error)=>{
