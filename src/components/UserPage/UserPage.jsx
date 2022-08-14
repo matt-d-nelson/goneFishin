@@ -71,7 +71,6 @@ function UserPage() {
       payload: designs[current].id,
       id: designs[current].user_id,
     });
-    dispatch({ type: "FETCH_USER_DESIGNS" });
   };
 
   const nextSlide = () => {
