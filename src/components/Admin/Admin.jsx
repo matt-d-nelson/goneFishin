@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 //MUI style imports
-import { Typography, Grid, Card, Button, Box } from "@mui/material";
+import { Typography, Grid, Card, Button} from "@mui/material";
 
 function Admin(props) {
   // hook to set fulfilled/unfulfilled orders view

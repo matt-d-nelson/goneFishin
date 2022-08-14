@@ -17,7 +17,7 @@ CREATE TABLE "cart_items" (
 	"user_id" INT,
 	"order_date" DATE,
 	"fulfilled" BOOLEAN DEFAULT false,
-	"ordered" BOOLEAN
+	"ordered" BOOLEAN DEFAULT false
 );
 
 CREATE TABLE "design" (
