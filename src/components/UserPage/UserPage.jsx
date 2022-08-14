@@ -61,7 +61,7 @@ function UserPage() {
 
   const editDesign = () => {
     console.log("in editDesign");
-    history.push("/edit/:id");
+    history.push(`/edit/${designs[current].id}`);
   };
 
   const deleteDesign = () => {
