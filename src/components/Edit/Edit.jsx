@@ -6,7 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
