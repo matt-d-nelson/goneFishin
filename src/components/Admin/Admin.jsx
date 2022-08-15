@@ -21,6 +21,15 @@ function Admin(props) {
   function toggleView() {
     setFulfilled(!fulfilled);
   }
+  // on click, download the png of the ordered lure
+  function downloadOrder(cartItem) {
+    const link = document.createElement("a");
+    link.href = cartItem.image;
+    link.download = `${cartItem.title}_${cartItem.email}_${cartItem.order_date}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
   // on click, mark item as fulfilled/unfulfilled in database, then get all orders
   function fulfillOrder(cartID) {
     dispatch({ type: "FULFILL_ORDER", payload: cartID });
@@ -78,6 +87,15 @@ function Admin(props) {
                 </Grid>
                 {/* render different buttons depending on selected view */}
                 <Grid item xs={2}>
+                  <Button
+                    component="label"
+                    onClick={() => {
+                      downloadOrder(order);
+                    }}
+                  >
+                    Download
+                  </Button>
+                  <br />
                   <Button
                     onClick={() => {
                       deleteOrder(order.id);

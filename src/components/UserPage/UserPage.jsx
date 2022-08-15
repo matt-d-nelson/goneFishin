@@ -71,7 +71,12 @@ function UserPage() {
 
   const downloadDesign = () => {
     console.log("in download design");
-    alert("Download Successful");
+    const link = document.createElement("a");
+    link.href = designs[current].image;
+    link.download = designs[current].title;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const editDesign = () => {
