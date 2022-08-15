@@ -16,13 +16,18 @@ function Cart(){
     useEffect(()=>{
         dispatch({type: "FETCH_CART_ITEMS"});
     }, []);
-    
+
+    // marks all items in cart as ordered and gives them an ordered date
     const submitOrder =()=>{
         dispatch({type: "ORDER_CART_ITEMS"});
     }
-
+    // goes to edit view for selected design
     const editDesign=(designID)=>{
         history.push(`/edit/${designID}`);
+    }
+    // on click, removes an item from cart
+    const removeItem=(cartID)=>{
+        dispatch({type: "DELETE_ORDER", payload: cartID});
     }
 
     return(
@@ -50,12 +55,12 @@ function Cart(){
                             </Grid>
                             <Grid item xs={2} m={2}>
                                 <Button onClick={()=>{editDesign(item.design_id)}}>Edit</Button> <br/>
-                                <Button>Remove</Button>
+                                <Button onClick={()=>{removeItem(item.id)}}>Remove</Button>
                             </Grid>
                     </Grid>
                 ))}
             </Card>
-            <Grid container xs={12}
+            <Grid container
                 justifyContent="center">
                 <Grid item m={2}>       
                     <Button variant='contained' onClick={()=>{history.goBack()}}>Back</Button>
