@@ -44,7 +44,7 @@ app.use(passport.session());
 /* Routes */
 
 app.use('/api/user', userRouter);
-app.use("/api/flouder", flounderRouter);
+app.use('/api/flounder', flounderRouter);
 app.use('/api/guppy', guppyRouter );
 app.use('/api/catfish', catfishRouter);
 app.use('/api/carp', carpRouter);

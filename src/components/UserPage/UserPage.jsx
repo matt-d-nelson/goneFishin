@@ -28,14 +28,29 @@ function UserPage() {
   const [current, setCurrent] = useState(0);
   const [showFeed, setShowFeed] = useState(true);
   const history = useHistory();
+  const allPublic = useSelector((store) => store.allPublic);
 
   const length = designs.length;
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER_DESIGNS" });
-    console.log(length);
-    // dispatch({ type: "SEND_ID", payload:user.id});
   }, []);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
+    console.log("all public designs", allPublic);
+  }, []);
+
+  // const allDesignsDispatch = () => {
+  //   console.log("in allDesignsDispatch");
+  //   dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
+
+  // };
+
+  // const userDesignsDispatch = () => {
+  //   console.log('fetch all user designs');
+  //   dispatch({ type: "FETCH_USER_DESIGNS" });
+  // }
 
   const toggleFeed = () => {
     console.log("toggle feed");
@@ -56,7 +71,12 @@ function UserPage() {
 
   const downloadDesign = () => {
     console.log("in download design");
-    alert("Download Successful");
+    const link = document.createElement("a");
+    link.href = designs[current].image;
+    link.download = designs[current].title;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const editDesign = () => {
@@ -99,75 +119,136 @@ function UserPage() {
         RED WING LURE
         <br />
         COMPANY
-        <p>{user.username}'s Designs</p>
-        {designs.map((design, index) => {
-          return (
-            <div className="designs" key={index}>
-              {index === current && (
-                <div className="container">
-                  <IconButton onClick={prevSlide}>
-                    <ChevronLeftIcon
-                      sx={{ fontSize: "80px" }}
-                      className="left-button"
-                    >
-                      Previous
-                    </ChevronLeftIcon>
-                  </IconButton>
-                  <IconButton onClick={nextSlide}>
-                    <ChevronRightIcon
-                      sx={{ fontSize: "80px" }}
-                      className="right-button"
-                    >
-                      Next
-                    </ChevronRightIcon>
-                  </IconButton>
-                  <Card elevation={4} style={cardStyle}>
-                    <CardHeader
-                      title={design.title}
-                      subheader={design.description}
-                    />
+        {showFeed ? <p>{user.username}'s Designs</p> : <p>All Designs</p>}
+        {showFeed ? (
+          <div>
+            {designs.map((design, index) => {
+              return (
+                <div className="designs" key={index}>
+                  {index === current && (
+                    <div className="container">
+                      <IconButton onClick={prevSlide}>
+                        <ChevronLeftIcon
+                          sx={{ fontSize: "80px" }}
+                          className="left-button"
+                        >
+                          Previous
+                        </ChevronLeftIcon>
+                      </IconButton>
+                      <IconButton onClick={nextSlide}>
+                        <ChevronRightIcon
+                          sx={{ fontSize: "80px" }}
+                          className="right-button"
+                        >
+                          Next
+                        </ChevronRightIcon>
+                      </IconButton>
+                      <Card elevation={4} style={cardStyle}>
+                        <CardHeader
+                          title={design.title}
+                          subheader={design.description}
+                        />
 
-                    <CardMedia
-                      component="img"
-                      height="300"
-                      image={design.image}
-                    />
+                        <CardMedia
+                          component="img"
+                          height="300"
+                          image={design.image}
+                        />
 
-                    {/* <CardMedia>
-                      <br />
-                      <img src={design.image} alt="" />
-                      <br /> Title: {design.title}
-                      <p>id:{design.id}</p>
-                      <p>svg colors: {design.svg_colors}</p>
-                    </CardMedia>
-                    <CardContent>Description: {design.description}</CardContent> */}
-
-                    <div className="cardButtons">
-                      <div className="centerButton">
-                        <CardActions>
-                          <IconButton onClick={addDesignToCart}>
-                            <ShoppingCartIcon size="small">
-                              Add To Cart
-                            </ShoppingCartIcon>
-                          </IconButton>
-                          <IconButton onClick={downloadDesign}>
-                            <DownloadIcon size="small">Download</DownloadIcon>
-                          </IconButton>
-                          <IconButton onClick={editDesign}>
-                            <EditIcon size="small">Edit</EditIcon>
-                          </IconButton>
-                          <IconButton onClick={deleteDesign}>
-                            <DeleteIcon size="small">Delete</DeleteIcon>
-                          </IconButton>
-                        </CardActions>
-                      </div>
+                        <div className="cardButtons">
+                          <div className="centerButton">
+                            <CardActions>
+                              <IconButton onClick={addDesignToCart}>
+                                <ShoppingCartIcon size="small">
+                                  Add To Cart
+                                </ShoppingCartIcon>
+                              </IconButton>
+                              <IconButton onClick={downloadDesign}>
+                                <DownloadIcon size="small">
+                                  Download
+                                </DownloadIcon>
+                              </IconButton>
+                              <IconButton onClick={editDesign}>
+                                <EditIcon size="small">Edit</EditIcon>
+                              </IconButton>
+                              <IconButton onClick={deleteDesign}>
+                                <DeleteIcon size="small">Delete</DeleteIcon>
+                              </IconButton>
+                            </CardActions>
+                          </div>
+                        </div>
+                      </Card>
                     </div>
-                  </Card>
+                  )}
                 </div>
-              )}
-            </div>
-          );
-        })}
+              );
+            })}
+          </div>
+        ) : (
+          <div>
+            {allPublic.map((design, index) => {
+              return (
+                <div className="designs" key={index}>
+                  {index === current && (
+                    <div className="container">
+                      <IconButton onClick={prevSlide}>
+                        <ChevronLeftIcon
+                          sx={{ fontSize: "80px" }}
+                          className="left-button"
+                        >
+                          Previous
+                        </ChevronLeftIcon>
+                      </IconButton>
+                      <IconButton onClick={nextSlide}>
+                        <ChevronRightIcon
+                          sx={{ fontSize: "80px" }}
+                          className="right-button"
+                        >
+                          Next
+                        </ChevronRightIcon>
+                      </IconButton>
+                      <Card elevation={4} style={cardStyle}>
+                        <CardHeader
+                          title={design.title}
+                          subheader={design.description}
+                        />
+
+                        <CardMedia
+                          component="img"
+                          height="300"
+                          image={design.image}
+                        />
+
+                        <div className="cardButtons">
+                          <div className="centerButton">
+                            <CardActions>
+                              <IconButton onClick={addDesignToCart}>
+                                <ShoppingCartIcon size="small">
+                                  Add To Cart
+                                </ShoppingCartIcon>
+                              </IconButton>
+                              <IconButton onClick={downloadDesign}>
+                                <DownloadIcon size="small">
+                                  Download
+                                </DownloadIcon>
+                              </IconButton>
+                              <IconButton onClick={editDesign}>
+                                <EditIcon size="small">Edit</EditIcon>
+                              </IconButton>
+                              <IconButton onClick={deleteDesign}>
+                                <DeleteIcon size="small">Delete</DeleteIcon>
+                              </IconButton>
+                            </CardActions>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className="buttonPlacement">
         <Button
@@ -176,7 +257,8 @@ function UserPage() {
           sx={{ fontSize: "25px", background: "#EDD892" }}
           onClick={toggleFeed}
         >
-          FEED
+          {!showFeed ? "My Designs" : "Feed"}
+          {/* {showFeed ? allDesignsDispatch() : userDesignsDispatch()} */}
         </Button>
         <Button
           variant="contained"
