@@ -2,12 +2,16 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import './RegisterPage.css'
 
 function RegisterPage() {
   const history = useHistory();
 
   return (
     <div>
+       <div className='companyLogo'>
+      <img src='./image/redwing-lures-mark.transparent.png' />
+      </div>
       <RegisterForm />
 
       <center>
