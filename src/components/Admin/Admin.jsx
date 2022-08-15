@@ -22,10 +22,10 @@ function Admin(props) {
     setFulfilled(!fulfilled);
   }
   // on click, download the png of the ordered lure
-  function downloadOrder(cartImage, cartTitle) {
+  function downloadOrder(cartItem) {
     const link = document.createElement("a");
-    link.href = cartImage;
-    link.download = cartTitle;
+    link.href = cartItem.image;
+    link.download = `${cartItem.title}_${cartItem.email}_${cartItem.order_date}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -88,8 +88,9 @@ function Admin(props) {
                 {/* render different buttons depending on selected view */}
                 <Grid item xs={2}>
                   <Button
+                    component="label"
                     onClick={() => {
-                      downloadOrder(order.image, order.title);
+                      downloadOrder(order);
                     }}
                   >
                     Download
