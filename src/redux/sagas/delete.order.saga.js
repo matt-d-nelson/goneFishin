@@ -12,6 +12,8 @@ function* deleteOrder(action){
     yield axios.delete(`/api/bass/${action.payload}`);
     // saga to get all orders (including newly updated)
     yield put({type: 'FETCH_ORDERS'});
+    // saga to fetch current cart items (for cart view)
+    yield put({type: 'FETCH_CART_ITEMS'});
   } catch(err){
     console.log('delete order saga error:', err);
   }
