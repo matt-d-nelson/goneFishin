@@ -21,6 +21,10 @@ function Cart(){
         dispatch({type: "ORDER_CART_ITEMS"});
     }
 
+    const editDesign=(designID)=>{
+        history.push(`/edit/${designID}`);
+    }
+
     return(
         <div>
             <Typography variant='h4' m={2}>{user.username}'s Cart</Typography>
@@ -45,7 +49,7 @@ function Cart(){
                                 </Typography>
                             </Grid>
                             <Grid item xs={2} m={2}>
-                                <Button>Edit</Button>
+                                <Button onClick={()=>{editDesign(item.design_id)}}>Edit</Button> <br/>
                                 <Button>Remove</Button>
                             </Grid>
                     </Grid>
@@ -53,8 +57,10 @@ function Cart(){
             </Card>
             <Grid container xs={12}
                 justifyContent="center">
-                <Grid item m={4}>       
+                <Grid item m={2}>       
                     <Button variant='contained' onClick={()=>{history.goBack()}}>Back</Button>
+                </Grid>
+                <Grid item m={2}> 
                     <Button variant='contained' onClick={submitOrder}>Submit Order</Button>
                 </Grid> 
             </Grid>
