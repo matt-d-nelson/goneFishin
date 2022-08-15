@@ -10,6 +10,7 @@ import saveDesignSaga from "./saveDesign.saga";
 
 import getDesignSaga from "./getDesign.saga";
 import updateDesignSaga from "./updateDesign.saga";
+import feedSaga from './feed.saga';
 
 
 
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     saveDesignSaga(), // adds new lure design to DB
     getDesignSaga(), // gets data for a single design
     updateDesignSaga(), // update a design
+    feedSaga(), // get all public designs
   ]);
 }
