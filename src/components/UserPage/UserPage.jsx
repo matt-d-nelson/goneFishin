@@ -110,7 +110,7 @@ function UserPage() {
     width: "26vw",
     transitionDuration: "0.3s",
     height: "26vw",
-    background: "#637a6b",
+    background: "#B1BCA7",
     color: "white",
   };
   return (

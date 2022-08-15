@@ -1,0 +1,6 @@
+.companyLogo {
+    display: flex;
+   height: 200px;
+    justify-content: center;
+    padding-bottom: 25px;
+}
