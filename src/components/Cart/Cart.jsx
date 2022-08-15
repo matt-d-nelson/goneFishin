@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import { Typography, Grid, Card, Button} from "@mui/material";
+import { Typography, Grid, Card, Button } from "@mui/material";
 
 function Cart(){
 
@@ -17,8 +17,8 @@ function Cart(){
         dispatch({type: "FETCH_CART_ITEMS"});
     }, []);
     
-    const submitOrder =(cartID)=>{
-        dispatch({type: "ORDER_CART_ITEM", payload: cartID});
+    const submitOrder =()=>{
+        dispatch({type: "ORDER_CART_ITEMS"});
     }
 
     return(
@@ -45,12 +45,19 @@ function Cart(){
                                 </Typography>
                             </Grid>
                             <Grid item xs={2} m={2}>
-                                <Button onClick={()=>{submitOrder(item.id)}}>Order</Button>
+                                <Button>Edit</Button>
                                 <Button>Remove</Button>
                             </Grid>
                     </Grid>
                 ))}
             </Card>
+            <Grid container xs={12}
+                justifyContent="center">
+                <Grid item m={4}>       
+                    <Button variant='contained' onClick={()=>{history.goBack()}}>Back</Button>
+                    <Button variant='contained' onClick={submitOrder}>Submit Order</Button>
+                </Grid> 
+            </Grid>
         </div>
     );
 }

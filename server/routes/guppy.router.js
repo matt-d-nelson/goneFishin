@@ -24,10 +24,10 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 // Mark a cart item as ordered and give it an order date
-router.put("/:id", rejectUnauthenticated, (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
   const queryString = `UPDATE "cart_items" SET order_date = CURRENT_DATE, 
-    ordered = true WHERE id=$1 AND user_id=$2;`;
-  const value = [req.params.id, req.user.id];
+    ordered = true WHERE ordered = false AND user_id=$1;`;
+  const value = [req.user.id];
   pool
     .query(queryString, value)
     .then((result)=>{

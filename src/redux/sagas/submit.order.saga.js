@@ -3,13 +3,13 @@ import axios from 'axios';
 
 
 function* submitOrderSaga() {
-  yield takeEvery('ORDER_CART_ITEM', submitOrder);
+  yield takeEvery('ORDER_CART_ITEMS', submitOrder);
 }
 
-function* submitOrder(action){
+function* submitOrder(){
   // server request to mark cart item as ordered
   try{
-    yield axios.put(`/api/guppy/${action.payload}`);
+    yield axios.put(`/api/guppy`);
     // saga to get all cart items
     yield put({type: 'FETCH_CART_ITEMS'});
   } catch(err){
