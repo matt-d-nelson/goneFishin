@@ -8,7 +8,8 @@ function* updateDesign(action) {
       url: "/api/anglerfish",
       data: action.payload,
     });
-    alert("your design was updated");
+    // replaced with success modal 
+    // alert("your design was updated");
   } catch (err) {
     console.log(err);
     alert("error updating design");

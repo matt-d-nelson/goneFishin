@@ -8,7 +8,8 @@ function* saveDesign(action) {
       url: "/api/bluegill",
       data: action.payload,
     });
-    alert("your design was saved");
+    // alert("your design was saved");
+    // replaced with modal
   } catch (err) {
     console.log(err);
     alert("error saving design");

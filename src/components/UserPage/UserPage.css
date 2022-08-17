@@ -70,4 +70,6 @@
     align-items: center;
 }
 
-
+.card {
+    overflow: hidden;
+}
