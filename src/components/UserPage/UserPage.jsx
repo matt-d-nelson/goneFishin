@@ -107,9 +107,9 @@ function UserPage() {
 
   const cardStyle = {
     display: "grid",
-    width: "26vw",
+    
     transitionDuration: "0.3s",
-    height: "26vw",
+  
     background: "#B1BCA7",
     color: "white",
   };
@@ -143,7 +143,7 @@ function UserPage() {
                           Next
                         </ChevronRightIcon>
                       </IconButton>
-                      <Card elevation={4} style={cardStyle}>
+                      <Card elevation={4} style={cardStyle} className='card'>
                         <CardHeader
                           title={design.title}
                           subheader={design.description}
@@ -151,7 +151,7 @@ function UserPage() {
 
                         <CardMedia
                           component="img"
-                          height="300"
+                          height="600"
                           image={design.image}
                         />
 
@@ -215,7 +215,7 @@ function UserPage() {
 
                         <CardMedia
                           component="img"
-                          height="300"
+                    
                           image={design.image}
                         />
 
