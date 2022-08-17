@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 //MUI style imports
-import { Typography, Grid, Card, Button} from "@mui/material";
+import { Typography, Grid, Card, Button } from "@mui/material";
 
 function Admin(props) {
   // hook to set fulfilled/unfulfilled orders view
@@ -25,7 +25,7 @@ function Admin(props) {
   function downloadOrder(cartItem) {
     const link = document.createElement("a");
     link.href = cartItem.image;
-    link.download = `${cartItem.title}_${cartItem.email}_${cartItem.order_date}`;
+    link.download = `${cartItem.title}_${cartItem.email}_${cartItem.order_date}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
