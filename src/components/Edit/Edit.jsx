@@ -138,6 +138,13 @@ function Edit(props) {
 
         // send saga request to save the design to DB
         dispatch({ type: "UPDATE_DESIGN", payload: updateDesign });
+        // sends a dispatch to success modal type 
+        dispatch({
+          type: "OPEN_MODAL",
+          payload: {type: "success", open: "true", success:'Design Update Successful'}
+        })
+        // sends the user back to their home page after saving updated design
+        history.push('/home')
       });
     };
   };

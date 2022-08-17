@@ -28,6 +28,10 @@ function Cart(){
     // on click, removes an item from cart
     const removeItem=(cartID)=>{
         dispatch({type: "DELETE_ORDER", payload: cartID});
+        dispatch({
+            type: "OPEN_MODAL",
+            payload: {type: "success", open: "true", success:'Design Removed From Cart'}
+          })
     }
 
     return(
