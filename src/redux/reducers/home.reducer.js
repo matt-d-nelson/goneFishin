@@ -2,8 +2,6 @@ const homeReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_DESIGNS":
       return action.payload;
-    case "UNSET_USER":
-      return {};
     default:
       return state;
   }
