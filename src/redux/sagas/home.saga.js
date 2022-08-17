@@ -29,7 +29,11 @@ function* deleteDesign(action) {
 function* addDesignToCart(action) {
   console.log("in addDesignToCart", action);
   try {
-    yield axios.post(`/api/bass/${action.payload}`).then((response) => {
+    yield axios({
+      method: "post",
+      url: "/api/bass",
+      data: action.payload,
+    }).then((response) => {
       console.log("addDesignToCart response:", response);
     });
   } catch (error) {
