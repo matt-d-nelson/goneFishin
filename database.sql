@@ -13,7 +13,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "cart_items" (
 	"id" SERIAL PRIMARY KEY,
-	"design_id" INT,
+	"design_image" VARCHAR (500),
 	"user_id" INT,
 	"order_date" DATE,
 	"fulfilled" BOOLEAN DEFAULT false,
