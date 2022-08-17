@@ -20,6 +20,13 @@ function GlobalModal() {
           <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
+      case "success":
+        return (
+          <Dialog open={modalData.open}>
+            {modalData.success}
+            <Button onClick={handleClose}>Close</Button>
+          </Dialog>
+        );
     case "register":
       return (
         <Dialog open={modalData.open}>

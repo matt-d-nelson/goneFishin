@@ -33,6 +33,11 @@ function Admin(props) {
   // on click, mark item as fulfilled/unfulfilled in database, then get all orders
   function fulfillOrder(cartID) {
     dispatch({ type: "FULFILL_ORDER", payload: cartID });
+    // sends modal data of success doesnt work with unfulfill
+    dispatch({
+      type: "OPEN_MODAL",
+      payload: {type: "success", open: "true", success:'Order Fulfilled'}
+    })
   }
   // on click, delete item from cart, then get all orders
   function deleteOrder(cartID) {

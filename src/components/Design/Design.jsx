@@ -107,6 +107,12 @@ function Design() {
 
         // send saga request to save the design to DB
         dispatch({ type: "SAVE_DESIGN", payload: newDesign });
+        dispatch({
+          type: "OPEN_MODAL",
+          payload: {type: "success", open: "true", success:'Your Design Was Saved'}
+        })
+        // sends the user back to their home page after saving updated design
+        history.push('/home')
       });
     };
   };
