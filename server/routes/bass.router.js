@@ -6,13 +6,6 @@ const {
 } = require("../modules/authentication-middleware");
 
 /**
- * GET bass route
- */
-router.get("/", (req, res) => {
-  // GET route code here
-});
-
-/**
  * POST bass route
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
@@ -32,10 +25,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     .then((results) => {
       //Add the copied design to a user’s cart
       console.log("POST ADD TO CART", results.rows[0].id);
-      const queryString = `INSERT INTO cart_items ( design_id, user_id) VALUES ( $1, $2 );`;
-      values = [results.rows[0].id, req.user.id];
+      const addToCartQuery = `INSERT INTO cart_items ( design_id, user_id) VALUES ( $1, $2 );`;
+      const addToCartValues = [results.rows[0].id, req.user.id];
       pool
-        .query(queryString, values)
+        .query(addToCartQuery, addToCartValues)
         .then((results) => {
           console.log("results from POST", results);
           res.sendStatus(200);

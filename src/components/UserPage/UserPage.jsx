@@ -65,14 +65,14 @@ function UserPage() {
       type: "ADD_DESIGN_TO_CART",
       payload: designs[current],
     });
-    // dispatch({
-    //   type: "OPEN_MODAL",
-    //   payload: {
-    //     type: "success",
-    //     open: "true",
-    //     success: "Design Added To Cart",
-    //   },
-    // });
+    dispatch({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "success",
+        open: "true",
+        success: "Design Added To Cart",
+      },
+    });
   };
 
   const newDesign = () => {
