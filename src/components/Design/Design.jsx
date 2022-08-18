@@ -13,11 +13,15 @@ import chroma from "chroma-js";
 import LureSVG from "../LureSVG/LureSVG";
 import { useHistory } from "react-router-dom";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 
 function Design() {
   //------------------OBJECTS------------------//
   const dispatch = useDispatch();
   const history = useHistory();
+
+  //------------------REDUCER STATE------------------//
+  const user = useSelector((store) => store.user);
 
   //------------------LOCAL STATE------------------//
   // lure colors
@@ -69,52 +73,64 @@ function Design() {
     history.push("/home");
   };
   const onSave = () => {
-    // TODO - input validation
-
-    // get the current svg HTML
-    const svg = fishSVG.current.innerHTML;
-    // create a blob of raw data from the svg
-    const blob = new Blob([svg], { type: "image/svg+xml" });
-    // create a URL for the svg blob data
-    const objectUrl = URL.createObjectURL(blob);
-    // create a new <image> element
-    let img = document.createElement("img");
-    // set it's source to the url of the svg blob
-    img.src = objectUrl;
-    // create a new <canvas> element
-    const pngCanvas = document.createElement(`canvas`);
-    // define its width and height to that of the svg (hard coded)
-    pngCanvas.width = 360;
-    pngCanvas.height = 504;
-    // set the canvas drawing context
-    let ctx = pngCanvas.getContext("2d");
-    // when the svg blob is loaded into the img element
-    img.onload = function () {
-      // draw the img (sourced with the svg blob) to the canvas
-      ctx.drawImage(img, 0, 0);
-      // convert the drawn image to a blob of data
-      pngCanvas.toBlob(function (blob) {
-        // create form data and append it with current values
-        const newDesign = new FormData();
-        newDesign.append("designPng", blob, "design.png");
-        newDesign.append("bodyColor", bodyColor);
-        newDesign.append("finColor", finColor);
-        newDesign.append("dorsalColor", dorsalColor);
-        newDesign.append("eyeColor", eyeColor);
-        newDesign.append("description", description);
-        newDesign.append("title", title);
-        newDesign.append("public", publicDesign);
-
-        // send saga request to save the design to DB
-        dispatch({ type: "SAVE_DESIGN", payload: newDesign });
-        dispatch({
-          type: "OPEN_MODAL",
-          payload: {type: "success", open: "true", success:'Your Design Was Saved'}
-        })
-        // sends the user back to their home page after saving updated design
-        history.push('/home')
+    // check to see if a user is logged in
+    if (user.id === undefined) {
+      // if not open a register window
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: { type: "register", open: "true" },
       });
-    };
+    } else {
+      // TODO - input validation
+      // get the current svg HTML
+      const svg = fishSVG.current.innerHTML;
+      // create a blob of raw data from the svg
+      const blob = new Blob([svg], { type: "image/svg+xml" });
+      // create a URL for the svg blob data
+      const objectUrl = URL.createObjectURL(blob);
+      // create a new <image> element
+      let img = document.createElement("img");
+      // set it's source to the url of the svg blob
+      img.src = objectUrl;
+      // create a new <canvas> element
+      const pngCanvas = document.createElement(`canvas`);
+      // define its width and height to that of the svg (hard coded)
+      pngCanvas.width = 360;
+      pngCanvas.height = 504;
+      // set the canvas drawing context
+      let ctx = pngCanvas.getContext("2d");
+      // when the svg blob is loaded into the img element
+      img.onload = function () {
+        // draw the img (sourced with the svg blob) to the canvas
+        ctx.drawImage(img, 0, 0);
+        // convert the drawn image to a blob of data
+        pngCanvas.toBlob(function (blob) {
+          // create form data and append it with current values
+          const newDesign = new FormData();
+          newDesign.append("designPng", blob, "design.png");
+          newDesign.append("bodyColor", bodyColor);
+          newDesign.append("finColor", finColor);
+          newDesign.append("dorsalColor", dorsalColor);
+          newDesign.append("eyeColor", eyeColor);
+          newDesign.append("description", description);
+          newDesign.append("title", title);
+          newDesign.append("public", publicDesign);
+
+          // send saga request to save the design to DB
+          dispatch({ type: "SAVE_DESIGN", payload: newDesign });
+          dispatch({
+            type: "OPEN_MODAL",
+            payload: {
+              type: "success",
+              open: "true",
+              success: "Your Design Was Saved",
+            },
+          });
+          // sends the user back to their home page after saving updated design
+          history.push("/home");
+        });
+      };
+    }
   };
 
   //------------------JSX RETURN------------------//
