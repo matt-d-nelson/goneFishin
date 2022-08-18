@@ -16,7 +16,7 @@ function* deleteDesign(action) {
   console.log("in deleteDesign");
   try {
     yield axios
-      .delete(`/api/blobfish/${action.payload}/${action.id}`)
+      .delete(`/api/blobfish/${action.payload}`)
       .then((response) => {
         console.log("deleteDesign response", response);
       });

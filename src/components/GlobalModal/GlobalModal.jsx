@@ -12,6 +12,11 @@ function GlobalModal() {
     dispatch({ type: "CLOSE_MODAL" });
   };
 
+  const deleteItem = (designID)=>{
+    dispatch({ type: "DELETE_DESIGN", payload: designID});
+    handleClose();
+  }
+
   switch (modalData.type) {
     case "login":
       return (
@@ -34,11 +39,12 @@ function GlobalModal() {
           <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
-    case "confirm":
+    case "confirm-delete":
       return (
         <Dialog open={modalData.open}>
-          <p>{modalData.message} id: {modalData.design_id}</p>
-          <Button onClick={handleClose}>Close</Button>
+          <p>{modalData.message}</p>
+          <Button onClick={()=>{deleteItem(modalData.design_id)}}>OK</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       )
     default:

@@ -102,7 +102,7 @@ function UserPage() {
     dispatch({
       type: 'OPEN_MODAL', 
       payload: {
-        type: 'confirm', 
+        type: 'confirm-delete', 
         open: 'true', 
         message: 'Are you sure you want to delete this design?',
         design_id: designs[current].id, // renamed key for clarity from "payload"
