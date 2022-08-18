@@ -63,7 +63,7 @@ function UserPage() {
     // console.log(today);
     dispatch({
       type: "ADD_DESIGN_TO_CART",
-      payload: { design_image: designs[current].image },
+      payload: designs[current],
     });
     // dispatch({
     //   type: "OPEN_MODAL",

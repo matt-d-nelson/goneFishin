@@ -16,17 +16,34 @@ router.get("/", (req, res) => {
  * POST bass route
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
-  //Add a design to a user’s cart
-
-  console.log("req.body.id", req.body);
-  const queryString = `INSERT INTO cart_items ( design_image, user_id) VALUES ( $1, $2 )`;
-  values = [req.body.design_image, req.user.id];
+  //Create a copy of the design before adding it to the cart
+  const designCopyValues = [
+    req.body.svg_colors,
+    req.body.description,
+    req.body.title,
+    req.body.image,
+    false,
+  ];
+  const designCopyQuery = `INSERT INTO "design" (svg_colors, description, title, image, public)
+    VALUES ($1, $2, $3, $4, $5) RETURNING "id";`;
 
   pool
-    .query(queryString, values)
+    .query(designCopyQuery, designCopyValues)
     .then((results) => {
-      console.log("results from POST", results);
-      res.sendStatus(200);
+      //Add the copied design to a user’s cart
+      console.log("POST ADD TO CART", results.rows[0].id);
+      const queryString = `INSERT INTO cart_items ( design_id, user_id) VALUES ( $1, $2 );`;
+      values = [results.rows[0].id, req.user.id];
+      pool
+        .query(queryString, values)
+        .then((results) => {
+          console.log("results from POST", results);
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.log(err);
