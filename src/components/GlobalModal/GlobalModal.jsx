@@ -34,6 +34,13 @@ function GlobalModal() {
           <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
+    case "confirm":
+      return (
+        <Dialog open={modalData.open}>
+          <p>{modalData.message} id: {modalData.design_id}</p>
+          <Button onClick={handleClose}>Close</Button>
+        </Dialog>
+      )
     default:
       return <></>;
   }
