@@ -21,6 +21,10 @@ function* deleteDesign(action) {
         console.log("deleteDesign response", response);
       });
     yield put({ type: "FETCH_USER_DESIGNS" });
+    yield put({
+      type: "OPEN_MODAL", 
+      payload: {type: "success", open: "true", success: 'Design deleted'}
+    })
   } catch (error) {
     console.log("error in deleteDesign");
   }
