@@ -12,6 +12,14 @@ function* submitOrder(){
     yield axios.put(`/api/guppy`);
     // saga to get all cart items
     yield put({type: 'FETCH_CART_ITEMS'});
+    // open modal to confirm successful ordering
+    yield put({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "success", 
+        open: true, 
+        success: 'Order submitted!'}
+    })
   } catch(err){
     console.log('submit order saga error:', err);
   }
