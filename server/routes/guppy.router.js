@@ -5,7 +5,6 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Get all cart items from a specific user where ordered = false
   const queryString = `SELECT cart_items.id, design_id, svg_colors, description, title, image FROM cart_items 
@@ -24,16 +23,17 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 // Mark a cart item as ordered and give it an order date
-router.put('/', rejectUnauthenticated, (req, res) => {
+router.put("/", rejectUnauthenticated, (req, res) => {
   const queryString = `UPDATE "cart_items" SET order_date = CURRENT_DATE, 
     ordered = true WHERE ordered = false AND user_id=$1;`;
   const value = [req.user.id];
   pool
     .query(queryString, value)
-    .then((result)=>{
+    .then((result) => {
       res.sendStatus(200);
-    }).catch((err)=>{
-      console.log('error in guppy PUT', err);
+    })
+    .catch((err) => {
+      console.log("error in guppy PUT", err);
       res.sendStatus(500);
     });
 });
