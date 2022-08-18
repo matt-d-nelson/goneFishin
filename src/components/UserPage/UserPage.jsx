@@ -58,22 +58,27 @@ function UserPage() {
   }; // end toggleShow
 
   const addDesignToCart = () => {
-    console.log("in addDesignToCart", designs[current].id);
+    console.log("in addDesignToCart", designs[current].image);
     // const today = new Date().toLocaleDateString();
     // console.log(today);
-    dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current].id });
+    dispatch({
+      type: "ADD_DESIGN_TO_CART",
+      payload: designs[current],
+    });
     dispatch({
       type: "OPEN_MODAL",
-      payload: {type: "success", open: "true", success:'Design Added To Cart'}
-    })
-  
+      payload: {
+        type: "success",
+        open: "true",
+        success: "Design Added To Cart",
+      },
+    });
   };
 
   const newDesign = () => {
     console.log("in newDesign");
     history.push("/design");
   };
-  
 
   const downloadDesign = () => {
     console.log("in download design");
@@ -113,9 +118,9 @@ function UserPage() {
 
   const cardStyle = {
     display: "grid",
-    
+
     transitionDuration: "0.3s",
-  
+
     background: "#B1BCA7",
     color: "white",
   };
@@ -149,7 +154,7 @@ function UserPage() {
                           Next
                         </ChevronRightIcon>
                       </IconButton>
-                      <Card elevation={4} style={cardStyle} className='card'>
+                      <Card elevation={4} style={cardStyle} className="card">
                         <CardHeader
                           title={design.title}
                           subheader={design.description}
@@ -219,11 +224,7 @@ function UserPage() {
                           subheader={design.description}
                         />
 
-                        <CardMedia
-                          component="img"
-                    
-                          image={design.image}
-                        />
+                        <CardMedia component="img" image={design.image} />
 
                         <div className="cardButtons">
                           <div className="centerButton">
