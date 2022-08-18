@@ -73,3 +73,7 @@
 .card {
     overflow: hidden;
 }
+
+.designs {
+    display: inline-block
+}
