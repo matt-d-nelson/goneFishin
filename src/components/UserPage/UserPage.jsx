@@ -69,7 +69,7 @@ function UserPage() {
       type: "OPEN_MODAL",
       payload: {
         type: "success",
-        open: "true",
+        open: true,
         success: "Design Added To Cart",
       },
     });
@@ -97,11 +97,16 @@ function UserPage() {
 
   const deleteDesign = () => {
     console.log("in deleteDesign", designs[current].id, "userID", user.id);
+    //---Send delete design info to reducer and open modal:
     dispatch({
-      type: "DELETE_DESIGN",
-      payload: designs[current].id,
-      id: designs[current].user_id,
-    });
+      type: 'OPEN_MODAL', 
+      payload: {
+        type: 'deleteDesign', 
+        open: 'true', 
+        message: 'Are you sure you want to delete this design?',
+        design_id: designs[current].id,
+      }
+    })
   };
 
   const nextSlide = () => {
