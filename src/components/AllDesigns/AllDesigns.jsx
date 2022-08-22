@@ -94,8 +94,10 @@ function AllDesigns() {
       {allPublic.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
+          
           <div className="designs" key={index}>
             {index === current -1 && (
+              
               <div className="container">
                    <IconButton onClick={prevSlide}>
                   <ChevronLeftIcon
@@ -106,7 +108,7 @@ function AllDesigns() {
                   </ChevronLeftIcon>
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardHeader title={design.title}></CardHeader>
                   <CardMedia
                     component="img"
                     height="600"
@@ -131,11 +133,18 @@ function AllDesigns() {
                         </IconButton>
                       </CardActions>
                     </div>
+                    
                   </div>
                 </Card>
+                
+      
               </div>
-            )}
+              
 
+            )}
+          
+            <div className={index === current ? 'slide active' : 'slide'} >
+             
             {index === current && (
               <div className="container">
              
@@ -173,9 +182,30 @@ function AllDesigns() {
                       </CardActions>
                     </div>
                   </div>
+                  <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
+                  </div>
                 </Card>
               </div>
             )}
+            </div>
 
             {index === current +1 && (
               <div className="container">
@@ -188,7 +218,7 @@ function AllDesigns() {
                   </ChevronRightIcon>
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardHeader title={design.title}></CardHeader>
                   <CardMedia
                     component="img"
                     height="600"
