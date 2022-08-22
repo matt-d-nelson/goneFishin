@@ -14,6 +14,10 @@ function* deleteOrder(action){
     yield put({type: 'FETCH_ORDERS'});
     // saga to fetch current cart items (for cart view)
     yield put({type: 'FETCH_CART_ITEMS'});
+    // open modal with a dialog confirming a successful delete
+    yield put({
+      type: 'OPEN_MODAL', 
+      payload: {type: "success", open: true, success: 'Removed from cart!'}});
   } catch(err){
     console.log('delete order saga error:', err);
   }
