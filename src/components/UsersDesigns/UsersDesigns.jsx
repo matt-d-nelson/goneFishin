@@ -46,7 +46,7 @@ function UsersDesigns() {
       type: "OPEN_MODAL",
       payload: {
         type: "success",
-        open: "true",
+        open: true,
         success: "Design Added To Cart",
       },
     });
