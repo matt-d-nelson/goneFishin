@@ -32,16 +32,29 @@ function Admin(props) {
   }
   // on click, mark item as fulfilled/unfulfilled in database, then get all orders
   function fulfillOrder(cartID) {
-    dispatch({ type: "FULFILL_ORDER", payload: cartID });
-    // sends modal data of success doesnt work with unfulfill
+    let msg = '';
+    // set message to send to saga (for the modal) depending on whether order is being fulfilled or unfulfilled
+    // if state of 'fulfilled' is true, clicking item unfulfills it
+    fulfilled ? msg = 'Order marked Unfulfilled' : msg = 'Order marked Fulfilled';
+    dispatch({ 
+      type: "FULFILL_ORDER", 
+      payload: {
+        cart_id: cartID,
+        message: msg
+        }});
+  }
+  // on click, confirm before deleting item from cart
+  function deleteOrder(cartID) {
+    // open modal to confirm delete from cart
     dispatch({
       type: "OPEN_MODAL",
-      payload: {type: "success", open: "true", success:'Order Fulfilled'}
+      payload: {
+        type: "deleteCartItem", 
+        open: true, 
+        message:'Are you sure you want to delete this order item?',
+        cart_id: cartID
+      }
     })
-  }
-  // on click, delete item from cart, then get all orders
-  function deleteOrder(cartID) {
-    dispatch({ type: "DELETE_ORDER", payload: cartID });
   }
   // formats order date returned from reducer
   const formatDate = (date) => {

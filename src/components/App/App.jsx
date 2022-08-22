@@ -74,13 +74,13 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          <Route
             // logged in shows Design page else shows LoginPage
             exact
             path="/design"
           >
             <Design />
-          </ProtectedRoute>
+          </Route>
 
           <ProtectedRoute
             // logged in shows Edit page else shows LoginPage
@@ -141,7 +141,7 @@ function App() {
               <Redirect to="/user" />
             ) : (
               // Otherwise, show the Landing page
-              <LandingPage />
+              <LoginPage />
             )}
           </Route>
 

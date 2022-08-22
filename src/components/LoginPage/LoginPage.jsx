@@ -16,16 +16,12 @@ function LoginPage() {
     });
   };
 
-  const onLogin = () => {
-    dispatch({
-      type: "OPEN_MODAL",
-      payload: { type: "login", open: "true" },
-    });
+  const onDesign = () => {
+    history.push("/design");
   };
 
   return (
     <div>
-      <div></div>
       <div className="companyLogo">
         <img src="./image/redwing-lures-mark.transparent.png" />
       </div>
@@ -33,6 +29,7 @@ function LoginPage() {
 
       <center>
         <Button onClick={onRegister}>Register</Button>
+        <Button onClick={onDesign}>Design</Button>
       </center>
     </div>
   );
