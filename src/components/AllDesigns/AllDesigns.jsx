@@ -38,42 +38,42 @@ function AllDesigns() {
     color: "white",
   };
 
-  const addDesignToCart = () => {
-    console.log("in addDesignToCart", designs[current].id);
+  const addDesignToCart = (thisDesign) => {
+    console.log("in addDesignToCart", allPublic[thisDesign].id);
     // const today = new Date().toLocaleDateString();
     // console.log(today);
-    dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current].id });
+    dispatch({ type: "ADD_DESIGN_TO_CART", payload: allPublic[thisDesign] });
     dispatch({
       type: "OPEN_MODAL",
       payload: {
         type: "success",
-        open: "true",
+        open: true,
         success: "Design Added To Cart",
       },
     });
   };
 
-  const downloadDesign = () => {
+  const downloadDesign = (thisDesign) => {
     console.log("in download design");
     const link = document.createElement("a");
-    link.href = designs[current].image;
-    link.download = designs[current].title;
+    link.href = allPublic[thisDesign].image;
+    link.download = allPublic[thisDesign].title;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  const editDesign = () => {
-    console.log("in editDesign");
-    history.push(`/edit/${designs[current].id}`);
+  const editDesign = (thisDesign) => {
+    console.log("in editDesign", thisDesign);
+    history.push(`/edit/${allPublic[thisDesign].id}`);
   };
 
-  const deleteDesign = () => {
-    console.log("in deleteDesign", designs[current].id, "userID", user.id);
+  const deleteDesign = (thisDesign) => {
+    console.log("in deleteDesign", allPublic[thisDesign].id, "userID", user.id);
     dispatch({
       type: "DELETE_DESIGN",
-      payload: designs[current].id,
-      id: designs[current].user_id,
+      payload: allPublic[thisDesign].id,
+      id: allPublic[thisDesign].user_id,
     });
   };
 
@@ -95,9 +95,9 @@ function AllDesigns() {
         return (
           //INDEX BEFORE CURRENT
           <div className="designs" key={index}>
-            {index === current -1 && (
+            {index === current - 1 && (
               <div className="container">
-                   <IconButton onClick={prevSlide}>
+                <IconButton onClick={prevSlide}>
                   <ChevronLeftIcon
                     sx={{ fontSize: "80px" }}
                     className="left-button"
@@ -112,21 +112,37 @@ function AllDesigns() {
                     height="600"
                     image={design.image}
                   />
-                   <div className="cardButtons">
+                  <div className="cardButtons">
                     <div className="centerButton">
                       <CardActions>
-                        <IconButton onClick={addDesignToCart}>
+                        <IconButton
+                          onClick={() => {
+                            addDesignToCart(current - 1);
+                          }}
+                        >
                           <ShoppingCartIcon size="small">
                             Add To Cart
                           </ShoppingCartIcon>
                         </IconButton>
-                        <IconButton onClick={downloadDesign}>
+                        <IconButton
+                          onClick={() => {
+                            downloadDesign(current - 1);
+                          }}
+                        >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton onClick={editDesign}>
+                        <IconButton
+                          onClick={() => {
+                            editDesign(current - 1);
+                          }}
+                        >
                           <EditIcon size="small">Edit</EditIcon>
                         </IconButton>
-                        <IconButton onClick={deleteDesign}>
+                        <IconButton
+                          onClick={() => {
+                            deleteDesign(current - 1);
+                          }}
+                        >
                           <DeleteIcon size="small">Delete</DeleteIcon>
                         </IconButton>
                       </CardActions>
@@ -138,9 +154,6 @@ function AllDesigns() {
 
             {index === current && (
               <div className="container">
-             
-              
-
                 <Card elevation={4} style={cardStyle} className="card">
                   <CardHeader
                     title={design.title}
@@ -156,18 +169,34 @@ function AllDesigns() {
                   <div className="cardButtons">
                     <div className="centerButton">
                       <CardActions>
-                        <IconButton onClick={addDesignToCart}>
+                        <IconButton
+                          onClick={() => {
+                            addDesignToCart(current);
+                          }}
+                        >
                           <ShoppingCartIcon size="small">
                             Add To Cart
                           </ShoppingCartIcon>
                         </IconButton>
-                        <IconButton onClick={downloadDesign}>
+                        <IconButton
+                          onClick={() => {
+                            downloadDesign(current);
+                          }}
+                        >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton onClick={editDesign}>
+                        <IconButton
+                          onClick={() => {
+                            editDesign(current);
+                          }}
+                        >
                           <EditIcon size="small">Edit</EditIcon>
                         </IconButton>
-                        <IconButton onClick={deleteDesign}>
+                        <IconButton
+                          onClick={() => {
+                            deleteDesign(current);
+                          }}
+                        >
                           <DeleteIcon size="small">Delete</DeleteIcon>
                         </IconButton>
                       </CardActions>
@@ -177,9 +206,9 @@ function AllDesigns() {
               </div>
             )}
 
-            {index === current +1 && (
+            {index === current + 1 && (
               <div className="container">
-                  <IconButton onClick={nextSlide}>
+                <IconButton onClick={nextSlide}>
                   <ChevronRightIcon
                     sx={{ fontSize: "80px" }}
                     className="right-button"
@@ -194,21 +223,37 @@ function AllDesigns() {
                     height="600"
                     image={design.image}
                   />
-                   <div className="cardButtons">
+                  <div className="cardButtons">
                     <div className="centerButton">
                       <CardActions>
-                        <IconButton onClick={addDesignToCart}>
+                        <IconButton
+                          onClick={() => {
+                            addDesignToCart(current + 1);
+                          }}
+                        >
                           <ShoppingCartIcon size="small">
                             Add To Cart
                           </ShoppingCartIcon>
                         </IconButton>
-                        <IconButton onClick={downloadDesign}>
+                        <IconButton
+                          onClick={() => {
+                            downloadDesign(current + 1);
+                          }}
+                        >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton onClick={editDesign}>
+                        <IconButton
+                          onClick={() => {
+                            editDesign(current + 1);
+                          }}
+                        >
                           <EditIcon size="small">Edit</EditIcon>
                         </IconButton>
-                        <IconButton onClick={deleteDesign}>
+                        <IconButton
+                          onClick={() => {
+                            deleteDesign(current + 1);
+                          }}
+                        >
                           <DeleteIcon size="small">Delete</DeleteIcon>
                         </IconButton>
                       </CardActions>
