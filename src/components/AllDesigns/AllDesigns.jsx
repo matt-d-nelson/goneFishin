@@ -29,7 +29,7 @@ function AllDesigns() {
   const length = designs.length;
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_DESIGNS" });
+    dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
   }, []);
 
   const cardStyle = {
