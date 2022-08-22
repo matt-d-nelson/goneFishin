@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-// import "./UserPage.css";
 import {
-  Button,
   Card,
   CardActions,
   CardHeader,
   IconButton,
-  CardContent,
   CardMedia,
+  Grid,
 } from "@mui/material";
 // import {Button} from '@mui/material'
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,21 +20,20 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 function AllDesigns() {
   const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user);
+  const designs = useSelector((store) => store.home);
+  const allPublic = useSelector((store) => store.allPublic);
   const [current, setCurrent] = useState(0);
   const history = useHistory();
-  const allPublic = useSelector((store) => store.allPublic);
-  const length = allPublic.length;
-
+  const length = designs.length;
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
-    console.log("all public designs", allPublic);
+    dispatch({ type: "FETCH_USER_DESIGNS" });
   }, []);
 
   const cardStyle = {
-    display: "grid",
-    transitionDuration: "0.3s",
+    transitionDuration: "2.3s",
     background: "#B1BCA7",
     color: "white",
   };
@@ -48,11 +45,13 @@ function AllDesigns() {
     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current].id });
     dispatch({
       type: "OPEN_MODAL",
-      payload: {type: "success", open: "true", success:'Design Added To Cart'}
-    })
-  
+      payload: {
+        type: "success",
+        open: "true",
+        success: "Design Added To Cart",
+      },
+    });
   };
-
 
   const downloadDesign = () => {
     console.log("in download design");
@@ -90,70 +89,138 @@ function AllDesigns() {
     console.log(current);
   };
   return (
-    // All Public Designs
+    // Users Designs
     <div>
-    {allPublic.map((design, index) => {
-      return (
-        <div className="designs" key={index}>
-          {index === current && (
-            <div className="container">
-              <IconButton onClick={prevSlide}>
-                <ChevronLeftIcon
-                  sx={{ fontSize: "80px" }}
-                  className="left-button"
-                >
-                  Previous
-                </ChevronLeftIcon>
-              </IconButton>
-              <IconButton onClick={nextSlide}>
-                <ChevronRightIcon
-                  sx={{ fontSize: "80px" }}
-                  className="right-button"
-                >
-                  Next
-                </ChevronRightIcon>
-              </IconButton>
-              <Card elevation={4} style={cardStyle} className='card'>
-                <CardHeader
-                  title={design.title}
-                  subheader={design.description}
-                />
-
-                <CardMedia
-                  component="img"
-                  height="600"
-                  image={design.image}
-                />
-
-                <div className="cardButtons">
-                  <div className="centerButton">
-                    <CardActions>
-                      <IconButton onClick={addDesignToCart}>
-                        <ShoppingCartIcon size="small">
-                          Add To Cart
-                        </ShoppingCartIcon>
-                      </IconButton>
-                      <IconButton onClick={downloadDesign}>
-                        <DownloadIcon size="small">
-                          Download
-                        </DownloadIcon>
-                      </IconButton>
-                      <IconButton onClick={editDesign}>
-                        <EditIcon size="small">Edit</EditIcon>
-                      </IconButton>
-                      <IconButton onClick={deleteDesign}>
-                        <DeleteIcon size="small">Delete</DeleteIcon>
-                      </IconButton>
-                    </CardActions>
+      {allPublic.map((design, index) => {
+        return (
+          //INDEX BEFORE CURRENT
+          <div className="designs" key={index}>
+            {index === current -1 && (
+              <div className="container">
+                   <IconButton onClick={prevSlide}>
+                  <ChevronLeftIcon
+                    sx={{ fontSize: "80px" }}
+                    className="left-button"
+                  >
+                    Previous
+                  </ChevronLeftIcon>
+                </IconButton>
+                <Card elevation={4} style={cardStyle} className="card">
+                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardMedia
+                    component="img"
+                    height="600"
+                    image={design.image}
+                  />
+                   <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </div>
-          )}
-        </div>
-      );
-    })}
-  </div>
+                </Card>
+              </div>
+            )}
+
+            {index === current && (
+              <div className="container">
+             
+              
+
+                <Card elevation={4} style={cardStyle} className="card">
+                  <CardHeader
+                    title={design.title}
+                    // subheader={index}
+                  />
+
+                  <CardMedia
+                    component="img"
+                    height="600"
+                    image={design.image}
+                  />
+
+                  <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {index === current +1 && (
+              <div className="container">
+                  <IconButton onClick={nextSlide}>
+                  <ChevronRightIcon
+                    sx={{ fontSize: "80px" }}
+                    className="right-button"
+                  >
+                    Next
+                  </ChevronRightIcon>
+                </IconButton>
+                <Card elevation={4} style={cardStyle} className="card">
+                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardMedia
+                    component="img"
+                    height="600"
+                    image={design.image}
+                  />
+                   <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

@@ -111,7 +111,28 @@ function UsersDesigns() {
                     height="600"
                     image={design.image}
                   />
+                   <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
+                  </div>
                 </Card>
+                
               </div>
             )}
 
@@ -173,6 +194,26 @@ function UsersDesigns() {
                     height="600"
                     image={design.image}
                   />
+                   <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton onClick={addDesignToCart}>
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton onClick={downloadDesign}>
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton onClick={editDesign}>
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton onClick={deleteDesign}>
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
+                    </div>
+                  </div>
                 </Card>
               </div>
             )}
