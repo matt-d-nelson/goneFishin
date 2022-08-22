@@ -41,7 +41,7 @@ function UsersDesigns() {
     console.log("in addDesignToCart", designs[current].id);
     // const today = new Date().toLocaleDateString();
     // console.log(today);
-    dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current].id });
+    dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[current]});
     dispatch({
       type: "OPEN_MODAL",
       payload: {
