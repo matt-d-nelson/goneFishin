@@ -1,3 +1,4 @@
+import { Padding } from "@mui/icons-material";
 import { Button, Dialog } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -32,7 +33,12 @@ function GlobalModal() {
       );
       case "success":
         return (
-          <Dialog open={modalData.open}>
+          <Dialog open={modalData.open}
+            PaperProps={{ sx: { 
+              p: "8% 8%",
+              alignItems: "center"
+              } 
+            }}>
             {modalData.success}
             <Button onClick={handleClose}>Close</Button>
           </Dialog>
@@ -46,15 +52,25 @@ function GlobalModal() {
       );
     case "deleteDesign":
       return (
-        <Dialog open={modalData.open}>
+        <Dialog open={modalData.open}
+          PaperProps={{ sx: { 
+            p: "8% 8%",
+            alignItems: "center"
+            } 
+          }}>
           <p>{modalData.message}</p>
-          <Button onClick={()=>{deleteDesign(modalData.design_id)}}>OK</Button>
+          <Button onClick={()=>{deleteDesign(modalData.design_id)}}>Yes</Button>
           <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteCartItem":
       return (
-        <Dialog open={modalData.open}>
+        <Dialog open={modalData.open}
+          PaperProps={{ sx: { 
+            p: "8% 8%",
+            alignItems: "center"
+            } 
+          }}>
           <p>{modalData.message}</p>
           <Button onClick={()=>{deleteCartItem(modalData.cart_id)}}>OK</Button>
           <Button onClick={handleClose}>Cancel</Button>
