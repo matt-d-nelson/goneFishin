@@ -50,7 +50,7 @@ function Cart(){
                                 <Typography variant='body1'>
                                     Title: {item.title} <br/>
                                     Description: {item.description} <br/>
-                                    Qty: 1
+                                    Qty: {item.qty}
                                 </Typography>
                             </Grid>
                             <Grid item xs={2} m={2}>
