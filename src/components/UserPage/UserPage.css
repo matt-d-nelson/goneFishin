@@ -34,6 +34,7 @@
  display: flex;
  align-items: center;
  justify-content: center;
+ padding-top: 55px;
 }
 
 
@@ -78,13 +79,19 @@
     display: inline-block
 }
 
-/* .slide {
-    opacity: 0;
-    transition-duration: 1s ease;
+.slide {
+    opacity: .2;
+    transition-duration: 2s ease;
+    
 }
 
 .slide.active {
     opacity: 1;
-    transition-duration: 1s;
-    transform: scale(1.08);
+    transition-duration: .72s ;
+    transform: scale(1.06);
+    
+}
+
+/* .left {
+    transform: scale(.93);
 } */
