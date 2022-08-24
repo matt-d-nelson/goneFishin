@@ -9,7 +9,7 @@ const {
  */
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Get all cart items where ordered = true
-  const queryString = `SELECT cart_items.id, design_id, cart_items.user_id, order_date, fulfilled, ordered, svg_colors, description, title, image, email FROM cart_items
+  const queryString = `SELECT cart_items.id, design_id, cart_items.user_id, order_date, fulfilled, ordered, svg_colors, description, title, image, qty, email FROM cart_items
     JOIN "design" ON design.id = cart_items.design_id
     JOIN "user" ON "user".id = cart_items.user_id
     WHERE ordered = true;`;

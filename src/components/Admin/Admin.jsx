@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 //MUI style imports
 import { Typography, Grid, Card, Button } from "@mui/material";
 
-function Admin(props) {
+function Admin() {
   // hook to set fulfilled/unfulfilled orders view
   const [fulfilled, setFulfilled] = useState(false);
 
@@ -94,7 +94,7 @@ function Admin(props) {
                     Title: {order.title} <br />
                     Description: {order.description} <br />
                     User Email: {order.email} <br />
-                    Qty: 1
+                    Qty: {order.qty}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { Typography, Grid, Card, Button, Select, MenuItem } from "@mui/material";
+import { Typography, Grid, Button, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
 function CartItem( {item} ){
     // hook to set selected quantity of item
@@ -13,24 +13,13 @@ function CartItem( {item} ){
         dispatch({type: "DELETE_ORDER", payload: cartID});
     }
 
-    // listen for change in qty locally and send dispatch to update in database when it changes
-    // useEffect(()=>{
-    //     console.log('in useEffect, qty: ', qty);
-    //     dispatch({type: 'UPDATE_CART_QTY',
-    //         payload: {
-    //             id: item.id,
-    //             qty: qty
-    //     }});
-    // }, [qty]);
-
     // on change, update cart item qty in local state
     const handleChange = (event) =>{
         setQty(event.target.value);
     }
 
-    // on click, update cart item quantity in database
+    // on click, update cart item quantity in cart item table in database
     const updateCartQty = () =>{
-        console.log('in updateCartQty, qty:', qty);
         dispatch({
             type: 'UPDATE_CART_QTY',
             payload: {
@@ -50,12 +39,15 @@ function CartItem( {item} ){
                 <Typography variant='body1'>
                     Title: {item.title} <br/>
                     Description: {item.description} <br/>
-                    Qty: {item.qty}
+                    <br/>
                 </Typography>
+                <FormControl>
+                <InputLabel>Qty</InputLabel>
                 <Select
                     labelId='update-quantity-label'
+                    id='update-qty'
                     value={qty}
-                    label='New Quantity'
+                    label='Quantity'
                     onChange={handleChange}
                     >
                         <MenuItem value={1}>1</MenuItem>
@@ -69,6 +61,7 @@ function CartItem( {item} ){
                         <MenuItem value={9}>9</MenuItem>
                         <MenuItem value={10}>10</MenuItem>
                 </Select>
+                </FormControl>
                 <Button onClick={updateCartQty}>Update Qty</Button>
             </Grid>
             <Grid item xs={2} m={2}>
