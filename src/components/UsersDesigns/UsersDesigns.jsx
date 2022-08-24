@@ -116,6 +116,7 @@ function UsersDesigns() {
       {designs.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
+          
           <div className="designs" key={index}>
             {index === current - 1 && (
               <div className="container">
@@ -128,7 +129,7 @@ function UsersDesigns() {
                   </ChevronLeftIcon>
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardHeader title={design.title}></CardHeader>
                   <CardMedia
                     component="img"
                     height="600"
@@ -173,7 +174,7 @@ function UsersDesigns() {
                 </Card>
               </div>
             )}
-
+<div className={index === current ? 'slide active' : 'slide'}>
             {index === current && (
               <div className="container">
                 <Card elevation={4} style={cardStyle} className="card">
@@ -227,6 +228,7 @@ function UsersDesigns() {
                 </Card>
               </div>
             )}
+            </div>
 
             {index === current + 1 && (
               <div className="container">
@@ -239,7 +241,7 @@ function UsersDesigns() {
                   </ChevronRightIcon>
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  {/* <CardHeader title={design.title}></CardHeader> */}
+                  <CardHeader title={design.title}></CardHeader>
                   <CardMedia
                     component="img"
                     height="600"
