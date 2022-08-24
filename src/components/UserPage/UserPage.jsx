@@ -6,11 +6,14 @@ import { Button } from "@mui/material";
 
 import UsersDesigns from "../UsersDesigns/UsersDesigns";
 import AllDesigns from "../AllDesigns/AllDesigns";
+import Designs from "../Designs/Designs";
 
 function UserPage() {
   const user = useSelector((store) => store.user);
   const [showFeed, setShowFeed] = useState(true);
   const history = useHistory();
+  const designs = useSelector((store) => store.home);
+  const allPublic = useSelector((store) => store.allPublic);
 
   const toggleFeed = () => {
     console.log("toggle feed");
@@ -31,7 +34,7 @@ function UserPage() {
         <br />
         COMPANY
         {showFeed ? <p>{user.username}'s Designs</p> : <p>All Designs</p>}
-        {showFeed ? <UsersDesigns /> : <AllDesigns />}
+        {showFeed ? <Designs designs={designs} /> : <Designs designs={allPublic}/>}
       </div>
       <div className="buttonPlacement">
         <Button
