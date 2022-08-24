@@ -17,7 +17,7 @@ function Admin() {
     dispatch({ type: "FETCH_ORDERS" });
   }, []);
 
-  // handles buton click to switch between fulfilled/unfulfilled views
+  // handles button click to switch between fulfilled/unfulfilled views
   function toggleView() {
     setFulfilled(!fulfilled);
   }
@@ -106,7 +106,6 @@ function Admin() {
                 {/* render different buttons depending on selected view */}
                 <Grid item xs={2}>
                   <Button
-                    component="label"
                     onClick={() => {
                       downloadOrder(order);
                     }}

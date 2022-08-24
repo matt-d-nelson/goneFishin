@@ -36,31 +36,30 @@ function CartItem( {item} ){
                 <img src={item.image} alt="lure image" />
             </Grid>
             <Grid item xs={5} m={2}>
-                <Typography variant='body1'>
+                <Typography variant='body1' p={1}>
                     Title: {item.title} <br/>
-                    Description: {item.description} <br/>
-                    <br/>
+                    Description: {item.description} 
                 </Typography>
-                <FormControl>
-                <InputLabel>Qty</InputLabel>
-                <Select
-                    labelId='update-quantity-label'
-                    id='update-qty'
-                    value={qty}
-                    label='Quantity'
-                    onChange={handleChange}
-                    >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                        <MenuItem value={5}>5</MenuItem>
-                        <MenuItem value={6}>6</MenuItem>
-                        <MenuItem value={7}>7</MenuItem>
-                        <MenuItem value={8}>8</MenuItem>
-                        <MenuItem value={9}>9</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                </Select>
+                <FormControl size='small'>
+                    <InputLabel>Qty</InputLabel>
+                    <Select
+                        labelId='update-quantity-label'
+                        id='update-qty'
+                        value={qty}
+                        label='Quantity'
+                        onChange={handleChange}
+                        >
+                            <MenuItem value={1}>1</MenuItem>
+                            <MenuItem value={2}>2</MenuItem>
+                            <MenuItem value={3}>3</MenuItem>
+                            <MenuItem value={4}>4</MenuItem>
+                            <MenuItem value={5}>5</MenuItem>
+                            <MenuItem value={6}>6</MenuItem>
+                            <MenuItem value={7}>7</MenuItem>
+                            <MenuItem value={8}>8</MenuItem>
+                            <MenuItem value={9}>9</MenuItem>
+                            <MenuItem value={10}>10</MenuItem>
+                    </Select>
                 </FormControl>
                 <Button onClick={updateCartQty}>Update Qty</Button>
             </Grid>
@@ -68,7 +67,6 @@ function CartItem( {item} ){
                 <Button onClick={()=>{removeItem(item.id)}}>Remove</Button>
             </Grid>
         </>     
-        
     );
 }
 

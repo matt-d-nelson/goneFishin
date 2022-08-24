@@ -30,7 +30,7 @@ function Cart(){
 
     return(
         <div>
-            <Typography variant='h4' m={2}>{user.username}'s Cart</Typography>
+            <Typography variant='h4' m={2}>{user.username}'s cart</Typography>
             <Card>
                 {/* map through cart and create an item component for each */}
                 {cart.map(item => (
