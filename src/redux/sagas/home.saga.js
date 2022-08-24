@@ -40,6 +40,7 @@ function* addDesignToCart(action) {
     }).then((response) => {
       console.log("addDesignToCart response:", response);
     });
+    yield put ({type: "FETCH_CART_ITEMS"});
   } catch (error) {
     console.log("error in addDesignToCart");
   }

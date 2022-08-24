@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./UserPage.css";
 import { Button } from "@mui/material";
 
-import UsersDesigns from "../UsersDesigns/UsersDesigns";
-import AllDesigns from "../AllDesigns/AllDesigns";
+// import UsersDesigns from "../UsersDesigns/UsersDesigns";
+// import AllDesigns from "../AllDesigns/AllDesigns";
 import Designs from "../Designs/Designs";
 
 function UserPage() {
   const user = useSelector((store) => store.user);
+  const designs = useSelector((store) => store.home);
+  const allPublic = useSelector((store)=> store.allPublic);
   const [showFeed, setShowFeed] = useState(true);
   const history = useHistory();
-  const designs = useSelector((store) => store.home);
-  const allPublic = useSelector((store) => store.allPublic);
+  const dispatch = useDispatch();
+
+  // on page load, get all items this user has added to cart (where ordered=false)
+  useEffect(()=>{
+    dispatch({type: "FETCH_CART_ITEMS"});
+  }, []);
 
   const toggleFeed = () => {
     console.log("toggle feed");

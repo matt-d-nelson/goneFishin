@@ -23,6 +23,7 @@
 
 //   const user = useSelector((store) => store.user);
 //   const designs = useSelector((store) => store.home);
+//   const cart = useSelector((store)=> store.cart);
 //   const [current, setCurrent] = useState(0);
 //   const history = useHistory();
 //   const length = designs.length;
@@ -37,8 +38,30 @@
 //     color: "white",
 //   };
 
+//   // handle click for adding to cart
+//   const updateCart = (thisDesign) =>{
+//     // check if design with matching svg colors and title is already in user's cart
+//     const matchingItem = cart.find(item => {
+//       if (item.svg_colors === designs[thisDesign].svg_colors && item.description === designs[thisDesign].description){
+//         return item;
+//       }
+//     });
+//     console.log('matchingItem:', matchingItem);
+//     //if selected design matches a cart item, update quantity of item in database
+//     // matchingItem will be undefined if no match was found
+//     matchingItem ? dispatch({type: "UPDATE_CART_QTY", 
+//       payload: {
+//         id: matchingItem.id,
+//         qty: matchingItem.qty + 1,
+//         message: 'Design added to cart'
+//     }}) :
+//     // if no matches in user's cart, add design to cart
+//     addDesignToCart(thisDesign);
+//   };
+
+//   // add new design to cart
 //   const addDesignToCart = (thisDesign) => {
-//     console.log("in addDesignToCart", designs[thisDesign].id);
+//     console.log("in addDesignToCart", designs[thisDesign]);
 //     // const today = new Date().toLocaleDateString();
 //     // console.log(today);
 //     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[thisDesign] });
@@ -117,7 +140,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current - 1);
+//                             updateCart(current - 1);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">
@@ -160,7 +183,7 @@
 //                     // subheader={index}
 //                   />
 
-//                   <CardMedia
+// //                   <CardMedia
 //                     component="img"
 //                     height="600"
 //                     image={design.image}
@@ -171,7 +194,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current);
+//                             updateCart(current);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">
@@ -229,7 +252,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current + 1);
+//                             updateCart(current + 1);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">

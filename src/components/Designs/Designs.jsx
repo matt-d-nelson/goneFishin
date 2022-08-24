@@ -22,10 +22,12 @@ function Designs(props) {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
-  const designs = props.designs
+  const designs = props.designs;
+  const cart = useSelector((store) => store.cart);
   const [current, setCurrent] = useState(0);
   const history = useHistory();
   const length = designs.length;
+  
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER_DESIGNS" });
@@ -53,6 +55,32 @@ function Designs(props) {
       },
     });
   };
+
+
+   // handle click for adding to cart
+   const updateCart = (thisDesign) =>{
+    // check if design with matching svg colors and title is already in user's cart
+    const matchingItem = cart.find(item => {
+      if (item.svg_colors === designs[thisDesign].svg_colors && item.description === designs[thisDesign].description){
+        return item;
+      }
+    });
+    console.log('matchingItem:', matchingItem);
+    //if selected design matches a cart item, update quantity of item in database
+    // matchingItem will be undefined if no match was found
+    matchingItem ? dispatch({type: "UPDATE_CART_QTY", 
+      payload: {
+        id: matchingItem.id,
+        qty: matchingItem.qty + 1,
+        message: 'Design added to cart'
+    }}) :
+    // if no matches in user's cart, add design to cart
+    addDesignToCart(thisDesign);
+  };
+
+
+
+ 
 
   const downloadDesign = (thisDesign) => {
     console.log("in download design");
@@ -119,7 +147,7 @@ function Designs(props) {
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            addDesignToCart(current - 1);
+                            updateCart(current - 1);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -173,7 +201,7 @@ function Designs(props) {
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            addDesignToCart(current);
+                            updateCart(current);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -231,7 +259,7 @@ function Designs(props) {
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            addDesignToCart(current + 1);
+                            updateCart(current + 1);
                           }}
                         >
                           <ShoppingCartIcon size="small">

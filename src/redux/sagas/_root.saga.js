@@ -12,6 +12,7 @@ import updateDesignSaga from "./updateDesign.saga";
 import cartItemsSaga from './cart.saga';
 import submitOrderSaga from './submit.order.saga';
 import feedSaga from './feed.saga';
+import updateQtySaga from './update.qty.saga';
 
 
 // rootSaga is the primary saga.
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     cartItemsSaga(), // get unordered items currently in a user's cart
     submitOrderSaga(), // submits a user's cart item as ordered
     feedSaga(), // get all public designs
+    updateQtySaga(), // update quantity of item in a user's cart
   ]);
 }

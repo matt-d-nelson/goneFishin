@@ -28,9 +28,13 @@
 //   const history = useHistory();
 //   const length = designs.length;
 
-//   useEffect(() => {
-//     dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
-//   }, []);
+//   const user = useSelector((store) => store.user);
+//   const designs = useSelector((store) => store.home);
+//   const allPublic = useSelector((store) => store.allPublic);
+//   const cart = useSelector((store) => store.cart);
+//   const [current, setCurrent] = useState(0);
+//   const history = useHistory();
+//   const length = designs.length;
 
 //   const cardStyle = {
 //     transitionDuration: "2.3s",
@@ -53,15 +57,29 @@
 //     });
 //   };
 
-//   const downloadDesign = (thisDesign) => {
-//     console.log("in download design");
-//     const link = document.createElement("a");
-//     link.href = allPublic[thisDesign].image;
-//     link.download = allPublic[thisDesign].title;
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
+//   // handle click for adding to cart
+//   const updateCart = (thisDesign) =>{
+//     // check if design with matching svg colors and title is already in user's cart
+//     console.log('in updateCart, [thisDesign].svg_colors:', allPublic[thisDesign]);
+//     const matchingItem = cart.find(item => {
+//       if (item.svg_colors === allPublic[thisDesign].svg_colors && item.description === allPublic[thisDesign].description){
+//         return item;
+//       }
+//     });
+//     console.log('matchingItem:', matchingItem);
+//     //if selected design matches a cart item, update quantity of item in database
+//     // matchingItem will be undefined if no match was found
+//     matchingItem ? dispatch({type: "UPDATE_CART_QTY", 
+//       payload: {
+//         id: matchingItem.id,
+//         qty: matchingItem.qty + 1,
+//         message: 'Design added to cart'
+//     }}) :
+//     // if no matches in user's cart, add design to cart
+//     addDesignToCart(thisDesign);
 //   };
+
+ 
 
 //   const editDesign = (thisDesign) => {
 //     console.log("in editDesign", thisDesign);
@@ -118,7 +136,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current - 1);
+//                             updateCart(current - 1);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">
@@ -149,18 +167,18 @@
 //                       </CardActions>
 //                     </div>
                     
-//                   </div>
-//                 </Card>
+// //                   </div>
+// //                 </Card>
                 
       
-//               </div>
+// //               </div>
               
 
 //             )}
           
-//             <div className={index === current ? 'slide active' : 'slide'} >
+// //             <div className={index === current ? 'slide active' : 'slide'} >
              
-//             {index === current && (
+// //             {index === current && (
 //               <div className="container">
 //                 <Card elevation={4} style={cardStyle} className="card">
 //                   <CardHeader
@@ -179,7 +197,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current);
+//                             updateCart(current);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">
@@ -257,7 +275,7 @@
 //                       <CardActions>
 //                         <IconButton
 //                           onClick={() => {
-//                             addDesignToCart(current + 1);
+//                             updateCart(current + 1);
 //                           }}
 //                         >
 //                           <ShoppingCartIcon size="small">
