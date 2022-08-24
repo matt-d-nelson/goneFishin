@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import { Typography, Grid, Card, Button } from "@mui/material";
+import CartItem from '../CartItem/CartItem';
 
 function Cart(){
 
@@ -21,10 +22,7 @@ function Cart(){
     const submitOrder =()=>{
         dispatch({type: "ORDER_CART_ITEMS"});
     }
-    // goes to edit view for selected design
-    const editDesign=(designID)=>{
-        history.push(`/edit/${designID}`);
-    }
+
     // on click, removes an item from cart
     const removeItem=(cartID)=>{
         dispatch({type: "DELETE_ORDER", payload: cartID});
@@ -32,9 +30,9 @@ function Cart(){
 
     return(
         <div>
-            <Typography variant='h4' m={2}>{user.username}'s Cart</Typography>
+            <Typography variant='h4' m={2}>{user.username}'s cart</Typography>
             <Card>
-                {/* map through cart items and display */}
+                {/* map through cart and create an item component for each */}
                 {cart.map(item => (
                     <Grid
                         container
@@ -43,20 +41,7 @@ function Cart(){
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="top">
-                            <Grid item xs={3}>
-                                <img src={item.image} alt="lure image" />
-                            </Grid>
-                            <Grid item xs={5} m={2}>
-                                <Typography variant='body1'>
-                                    Title: {item.title} <br/>
-                                    Description: {item.description} <br/>
-                                    Qty: 1
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={2} m={2}>
-                                <Button onClick={()=>{editDesign(item.design_id)}}>Edit</Button> <br/>
-                                <Button onClick={()=>{removeItem(item.id)}}>Remove</Button>
-                            </Grid>
+                            <CartItem item={item}/>
                     </Grid>
                 ))}
             </Card>
