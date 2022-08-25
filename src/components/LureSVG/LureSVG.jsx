@@ -1,3 +1,4 @@
+//---------------------imports---------------------//
 import { useCallback } from "react";
 
 // find a way to do this without svg. maybe from card
@@ -21,6 +22,7 @@ function LureSVG(props) {
     downloadBlob(blob, "lure.svg");
   }, []);
 
+  //---------------------JSX return---------------------//
   return (
     <svg
       width="360"
@@ -132,7 +134,7 @@ function LureSVG(props) {
           <stop offset="0%" stopColor={props.dorsalColor} stopOpacity="1" />
           <stop offset="100%" stopColor={props.dorsalColor} stopOpacity="0.5" />
         </radialGradient>
-        {/* -----------------------OBJECTS RIGHT------------------------ */}
+        {/* -----------------------OBJECTS LEFT------------------------ */}
         {/* BODY BACKGROUND LEFT*/}
         <path
           style={{

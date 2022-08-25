@@ -7,6 +7,6 @@ const homeReducer = (state = [], action) => {
   }
 };
 
-// user will be on the redux state at:
-// state.user
+// home designs be on the redux state at:
+// state.home
 export default homeReducer;

@@ -1,12 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import { useSelector } from 'react-redux';
+//---------------------imports---------------------//
+import React from "react";
+import { Link } from "react-router-dom";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import "./Nav.css";
+import { useSelector } from "react-redux";
 
 function Nav() {
+  //---------------------reducer state---------------------//
   const user = useSelector((store) => store.user);
 
+  //---------------------JSX return---------------------//
   return (
     <div className="nav">
       <Link to="/home">
@@ -28,17 +31,13 @@ function Nav() {
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
             <Link className="navLink" to="/cart">
               Cart
             </Link>
 
             {/* If user is also an admin, show this link too */}
             {user.role > 0 && (
-              <Link className='navLink' to="/admin">
+              <Link className="navLink" to="/admin">
                 Admin
               </Link>
             )}

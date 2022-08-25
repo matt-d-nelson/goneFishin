@@ -1,3 +1,4 @@
+//---------------------imports---------------------//
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -9,16 +10,21 @@ import { Button } from "@mui/material";
 import Designs from "../Designs/Designs";
 
 function UserPage() {
+  //---------------------reducer state---------------------//
   const user = useSelector((store) => store.user);
   const designs = useSelector((store) => store.home);
-  const allPublic = useSelector((store)=> store.allPublic);
+  const allPublic = useSelector((store) => store.allPublic);
+
+  //---------------------local state---------------------//
   const [showFeed, setShowFeed] = useState(true);
+
+  //---------------------imported methods---------------------//
   const history = useHistory();
   const dispatch = useDispatch();
 
   // on page load, get all items this user has added to cart (where ordered=false)
-  useEffect(()=>{
-    dispatch({type: "FETCH_CART_ITEMS"});
+  useEffect(() => {
+    dispatch({ type: "FETCH_CART_ITEMS" });
   }, []);
 
   const toggleFeed = () => {
@@ -26,13 +32,12 @@ function UserPage() {
     setShowFeed(!showFeed);
   }; // end toggleShow
 
-
   const newDesign = () => {
     console.log("in newDesign");
     history.push("/design");
   };
 
-
+  //---------------------JSX return---------------------//
   return (
     <div className="homePage">
       <div className="companyTitle">
@@ -40,7 +45,11 @@ function UserPage() {
         <br />
         COMPANY
         {showFeed ? <p>{user.username}'s Designs</p> : <p>All Designs</p>}
-        {showFeed ? <Designs designs={designs} /> : <Designs designs={allPublic}/>}
+        {showFeed ? (
+          <Designs designs={designs} />
+        ) : (
+          <Designs designs={allPublic} />
+        )}
       </div>
       <div className="buttonPlacement">
         <Button
@@ -62,6 +71,5 @@ function UserPage() {
     </div>
   );
 }
-
 
 export default UserPage;

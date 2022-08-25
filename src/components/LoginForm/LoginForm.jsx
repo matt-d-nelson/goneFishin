@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+//---------------------imports---------------------//
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
+  //---------------------local state---------------------//
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  //---------------------reducer state---------------------//
+  const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const login = (event) => {
@@ -13,17 +17,18 @@ function LoginForm() {
 
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
 
+  //---------------------JSX return---------------------//
   return (
     <form className="formPanel" onSubmit={login}>
       <h2>Login</h2>

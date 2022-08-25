@@ -1,4 +1,4 @@
-import { Padding } from "@mui/icons-material";
+//---------------------imports---------------------//
 import { Button, Dialog } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -6,23 +6,28 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function GlobalModal() {
-  const modalData = useSelector((store) => store.modalReducer);
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
 
+  //---------------------reducer state---------------------//
+  const modalData = useSelector((store) => store.modalReducer);
+
+  //---------------------event handlers---------------------//
   const handleClose = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
   // calls saga to delete a design from the design table
-  const deleteDesign = (designID)=>{
-    dispatch({ type: "DELETE_DESIGN", payload: designID});
+  const deleteDesign = (designID) => {
+    dispatch({ type: "DELETE_DESIGN", payload: designID });
     handleClose();
   };
   // calls saga to delete a specific ordered item in cart table
-  const deleteCartItem = (cartID)=>{
+  const deleteCartItem = (cartID) => {
     dispatch({ type: "DELETE_ORDER", payload: cartID });
     handleClose();
-  }
+  };
 
+  //---------------------JSX return---------------------//
   switch (modalData.type) {
     case "login":
       return (
@@ -31,18 +36,21 @@ function GlobalModal() {
           <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
-      case "success":
-        return (
-          <Dialog open={modalData.open}
-            PaperProps={{ sx: { 
+    case "success":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
               p: "8% 8%",
-              alignItems: "center"
-              } 
-            }}>
-            {modalData.success}
-            <Button onClick={handleClose}>Close</Button>
-          </Dialog>
-        );
+              alignItems: "center",
+            },
+          }}
+        >
+          {modalData.success}
+          <Button onClick={handleClose}>Close</Button>
+        </Dialog>
+      );
     case "register":
       return (
         <Dialog open={modalData.open}>
@@ -52,27 +60,45 @@ function GlobalModal() {
       );
     case "deleteDesign":
       return (
-        <Dialog open={modalData.open}
-          PaperProps={{ sx: { 
-            p: "8% 8%",
-            alignItems: "center"
-            } 
-          }}>
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
           <p>{modalData.message}</p>
-          <Button onClick={()=>{deleteDesign(modalData.design_id)}}>Yes</Button>
+          <Button
+            onClick={() => {
+              deleteDesign(modalData.design_id);
+            }}
+          >
+            Yes
+          </Button>
           <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteCartItem":
       return (
-        <Dialog open={modalData.open}
-          PaperProps={{ sx: { 
-            p: "8% 8%",
-            alignItems: "center"
-            } 
-          }}>
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
           <p>{modalData.message}</p>
-          <Button onClick={()=>{deleteCartItem(modalData.cart_id)}}>OK</Button>
+          <Button
+            onClick={() => {
+              deleteCartItem(modalData.cart_id);
+            }}
+          >
+            OK
+          </Button>
           <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
