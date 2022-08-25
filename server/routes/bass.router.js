@@ -5,9 +5,7 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-/**
- * POST bass route
- */
+//POST design and add copy to user's cart
 router.post("/", rejectUnauthenticated, (req, res) => {
   //Create a copy of the design before adding it to the cart
   const designCopyValues = [
@@ -44,7 +42,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-//----DELETE ITEM FROM CART, works for admin and users----//
+// DELETE item from cart, works for admin and users
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
   // Delete an item from cart_items where id = id (serial key)
   // Default queryString and values for users to only delete from their own cart

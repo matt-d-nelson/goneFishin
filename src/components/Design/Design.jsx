@@ -1,4 +1,4 @@
-//------------------IMPORTS------------------//
+//---------------------imports---------------------//
 import {
   Button,
   ButtonGroup,
@@ -16,14 +16,15 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 
 function Design() {
-  //------------------OBJECTS------------------//
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //------------------REDUCER STATE------------------//
+  //---------------------reducer state---------------------//
   const user = useSelector((store) => store.user);
 
-  //------------------LOCAL STATE------------------//
+  //---------------------local state---------------------//
+
   // lure colors
   const [bodyColor, setBodyColor] = useState("#00FF00");
   const [bodyShadeColor, setBodyShadeColor] = useState(
@@ -41,7 +42,7 @@ function Design() {
   //lure SVG ref
   const fishSVG = useRef();
 
-  //------------------EVENT HANDLERS------------------//
+  //---------------------event handlers---------------------//
   // lure colors
   const handleBodyColorChange = (event) => {
     setBodyColor(event.target.value);
@@ -133,7 +134,7 @@ function Design() {
     }
   };
 
-  //------------------JSX RETURN------------------//
+  //---------------------JSX return---------------------//
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Design</h2>

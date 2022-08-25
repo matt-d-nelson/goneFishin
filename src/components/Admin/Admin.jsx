@@ -1,3 +1,5 @@
+//---------------------imports---------------------//
+// libraries
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -5,18 +7,24 @@ import { useHistory } from "react-router-dom";
 import { Typography, Grid, Card, Button } from "@mui/material";
 
 function Admin() {
+  //---------------------local state---------------------//
   // hook to set fulfilled/unfulfilled orders view
   const [fulfilled, setFulfilled] = useState(false);
 
+  //---------------------imported methods---------------------//
   const history = useHistory();
   const dispatch = useDispatch();
+
+  //---------------------reducer state---------------------//
   const orders = useSelector((store) => store.orders);
 
+  //---------------------on mount---------------------//
   // on page load, get all orders
   useEffect(() => {
     dispatch({ type: "FETCH_ORDERS" });
   }, []);
 
+  //---------------------event handlers---------------------//
   // handles button click to switch between fulfilled/unfulfilled views
   function toggleView() {
     setFulfilled(!fulfilled);
@@ -32,16 +40,19 @@ function Admin() {
   }
   // on click, mark item as fulfilled/unfulfilled in database, then get all orders
   function fulfillOrder(cartID) {
-    let msg = '';
+    let msg = "";
     // set message to send to saga (for the modal) depending on whether order is being fulfilled or unfulfilled
     // if state of 'fulfilled' is true, clicking item unfulfills it
-    fulfilled ? msg = 'Order marked Unfulfilled' : msg = 'Order marked Fulfilled';
-    dispatch({ 
-      type: "FULFILL_ORDER", 
+    fulfilled
+      ? (msg = "Order marked Unfulfilled")
+      : (msg = "Order marked Fulfilled");
+    dispatch({
+      type: "FULFILL_ORDER",
       payload: {
         cart_id: cartID,
-        message: msg
-        }});
+        message: msg,
+      },
+    });
   }
   // on click, confirm before deleting item from cart
   function deleteOrder(cartID) {
@@ -49,18 +60,19 @@ function Admin() {
     dispatch({
       type: "OPEN_MODAL",
       payload: {
-        type: "deleteCartItem", 
-        open: true, 
-        message:'Are you sure you want to delete this order item?',
-        cart_id: cartID
-      }
-    })
+        type: "deleteCartItem",
+        open: true,
+        message: "Are you sure you want to delete this order item?",
+        cart_id: cartID,
+      },
+    });
   }
   // formats order date returned from reducer
   const formatDate = (date) => {
     return date.slice(0, 10);
   };
 
+  //---------------------JSX return---------------------//
   return (
     <div>
       <Grid container direction="row" justifyContent="space-between">

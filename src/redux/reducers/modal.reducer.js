@@ -1,3 +1,5 @@
+// reducer to control GlobalModal component
+
 const modalReducer = (state = {}, action) => {
   switch (action.type) {
     case "OPEN_MODAL":

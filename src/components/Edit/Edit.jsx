@@ -1,12 +1,5 @@
-//------------------IMPORTS------------------//
-import {
-  Button,
-  ButtonGroup,
-  Checkbox,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+//---------------------imports---------------------//
+import { Button, ButtonGroup, Checkbox, Grid, TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -17,14 +10,17 @@ import { useRef } from "react";
 import LureSVG from "../LureSVG/LureSVG";
 
 function Edit(props) {
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
   const history = useHistory();
 
+  //---------------------url params---------------------//
   const thisId = useParams();
 
+  //---------------------reducer state---------------------//
   const design = useSelector((store) => store.editDesign);
 
-  //------------------LOCAL STATE------------------//
+  //---------------------local state---------------------//
   // lure colors
   const [bodyColor, setBodyColor] = useState("#00FF00");
   const [bodyShadeColor, setBodyShadeColor] = useState(
@@ -42,7 +38,7 @@ function Edit(props) {
   //lure SVG ref
   const fishSVG = useRef();
 
-  //------------------USE EFFECT------------------//
+  //---------------------use effects---------------------//
   // get this design's data on page load
   // potentially move this to on button click of edit on design card
   useEffect(() => {
@@ -66,7 +62,7 @@ function Edit(props) {
     }
   }, [design]);
 
-  //------------------EVENT HANDLERS------------------//
+  //---------------------event handlers---------------------//
   // lure colors
   const handleBodyColorChange = (event) => {
     setBodyColor(event.target.value);
@@ -98,8 +94,6 @@ function Edit(props) {
     history.push("/home");
   };
   const onSave = () => {
-    // TODO - input validation
-
     // get the current svg HTML
     const svg = fishSVG.current.innerHTML;
     // create a blob of raw data from the svg
@@ -138,18 +132,22 @@ function Edit(props) {
 
         // send saga request to save the design to DB
         dispatch({ type: "UPDATE_DESIGN", payload: updateDesign });
-        // sends a dispatch to success modal type 
+        // sends a dispatch to success modal type
         dispatch({
           type: "OPEN_MODAL",
-          payload: {type: "success", open: "true", success:'Design Update Successful'}
-        })
+          payload: {
+            type: "success",
+            open: "true",
+            success: "Design Update Successful",
+          },
+        });
         // sends the user back to their home page after saving updated design
-        history.push('/home')
+        history.push("/home");
       });
     };
   };
 
-  //------------------JSX RETURN------------------//
+  //---------------------JSX return---------------------//
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Edit</h2>

@@ -1,19 +1,18 @@
-import { all } from 'redux-saga/effects';
-import loginSaga from './login.saga';
-import registrationSaga from './registration.saga';
-import userSaga from './user.saga';
-import ordersSaga from './orders.saga';
-import fulfillSaga from './fulfill.saga';
-import deleteOrderSaga from './delete.order.saga';
-import homeSaga from './home.saga';
+import { all } from "redux-saga/effects";
+import loginSaga from "./login.saga";
+import registrationSaga from "./registration.saga";
+import userSaga from "./user.saga";
+import ordersSaga from "./orders.saga";
+import fulfillSaga from "./fulfill.saga";
+import deleteOrderSaga from "./delete.order.saga";
+import homeSaga from "./home.saga";
 import saveDesignSaga from "./saveDesign.saga";
 import getDesignSaga from "./getDesign.saga";
 import updateDesignSaga from "./updateDesign.saga";
-import cartItemsSaga from './cart.saga';
-import submitOrderSaga from './submit.order.saga';
-import feedSaga from './feed.saga';
-import updateQtySaga from './update.qty.saga';
-
+import cartItemsSaga from "./cart.saga";
+import submitOrderSaga from "./submit.order.saga";
+import feedSaga from "./feed.saga";
+import updateQtySaga from "./update.qty.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -28,9 +27,9 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     ordersSaga(),
-    fulfillSaga(),
-    deleteOrderSaga(),
-    homeSaga(),
+    fulfillSaga(), // fulfills an order
+    deleteOrderSaga(), // deletes an order from Admin view
+    homeSaga(), // home page requests
     saveDesignSaga(), // adds new lure design to DB
     getDesignSaga(), // gets data for a single design
     updateDesignSaga(), // update a design

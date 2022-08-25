@@ -7,4 +7,6 @@ const editDesign = (state = [], action) => {
   }
 };
 
+// this design be on the redux state at:
+// state.editDesign
 export default editDesign;

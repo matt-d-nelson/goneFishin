@@ -5,8 +5,8 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
+// GET all cart items from a specific user where ordered = false
 router.get("/", rejectUnauthenticated, (req, res) => {
-  // Get all cart items from a specific user where ordered = false
   const queryString = `SELECT cart_items.id, design_id, svg_colors, description, title, image, qty FROM cart_items 
 	  JOIN "design" ON design.id = cart_items.design_id
 	  WHERE ordered = false AND cart_items.user_id = $1`;
@@ -22,7 +22,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// Mark a cart item as ordered and give it an order date
+// PUT mark a cart item as ordered and give it an order date
 router.put("/", rejectUnauthenticated, (req, res) => {
   const queryString = `UPDATE "cart_items" SET order_date = CURRENT_DATE, 
     ordered = true WHERE ordered = false AND user_id=$1;`;
@@ -38,17 +38,17 @@ router.put("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// Update quantity of existing item in user's cart
-router.put('/:id/:qty', rejectUnauthenticated, (req, res) => {
+// UPDATE quantity of existing item in user's cart
+router.put("/:id/:qty", rejectUnauthenticated, (req, res) => {
   const queryString = `UPDATE "cart_items" SET qty=$1 WHERE id=$2 AND user_id=$3;`;
   const values = [req.params.qty, req.params.id, req.user.id];
   pool
     .query(queryString, values)
-    .then((result) =>{
+    .then((result) => {
       res.sendStatus(200);
     })
-    .catch((err)=>{
-      console.log('error in guppy PUT qty', err);
+    .catch((err) => {
+      console.log("error in guppy PUT qty", err);
       res.sendStatus(500);
     });
 });

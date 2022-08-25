@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+//---------------------imports---------------------//
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  //---------------------local state---------------------//
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  //---------------------reducer state---------------------//
   const errors = useSelector((store) => store.errors);
+
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
 
+  //---------------------event handlers---------------------//
   const registerUser = (event) => {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         username: username,
         password: password,
@@ -21,6 +28,7 @@ function RegisterForm() {
     });
   }; // end registerUser
 
+  //---------------------JSX return---------------------//
   return (
     <form className="formPanel" onSubmit={registerUser}>
       <h2>Register User</h2>

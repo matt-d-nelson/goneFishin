@@ -1,3 +1,4 @@
+//---------------------imports---------------------//
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -19,20 +20,26 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 function Designs(props) {
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
-
-  const user = useSelector((store) => store.user);
-  const designs = props.designs;
-  const cart = useSelector((store) => store.cart);
-  const [current, setCurrent] = useState(0);
   const history = useHistory();
-  const length = designs.length;
-  
 
+  //---------------------props---------------------//
+  const designs = props.designs;
+  const length = designs.length;
+
+  //---------------------reducer state---------------------//
+  const user = useSelector((store) => store.user);
+  const cart = useSelector((store) => store.cart);
+
+  //---------------------local state---------------------//
+  const [current, setCurrent] = useState(0);
+
+  //---------------------on mount---------------------//
   useEffect(() => {
     dispatch({ type: "FETCH_USER_DESIGNS" });
     dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
-    console.log(props.designs)
+    console.log(props.designs);
   }, []);
 
   const cardStyle = {
@@ -41,6 +48,7 @@ function Designs(props) {
     color: "white",
   };
 
+  //---------------------event handlers---------------------//
   const addDesignToCart = (thisDesign) => {
     console.log("in addDesignToCart", designs[thisDesign].id);
     // const today = new Date().toLocaleDateString();
@@ -56,31 +64,32 @@ function Designs(props) {
     });
   };
 
-
-   // handle click for adding to cart
-   const updateCart = (thisDesign) =>{
+  // handle click for adding to cart
+  const updateCart = (thisDesign) => {
     // check if design with matching svg colors and title is already in user's cart
-    const matchingItem = cart.find(item => {
-      if (item.svg_colors === designs[thisDesign].svg_colors && item.description === designs[thisDesign].description){
+    const matchingItem = cart.find((item) => {
+      if (
+        item.svg_colors === designs[thisDesign].svg_colors &&
+        item.description === designs[thisDesign].description
+      ) {
         return item;
       }
     });
-    console.log('matchingItem:', matchingItem);
+    console.log("matchingItem:", matchingItem);
     //if selected design matches a cart item, update quantity of item in database
     // matchingItem will be undefined if no match was found
-    matchingItem ? dispatch({type: "UPDATE_CART_QTY", 
-      payload: {
-        id: matchingItem.id,
-        qty: matchingItem.qty + 1,
-        message: 'Design added to cart'
-    }}) :
-    // if no matches in user's cart, add design to cart
-    addDesignToCart(thisDesign);
+    matchingItem
+      ? dispatch({
+          type: "UPDATE_CART_QTY",
+          payload: {
+            id: matchingItem.id,
+            qty: matchingItem.qty + 1,
+            message: "Design added to cart",
+          },
+        })
+      : // if no matches in user's cart, add design to cart
+        addDesignToCart(thisDesign);
   };
-
-
-
- 
 
   const downloadDesign = (thisDesign) => {
     console.log("in download design");
@@ -117,13 +126,15 @@ function Designs(props) {
     setCurrent(current === 0 ? length - 1 : current - 1);
     console.log(current);
   };
+
+  //---------------------JSX return---------------------//
   return (
     // Users Designs
     <div>
       {designs.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
-          
+
           <div className="designs" key={index}>
             {index === current - 1 && (
               <div className="container">
@@ -181,60 +192,60 @@ function Designs(props) {
                 </Card>
               </div>
             )}
-<div className={index === current ? 'slide active' : 'slide'}>
-            {index === current && (
-              <div className="container">
-                <Card elevation={4} style={cardStyle} className="card">
-                  <CardHeader
-                    title={design.title}
-                    // subheader={index}
-                  />
+            <div className={index === current ? "slide active" : "slide"}>
+              {index === current && (
+                <div className="container">
+                  <Card elevation={4} style={cardStyle} className="card">
+                    <CardHeader
+                      title={design.title}
+                      // subheader={index}
+                    />
 
-                  <CardMedia
-                    component="img"
-                    height="600"
-                    image={design.image}
-                  />
+                    <CardMedia
+                      component="img"
+                      height="600"
+                      image={design.image}
+                    />
 
-                  <div className="cardButtons">
-                    <div className="centerButton">
-                      <CardActions>
-                        <IconButton
-                          onClick={() => {
-                            updateCart(current);
-                          }}
-                        >
-                          <ShoppingCartIcon size="small">
-                            Add To Cart
-                          </ShoppingCartIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            downloadDesign(current);
-                          }}
-                        >
-                          <DownloadIcon size="small">Download</DownloadIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            editDesign(current);
-                          }}
-                        >
-                          <EditIcon size="small">Edit</EditIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            deleteDesign(current);
-                          }}
-                        >
-                          <DeleteIcon size="small">Delete</DeleteIcon>
-                        </IconButton>
-                      </CardActions>
+                    <div className="cardButtons">
+                      <div className="centerButton">
+                        <CardActions>
+                          <IconButton
+                            onClick={() => {
+                              updateCart(current);
+                            }}
+                          >
+                            <ShoppingCartIcon size="small">
+                              Add To Cart
+                            </ShoppingCartIcon>
+                          </IconButton>
+                          <IconButton
+                            onClick={() => {
+                              downloadDesign(current);
+                            }}
+                          >
+                            <DownloadIcon size="small">Download</DownloadIcon>
+                          </IconButton>
+                          <IconButton
+                            onClick={() => {
+                              editDesign(current);
+                            }}
+                          >
+                            <EditIcon size="small">Edit</EditIcon>
+                          </IconButton>
+                          <IconButton
+                            onClick={() => {
+                              deleteDesign(current);
+                            }}
+                          >
+                            <DeleteIcon size="small">Delete</DeleteIcon>
+                          </IconButton>
+                        </CardActions>
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </div>
-            )}
+                  </Card>
+                </div>
+              )}
             </div>
 
             {index === current + 1 && (

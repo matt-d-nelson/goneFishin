@@ -4,9 +4,8 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
-/**
- * GET route catfish
- */
+
+// GET ordered cart items
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Get all cart items where ordered = true
   const queryString = `SELECT cart_items.id, design_id, cart_items.user_id, order_date, fulfilled, ordered, svg_colors, description, title, image, qty, email FROM cart_items
@@ -22,13 +21,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       console.log("ERROR: In Catfish router", err);
       res.sendStatus(500);
     });
-});
-
-/**
- * POST route catfish
- */
-router.post("/", (req, res) => {
-  // POST route code here
 });
 
 module.exports = router;

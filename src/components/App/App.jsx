@@ -1,3 +1,5 @@
+//---------------------imports---------------------//
+// libraries
 import React, { useEffect } from "react";
 import {
   HashRouter as Router,
@@ -5,37 +7,37 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 
+// components
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
 import Design from "../Design/Design";
 import Edit from "../Edit/Edit";
 import Cart from "../Cart/Cart";
 import Admin from "../Admin/Admin";
-
-import "./App.css";
 import GlobalModal from "../GlobalModal/GlobalModal";
 
+// styling
+import "./App.css";
+
 function App() {
+  //---------------------imported methods---------------------//
   const dispatch = useDispatch();
 
+  //---------------------reducer state---------------------//
   const user = useSelector((store) => store.user);
 
+  //---------------------on mount---------------------//
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
+  //---------------------JSX return---------------------//
   return (
     <Router>
       <div>
@@ -54,6 +56,14 @@ function App() {
             <AboutPage />
           </Route>
 
+          <Route
+            // logged in shows Design page else shows LoginPage
+            exact
+            path="/design"
+          >
+            <Design />
+          </Route>
+
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
@@ -65,22 +75,6 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
-
-          <Route
-            // logged in shows Design page else shows LoginPage
-            exact
-            path="/design"
-          >
-            <Design />
-          </Route>
 
           <ProtectedRoute
             // logged in shows Edit page else shows LoginPage
@@ -120,17 +114,6 @@ function App() {
             ) : (
               // Otherwise, show the login page
               <LoginPage />
-            )}
-          </Route>
-
-          <Route exact path="/registration">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the registration page
-              <RegisterPage />
             )}
           </Route>
 

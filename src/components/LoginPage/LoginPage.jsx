@@ -1,3 +1,4 @@
+//---------------------imports---------------------//
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import React from "react";
@@ -6,9 +7,11 @@ import { useHistory } from "react-router-dom";
 import "./LoginPage.css";
 
 function LoginPage() {
+  //---------------------imported methods---------------------//
   const history = useHistory();
   const dispatch = useDispatch();
 
+  //---------------------event handlers---------------------//
   const onRegister = () => {
     dispatch({
       type: "OPEN_MODAL",
@@ -20,6 +23,7 @@ function LoginPage() {
     history.push("/design");
   };
 
+  //---------------------JSX return---------------------//
   return (
     <div>
       <div className="companyLogo">
