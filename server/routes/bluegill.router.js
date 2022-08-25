@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 const upload = require("../modules/multer.js");
 
-// Save new design
+// POST a new design
 router.post(
   "/",
   upload.single("designPng"),
