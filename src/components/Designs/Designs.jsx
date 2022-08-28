@@ -10,6 +10,7 @@ import {
   IconButton,
   CardMedia,
   Grid,
+  Modal,
 } from "@mui/material";
 // import {Button} from '@mui/material'
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,6 +19,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Model from "../Model/Model";
 
 function Designs(props) {
   //---------------------imported methods---------------------//
@@ -134,7 +136,6 @@ function Designs(props) {
       {designs.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
-
           <div className="designs" key={index}>
             {index === current - 1 && (
               <div className="container">
@@ -148,10 +149,10 @@ function Designs(props) {
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
                   <CardHeader title={design.title}></CardHeader>
-                  <CardMedia
-                    component="img"
-                    height="600"
-                    image={design.image}
+                  <Model
+                    texture={design.image}
+                    reference={"ref" + design.id}
+                    model={"/model/lureDesignsL.glb"}
                   />
                   <div className="cardButtons">
                     <div className="centerButton">
@@ -200,11 +201,10 @@ function Designs(props) {
                       title={design.title}
                       // subheader={index}
                     />
-
-                    <CardMedia
-                      component="img"
-                      height="600"
-                      image={design.image}
+                    <Model
+                      texture={design.image}
+                      reference={"ref" + design.id}
+                      model={"/model/lureDesignsC.glb"}
                     />
 
                     <div className="cardButtons">
@@ -260,10 +260,10 @@ function Designs(props) {
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
                   <CardHeader title={design.title}></CardHeader>
-                  <CardMedia
-                    component="img"
-                    height="600"
-                    image={design.image}
+                  <Model
+                    texture={design.image}
+                    reference={"ref" + design.id}
+                    model={"/model/lureDesignsR.glb"}
                   />
                   <div className="cardButtons">
                     <div className="centerButton">

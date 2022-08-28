@@ -35,7 +35,7 @@ function Cart() {
       </Typography>
       <Card>
         {/* map through cart and create an item component for each */}
-        {cart.map((item) => (
+        {cart.map((item, i) => (
           <Grid
             container
             key={item.id}
@@ -44,7 +44,7 @@ function Cart() {
             justifyContent="flex-start"
             alignItems="top"
           >
-            <CartItem item={item} />
+            <CartItem item={item} index={i} />
           </Grid>
         ))}
       </Card>

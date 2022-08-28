@@ -1,5 +1,5 @@
 //---------------------imports---------------------//
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 // find a way to do this without svg. maybe from card
 function downloadBlob(blob, filename) {
@@ -16,6 +16,8 @@ function downloadBlob(blob, filename) {
 }
 
 function LureSVG(props) {
+  const fishSVG = useRef();
+
   const downloadSVG = useCallback(() => {
     const svg = fishSVG.current.innerHTML;
     const blob = new Blob([svg], { type: "image/svg+xml" });

@@ -73,16 +73,39 @@ function Design() {
   const onCancel = () => {
     history.push("/home");
   };
+
+  const PreviewModel = () => {
+    // similar to onSave function, but instead of converting the
+    // canvas element into a blob, it creates a url that is passed
+    // to the preview modal
+    const svg = fishSVG.current.innerHTML;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const objectUrl = URL.createObjectURL(blob);
+    let img = document.createElement("img");
+    img.src = objectUrl;
+    const pngCanvas = document.createElement(`canvas`);
+    pngCanvas.width = 360;
+    pngCanvas.height = 504;
+    let ctx = pngCanvas.getContext("2d");
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0);
+      const url = pngCanvas.toDataURL("img/png");
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: { type: "preview", open: true, texture: url },
+      });
+    };
+  };
+
   const onSave = () => {
     // check to see if a user is logged in
     if (user.id === undefined) {
-      // if not open a register window
       dispatch({
         type: "OPEN_MODAL",
-        payload: { type: "register", open: "true" },
+        payload: { type: "register", open: true },
       });
+      // if not open a register window
     } else {
-      // TODO - input validation
       // get the current svg HTML
       const svg = fishSVG.current.innerHTML;
       // create a blob of raw data from the svg
@@ -119,16 +142,7 @@ function Design() {
 
           // send saga request to save the design to DB
           dispatch({ type: "SAVE_DESIGN", payload: newDesign });
-          dispatch({
-            type: "OPEN_MODAL",
-            payload: {
-              type: "success",
-              open: "true",
-              success: "Your Design Was Saved",
-            },
-          });
-          // sends the user back to their home page after saving updated design
-          history.push("/home");
+          // success modal moved to saveDesign.saga.js
         });
       };
     }
@@ -152,6 +166,11 @@ function Design() {
                   eyeColor={eyeColor}
                 />
               </div>
+            </Grid>
+            <Grid item>
+              <Button onClick={PreviewModel} style={{ marginRight: "110px" }}>
+                3D Preview
+              </Button>
             </Grid>
           </Grid>
         </Grid>
@@ -216,14 +235,12 @@ function Design() {
         {/* //------------BUTTONS------------// */}
         <Grid item>
           <Grid container>
-            <ButtonGroup>
-              <Button onClick={onCancel}>Cancel</Button>
-              <Button onClick={onSave}>Save</Button>
-              <Button component="label">
-                Public:
-                <Checkbox label="public" onChange={updatePublic} />
-              </Button>
-            </ButtonGroup>
+            <Button onClick={onCancel}>Cancel</Button>
+            <Button onClick={onSave}>Save</Button>
+            <Button component="label">
+              Public:
+              <Checkbox label="public" onChange={updatePublic} />
+            </Button>
           </Grid>
         </Grid>
       </Grid>

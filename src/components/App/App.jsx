@@ -24,6 +24,7 @@ import GlobalModal from "../GlobalModal/GlobalModal";
 
 // styling
 import "./App.css";
+import Model from "../Model/Model";
 
 function App() {
   //---------------------imported methods---------------------//

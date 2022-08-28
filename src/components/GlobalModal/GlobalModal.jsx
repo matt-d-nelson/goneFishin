@@ -1,13 +1,16 @@
 //---------------------imports---------------------//
-import { Button, Dialog } from "@mui/material";
+import { Button, Dialog, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
+import Model from "../Model/Model";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function GlobalModal() {
   //---------------------imported methods---------------------//
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //---------------------reducer state---------------------//
   const modalData = useSelector((store) => store.modalReducer);
@@ -15,6 +18,9 @@ function GlobalModal() {
   //---------------------event handlers---------------------//
   const handleClose = () => {
     dispatch({ type: "CLOSE_MODAL" });
+    if (modalData.history != undefined) {
+      history.push(modalData.history);
+    }
   };
   // calls saga to delete a design from the design table
   const deleteDesign = (designID) => {
@@ -100,6 +106,40 @@ function GlobalModal() {
             OK
           </Button>
           <Button onClick={handleClose}>Cancel</Button>
+        </Dialog>
+      );
+    case "preview":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography variant="h3">Preview</Typography>
+          <Model
+            texture={modalData.texture}
+            reference={"refPreview"}
+            model={"/model/lurePreview.glb"}
+          />
+          <Button onClick={handleClose}>Return</Button>
+        </Dialog>
+      );
+    case "loading":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography variant="h3">Loading...</Typography>
         </Dialog>
       );
     default:
