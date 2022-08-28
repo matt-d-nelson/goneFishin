@@ -10,8 +10,9 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import Model from "../Model/Model";
 
-function CartItem({ item }) {
+function CartItem({ item, index }) {
   //---------------------local state---------------------//
   // hook to set selected quantity of item
   const [qty, setQty] = useState(item.qty);
@@ -46,7 +47,11 @@ function CartItem({ item }) {
   return (
     <>
       <Grid item xs={3}>
-        <img src={item.image} alt="lure image" />
+        <Model
+          texture={item.image}
+          reference={"ref" + index}
+          model={`/model/lureEdit${index}.glb`}
+        />
       </Grid>
       <Grid item xs={5} m={2}>
         <Typography variant="body1" p={1}>
