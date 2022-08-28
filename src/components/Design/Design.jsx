@@ -76,13 +76,12 @@ function Design() {
   const onSave = () => {
     // check to see if a user is logged in
     if (user.id === undefined) {
-      // if not open a register window
       dispatch({
         type: "OPEN_MODAL",
-        payload: { type: "register", open: "true" },
+        payload: { type: "register", open: true },
       });
+      // if not open a register window
     } else {
-      // TODO - input validation
       // get the current svg HTML
       const svg = fishSVG.current.innerHTML;
       // create a blob of raw data from the svg

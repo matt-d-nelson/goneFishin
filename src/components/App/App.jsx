@@ -64,15 +64,6 @@ function App() {
           >
             <Design />
           </Route>
-          {/* -------------------------TEMP----------------- */}
-          <Route
-            // logged in shows Design page else shows LoginPage
-            exact
-            path="/model"
-          >
-            <Model />
-          </Route>
-          {/* -------------------------TEMP----------------- */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

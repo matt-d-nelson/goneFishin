@@ -3,25 +3,21 @@ import "@google/model-viewer";
 import { useEffect, useRef } from "react";
 
 function Model(props) {
-  const fish = useRef();
-
   useEffect(() => {
-    const viewer = document.getElementById("modelA");
+    const viewer = document.getElementById(props.reference);
 
     viewer.addEventListener("load", async () => {
       viewer.model.materials[0].pbrMetallicRoughness.baseColorTexture.texture.source.setURI(
-        "/image/1661017133512design.png"
+        props.texture
       );
     });
   }, []);
 
   return (
-    <div>
-      <p>3d</p>
+    <div style={{ height: "200px" }}>
       <model-viewer
-        id="modelA"
-        ref={fish}
-        src="/model/lure.glb"
+        id={props.reference}
+        src={props.model}
         ar
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
