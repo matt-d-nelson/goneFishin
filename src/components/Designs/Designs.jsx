@@ -260,7 +260,6 @@ function Designs(props) {
                 </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
                   <CardHeader title={design.title}></CardHeader>
-
                   <Model
                     texture={design.image}
                     reference={"ref" + design.id}

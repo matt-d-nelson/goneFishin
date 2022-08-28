@@ -1,15 +1,32 @@
 import axios from "axios";
-import { takeEvery } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 
 function* updateDesign(action) {
   try {
+    // open loading modal
+    yield put({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "loading",
+        open: "true",
+      },
+    });
+    // send update request
     yield axios({
       method: "put",
       url: "/api/anglerfish",
       data: action.payload,
     });
-    // replaced with success modal 
-    // alert("your design was updated");
+    // open success modal
+    yield put({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "success",
+        open: "true",
+        success: "Your Design Was Updated",
+        history: "/home",
+      },
+    });
   } catch (err) {
     console.log(err);
     alert("error updating design");
