@@ -73,6 +73,30 @@ function Design() {
   const onCancel = () => {
     history.push("/home");
   };
+
+  const PreviewModel = () => {
+    // similar to onSave function, but instead of converting the
+    // canvas element into a blob, it creates a url that is passed
+    // to the preview modal
+    const svg = fishSVG.current.innerHTML;
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const objectUrl = URL.createObjectURL(blob);
+    let img = document.createElement("img");
+    img.src = objectUrl;
+    const pngCanvas = document.createElement(`canvas`);
+    pngCanvas.width = 360;
+    pngCanvas.height = 504;
+    let ctx = pngCanvas.getContext("2d");
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0);
+      const url = pngCanvas.toDataURL("img/png");
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: { type: "preview", open: true, texture: url },
+      });
+    };
+  };
+
   const onSave = () => {
     // check to see if a user is logged in
     if (user.id === undefined) {
@@ -152,6 +176,11 @@ function Design() {
                 />
               </div>
             </Grid>
+            <Grid item>
+              <Button onClick={PreviewModel} style={{ marginRight: "110px" }}>
+                3D Preview
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={6}>
@@ -215,14 +244,12 @@ function Design() {
         {/* //------------BUTTONS------------// */}
         <Grid item>
           <Grid container>
-            <ButtonGroup>
-              <Button onClick={onCancel}>Cancel</Button>
-              <Button onClick={onSave}>Save</Button>
-              <Button component="label">
-                Public:
-                <Checkbox label="public" onChange={updatePublic} />
-              </Button>
-            </ButtonGroup>
+            <Button onClick={onCancel}>Cancel</Button>
+            <Button onClick={onSave}>Save</Button>
+            <Button component="label">
+              Public:
+              <Checkbox label="public" onChange={updatePublic} />
+            </Button>
           </Grid>
         </Grid>
       </Grid>

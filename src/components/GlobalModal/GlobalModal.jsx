@@ -1,8 +1,9 @@
 //---------------------imports---------------------//
-import { Button, Dialog } from "@mui/material";
+import { Button, Dialog, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import LoginForm from "../LoginForm/LoginForm";
+import Model from "../Model/Model";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function GlobalModal() {
@@ -100,6 +101,26 @@ function GlobalModal() {
             OK
           </Button>
           <Button onClick={handleClose}>Cancel</Button>
+        </Dialog>
+      );
+    case "preview":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography variant="h3">Preview</Typography>
+          <Model
+            texture={modalData.texture}
+            reference={"refPreview"}
+            model={"/model/lurePreview.glb"}
+          />
+          <Button onClick={handleClose}>Return</Button>
         </Dialog>
       );
     default:
