@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -18,6 +18,9 @@ function* deleteOrder(action){
     yield put({
       type: 'OPEN_MODAL', 
       payload: {type: "success", open: true, success: 'Removed from cart!'}});
+    // close modal after a delay
+    yield delay(1100);
+    yield put ({type: 'CLOSE_MODAL'});
   } catch(err){
     console.log('delete order saga error:', err);
   }
