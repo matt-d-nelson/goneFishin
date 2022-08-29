@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, delay } from "redux-saga/effects";
 import axios from "axios";
 
 // worker Saga: will be fired on "REGISTER" actions
@@ -40,7 +40,20 @@ function* addDesignToCart(action) {
     }).then((response) => {
       console.log("addDesignToCart response:", response);
     });
+    // get all the user's cart items
     yield put ({type: "FETCH_CART_ITEMS"});
+    // open success modal
+    yield put ({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "success",
+        open: true,
+        success: "Design Added To Cart",
+      },
+    });
+    // after a delay, close the modal
+    yield delay(1100);
+    yield put ({type: 'CLOSE_MODAL'});
   } catch (error) {
     console.log("error in addDesignToCart");
   }

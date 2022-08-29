@@ -56,14 +56,6 @@ function Designs(props) {
     // const today = new Date().toLocaleDateString();
     // console.log(today);
     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[thisDesign] });
-    dispatch({
-      type: "OPEN_MODAL",
-      payload: {
-        type: "success",
-        open: true,
-        success: "Design Added To Cart",
-      },
-    });
   };
 
   // handle click for adding to cart
