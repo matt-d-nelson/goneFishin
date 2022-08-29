@@ -1,4 +1,7 @@
 const multer = require("multer");
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
+const config = require('../.env');
 
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
