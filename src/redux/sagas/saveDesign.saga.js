@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeEvery } from "redux-saga/effects";
+import { put, takeEvery, delay } from "redux-saga/effects";
 
 function* saveDesign(action) {
   try {
@@ -27,6 +27,9 @@ function* saveDesign(action) {
         history: "/home",
       },
     });
+    // close success modal after delay
+    yield delay(1100);
+    yield put ({type: 'CLOSE_MODAL'});
   } catch (err) {
     console.log(err);
     alert("error saving design");
