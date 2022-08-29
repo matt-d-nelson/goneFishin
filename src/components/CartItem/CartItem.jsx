@@ -21,9 +21,15 @@ function CartItem({ item, index }) {
   const dispatch = useDispatch();
 
   //---------------------event handlers---------------------//
-  // on click, removes an item from cart
+  // on click, opens modal to confirm delete from cart action
   const removeItem = (cartID) => {
-    dispatch({ type: "DELETE_ORDER", payload: cartID });
+    dispatch({ type: 'OPEN_MODAL', 
+      payload: {
+        type: 'deleteCartItem',
+        open: true,
+        cart_id: cartID,
+        message: 'Are you sure you want to remove this design from your cart?'
+      }});
   };
 
   // on change, update cart item qty in local state

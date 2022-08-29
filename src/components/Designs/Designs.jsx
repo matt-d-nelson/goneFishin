@@ -108,16 +108,7 @@ function Designs(props) {
     history.push(`/edit/${designs[thisDesign].id}`);
   };
 
-  // delete design (no confirmation)
-  // const deleteDesign = (thisDesign) => {
-  //   console.log("in deleteDesign", designs[thisDesign].id, "userID", user.id);
-  //   dispatch({
-  //     type: "DELETE_DESIGN",
-  //     payload: designs[thisDesign].id,
-  //     id: designs[thisDesign].user_id,
-  //   });
-  // };
-
+  // opens modal to confrim delete design action
   const deleteDesign = (thisDesign) => {
     console.log("in deleteDesign", designs[thisDesign].id);
     dispatch({
