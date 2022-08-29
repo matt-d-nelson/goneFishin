@@ -108,12 +108,26 @@ function Designs(props) {
     history.push(`/edit/${designs[thisDesign].id}`);
   };
 
+  // delete design (no confirmation)
+  // const deleteDesign = (thisDesign) => {
+  //   console.log("in deleteDesign", designs[thisDesign].id, "userID", user.id);
+  //   dispatch({
+  //     type: "DELETE_DESIGN",
+  //     payload: designs[thisDesign].id,
+  //     id: designs[thisDesign].user_id,
+  //   });
+  // };
+
   const deleteDesign = (thisDesign) => {
-    console.log("in deleteDesign", designs[thisDesign].id, "userID", user.id);
+    console.log("in deleteDesign", designs[thisDesign].id);
     dispatch({
-      type: "DELETE_DESIGN",
-      payload: designs[thisDesign].id,
-      id: designs[thisDesign].user_id,
+      type: 'OPEN_MODAL',
+      payload: {
+        type: 'deleteDesign',
+        open: true,
+        message:'Are you sure you want to delete this design?',
+        design_id: designs[thisDesign].id,
+      }
     });
   };
 
