@@ -81,7 +81,7 @@ function GlobalModal() {
       return (
         <Dialog open={modalData.open}>
           <RegisterForm />
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteDesign":
