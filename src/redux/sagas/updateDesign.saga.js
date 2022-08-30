@@ -8,7 +8,7 @@ function* updateDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "loading",
-        open: "true",
+        open: true,
       },
     });
     // send update request
@@ -21,15 +21,12 @@ function* updateDesign(action) {
     yield put({
       type: "OPEN_MODAL",
       payload: {
-        type: "success",
-        open: "true",
+        type: "success_nav",
+        open: true,
         success: "Your Design Was Updated",
         history: "/home",
       },
     });
-    // close success modal after delay
-    yield delay(1100);
-    yield put ({type: 'CLOSE_MODAL'});
   } catch (err) {
     console.log(err);
     alert("error updating design");

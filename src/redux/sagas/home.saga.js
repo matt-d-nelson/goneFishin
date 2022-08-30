@@ -15,16 +15,21 @@ function* getAllUserDesigns(action) {
 function* deleteDesign(action) {
   console.log("in deleteDesign");
   try {
-    yield axios
-      .delete(`/api/blobfish/${action.payload}`)
-      .then((response) => {
-        console.log("deleteDesign response", response);
-      });
+    // send delete request
+    yield axios.delete(`/api/blobfish/${action.payload}`).then((response) => {
+      console.log("deleteDesign response", response);
+    });
+    // refetch user and all designs
     yield put({ type: "FETCH_USER_DESIGNS" });
+    yield put({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
+    // open success modal
     yield put({
-      type: "OPEN_MODAL", 
-      payload: {type: "success", open: true, success: 'Design deleted'}
-    })
+      type: "OPEN_MODAL",
+      payload: { type: "success", open: true, success: "Design deleted" },
+    });
+    // close modal after a delay
+    yield delay(1100);
+    yield put({ type: "CLOSE_MODAL" });
   } catch (error) {
     console.log("error in deleteDesign");
   }
@@ -41,9 +46,9 @@ function* addDesignToCart(action) {
       console.log("addDesignToCart response:", response);
     });
     // get all the user's cart items
-    yield put ({type: "FETCH_CART_ITEMS"});
+    yield put({ type: "FETCH_CART_ITEMS" });
     // open success modal
-    yield put ({
+    yield put({
       type: "OPEN_MODAL",
       payload: {
         type: "success",
@@ -53,7 +58,7 @@ function* addDesignToCart(action) {
     });
     // after a delay, close the modal
     yield delay(1100);
-    yield put ({type: 'CLOSE_MODAL'});
+    yield put({ type: "CLOSE_MODAL" });
   } catch (error) {
     console.log("error in addDesignToCart");
   }
