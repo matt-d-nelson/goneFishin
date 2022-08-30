@@ -35,7 +35,7 @@ function Designs(props) {
   const cart = useSelector((store) => store.cart);
 
   //---------------------local state---------------------//
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
 
   //---------------------on mount---------------------//
   useEffect(() => {
@@ -44,10 +44,14 @@ function Designs(props) {
     console.log(props.designs);
   }, []);
 
+  useEffect(()=> {
+    setCurrent(1);
+  }, [props.showFeed]);
+
   const cardStyle = {
-    transitionDuration: "2.3s",
-    background: "#B1BCA7",
-    color: "white",
+    // transitionDuration: "2.3s",
+    // background: "#A9E4EF",
+    // color: "black",
   };
 
   //---------------------event handlers---------------------//
@@ -119,13 +123,13 @@ function Designs(props) {
 
   const nextSlide = () => {
     console.log("in nextSlide");
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    setCurrent(current === length - 1 ? 0 : current + 3);
     console.log(current);
   };
 
   const prevSlide = () => {
     console.log("in prevSlide");
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    setCurrent(current === 0 ? length - 1 : current - 3);
     console.log(current);
   };
 
@@ -195,8 +199,10 @@ function Designs(props) {
             )}
             <div className={index === current ? "slide active" : "slide"}>
               {index === current && (
-                <div className="container">
-                  <Card elevation={4} style={cardStyle} className="card">
+                
+                  <Card elevation={4} 
+                  // style={cardStyle} 
+                  className="card">
                     <CardHeader
                       title={design.title}
                       // subheader={index}
@@ -244,7 +250,7 @@ function Designs(props) {
                       </div>
                     </div>
                   </Card>
-                </div>
+                
               )}
             </div>
 
