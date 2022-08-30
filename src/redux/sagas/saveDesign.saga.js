@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { put, takeEvery, delay } from "redux-saga/effects";
 
 function* saveDesign(action) {
@@ -17,19 +18,17 @@ function* saveDesign(action) {
       url: "/api/bluegill",
       data: action.payload,
     });
+
     // open success modal
     yield put({
       type: "OPEN_MODAL",
       payload: {
-        type: "success",
+        type: "success_nav",
         open: "true",
         success: "Your Design Was Saved",
         history: "/home",
       },
     });
-    // close success modal after delay
-    yield delay(1100);
-    yield put ({type: 'CLOSE_MODAL'});
   } catch (err) {
     console.log(err);
     alert("error saving design");
