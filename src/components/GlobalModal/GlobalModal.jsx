@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import Model from "../Model/Model";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function GlobalModal() {
   //---------------------imported methods---------------------//
@@ -53,8 +54,9 @@ function GlobalModal() {
             },
           }}
         >
+          <CheckCircleOutlineIcon sx={{ fontSize: 40 }}/>
+          <br/>
           {modalData.success}
-          <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
     case "register":
