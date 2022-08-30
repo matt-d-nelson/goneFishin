@@ -8,7 +8,7 @@ function* updateDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "loading",
-        open: "true",
+        open: true,
       },
     });
     // send update request
@@ -22,7 +22,7 @@ function* updateDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "success_nav",
-        open: "true",
+        open: true,
         success: "Your Design Was Updated",
         history: "/home",
       },

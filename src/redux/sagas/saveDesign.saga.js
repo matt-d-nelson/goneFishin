@@ -9,7 +9,7 @@ function* saveDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "loading",
-        open: "true",
+        open: true,
       },
     });
     // send post request
@@ -24,7 +24,7 @@ function* saveDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "success_nav",
-        open: "true",
+        open: true,
         success: "Your Design Was Saved",
         history: "/home",
       },
