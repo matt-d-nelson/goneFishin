@@ -176,9 +176,9 @@ function Designs(props) {
   //---------------------JSX return---------------------//
   return (
     // Users Designs
-    <div>
-      <IconButton onClick={prevSlide}>
-        <ChevronLeftIcon sx={{ fontSize: "80px" }} className="left-button">
+    <div className="designs_container">
+      <IconButton onClick={prevSlide} className="icon-button">
+        <ChevronLeftIcon sx={{ fontSize: "80px" }} className="arrow-button">
           Previous
         </ChevronLeftIcon>
       </IconButton>
@@ -344,8 +344,8 @@ function Designs(props) {
           </div>
         );
       })}
-      <IconButton onClick={nextSlide}>
-        <ChevronRightIcon sx={{ fontSize: "80px" }} className="right-button">
+      <IconButton onClick={nextSlide} className="icon-button">
+        <ChevronRightIcon sx={{ fontSize: "80px" }} className="arrow-button">
           Next
         </ChevronRightIcon>
       </IconButton>
