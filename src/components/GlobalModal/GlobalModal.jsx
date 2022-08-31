@@ -144,6 +144,7 @@ function GlobalModal() {
             texture={modalData.texture}
             reference={"refPreview"}
             model={"/model/lurePreview.glb"}
+            interaction="auto"
           />
           <Button onClick={handleClose}>Return</Button>
         </Dialog>

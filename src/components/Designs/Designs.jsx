@@ -194,6 +194,7 @@ function Designs(props) {
                     texture={design.image}
                     reference={"ref" + design.id}
                     model={"/model/lureDesignsL.glb"}
+                    interaction="none"
                   />
                   <div className="cardButtons">
                     <div className="centerButton">
@@ -250,6 +251,7 @@ function Designs(props) {
                       texture={design.image}
                       reference={"ref" + design.id}
                       model={"/model/lureDesignsC.glb"}
+                      interaction="none"
                     />
 
                     <div className="cardButtons">
@@ -301,6 +303,7 @@ function Designs(props) {
                     texture={design.image}
                     reference={"ref" + design.id}
                     model={"/model/lureDesignsR.glb"}
+                    interaction="none"
                   />
                   <div className="cardButtons">
                     <div className="centerButton">
