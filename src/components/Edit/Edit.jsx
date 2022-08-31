@@ -273,12 +273,14 @@ function Edit(props) {
               <Button variant="contained" sx={{ mr: 1 }} onClick={onSave}>
                 Save
               </Button>
-              <Button component="label">
+              <Button component="label" variant="contained" sx={{ mr: 1 }}>
                 Public:
                 <Checkbox
                   label="public"
                   onChange={updatePublic}
                   checked={publicDesign}
+                  color="secondary"
+                  disableRipple
                 />
               </Button>
             </Grid>

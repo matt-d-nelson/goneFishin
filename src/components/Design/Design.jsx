@@ -177,11 +177,6 @@ function Design() {
                 />
               </div>
             </Grid>
-            <Grid item>
-              <Button onClick={PreviewModel} style={{ marginRight: "110px" }}>
-                3D Preview
-              </Button>
-            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={6}>
@@ -245,11 +240,24 @@ function Design() {
         {/* //------------BUTTONS------------// */}
         <Grid item>
           <Grid container>
-            <Button onClick={onCancel}>Cancel</Button>
-            <Button onClick={onSave}>Save</Button>
-            <Button component="label">
+            <Button onClick={PreviewModel} variant="contained" sx={{ mr: 1 }}>
+              3D Preview
+            </Button>
+            <Button onClick={onCancel} variant="contained" sx={{ mr: 1 }}>
+              Cancel
+            </Button>
+            <Button onClick={onSave} variant="contained" sx={{ mr: 1 }}>
+              Save
+            </Button>
+            <Button component="label" variant="contained" sx={{ mr: 1 }}>
               Public:
-              <Checkbox label="public" onChange={updatePublic} />
+              <Checkbox
+                label="public"
+                onChange={updatePublic}
+                checked={publicDesign}
+                color="secondary"
+                disableRipple
+              />
             </Button>
           </Grid>
         </Grid>
