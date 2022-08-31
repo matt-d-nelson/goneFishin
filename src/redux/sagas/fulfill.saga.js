@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -21,7 +21,9 @@ function* fulfillOrder(action){
           type: "success", 
           open: true, 
           success: action.payload.message}
-      })
+      });
+      yield delay(1100);
+      yield put ({type: 'CLOSE_MODAL'});
   } catch(err){
     console.log('fulfill saga error:', err);
   }

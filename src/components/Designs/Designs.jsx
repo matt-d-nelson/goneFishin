@@ -60,14 +60,6 @@ function Designs(props) {
     // const today = new Date().toLocaleDateString();
     // console.log(today);
     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[thisDesign] });
-    dispatch({
-      type: "OPEN_MODAL",
-      payload: {
-        type: "success",
-        open: true,
-        success: "Design Added To Cart",
-      },
-    });
   };
 
   // handle click for adding to cart
@@ -112,12 +104,17 @@ function Designs(props) {
     history.push(`/edit/${designs[thisDesign].id}`);
   };
 
+  // opens modal to confrim delete design action
   const deleteDesign = (thisDesign) => {
-    console.log("in deleteDesign", designs[thisDesign].id, "userID", user.id);
+    console.log("in deleteDesign", designs[thisDesign].id);
     dispatch({
-      type: "DELETE_DESIGN",
-      payload: designs[thisDesign].id,
-      id: designs[thisDesign].user_id,
+      type: 'OPEN_MODAL',
+      payload: {
+        type: 'deleteDesign',
+        open: true,
+        message:'Are you sure you want to delete this design?',
+        design_id: designs[thisDesign].id,
+      }
     });
   };
 

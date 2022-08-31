@@ -25,6 +25,8 @@ function UserPage() {
   // on page load, get all items this user has added to cart (where ordered=false)
   useEffect(() => {
     dispatch({ type: "FETCH_CART_ITEMS" });
+    dispatch({ type: "FETCH_ALL_PUBLIC_DESIGNS" });
+    dispatch({ type: "FETCH_USER_DESIGNS" });
   }, []);
 
   const toggleFeed = () => {

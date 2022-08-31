@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import Model from "../Model/Model";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useEffect } from "react";
 
 function GlobalModal() {
   //---------------------imported methods---------------------//
@@ -42,6 +44,23 @@ function GlobalModal() {
           <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
+    case "success_nav":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <CheckCircleOutlineIcon sx={{ fontSize: 40 }} />
+          <br />
+          {modalData.success}
+          <Button onClick={handleClose}>return</Button>
+        </Dialog>
+      );
     case "success":
       return (
         <Dialog
@@ -53,15 +72,16 @@ function GlobalModal() {
             },
           }}
         >
+          <CheckCircleOutlineIcon sx={{ fontSize: 40 }} />
+          <br />
           {modalData.success}
-          <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
     case "register":
       return (
         <Dialog open={modalData.open}>
           <RegisterForm />
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteDesign":

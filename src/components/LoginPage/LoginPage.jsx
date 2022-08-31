@@ -15,7 +15,7 @@ function LoginPage() {
   const onRegister = () => {
     dispatch({
       type: "OPEN_MODAL",
-      payload: { type: "register", open: "true" },
+      payload: { type: "register", open: true },
     });
   };
 
