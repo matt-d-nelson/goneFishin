@@ -1,12 +1,23 @@
+@font-face {
+  font-family: "Delmon Delicate";
+  src: url("../../../public/fonts/Delmon Delicate.ttf") format("truetype");
+}
+
+:root {
+  --transparentGreen: rgb(83, 142, 82, 0.8);
+  --transparentWhite: rgb(255, 255, 255, 0.6);
+  --mainBlue: rgb(111, 177, 175);
+}
+
 html,
 body,
 #react-root {
   height: 100%;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {font-family: "Delmon Delicate";
   margin: 0px;
+  background-color: #fcf1d296;
 }
 
 img {
@@ -96,15 +107,21 @@ Form Treatment
 -------------------------------------------------------------------------------- */
 
 .formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  
+    background: rgba(255, 255, 255, 0.33);
+    /* background: hsla(358, 60%, 32%, 0.192); */
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    max-width: 300px;
+    padding: 25px;
+    margin: auto;
+    
 }
+
+
 
 input {
   margin: 5px;

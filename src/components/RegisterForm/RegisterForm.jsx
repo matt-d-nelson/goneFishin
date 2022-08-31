@@ -1,6 +1,7 @@
 //---------------------imports---------------------//
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, TextField } from "@mui/material";
 
 function RegisterForm() {
   //---------------------local state---------------------//
@@ -31,7 +32,7 @@ function RegisterForm() {
   //---------------------JSX return---------------------//
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2 className="registerTitle">Register User</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -39,8 +40,10 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
-          <input
+          <TextField
+              variant="outlined"
+              placeholder="Username"
+              sx={{ mb: 2, mr:5, ml: 5}}
             type="text"
             name="username"
             value={username}
@@ -51,8 +54,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="email">
-          Email:
-          <input
+          <TextField
+              variant="outlined"
+              placeholder="Email"
+              sx={{ mb: 2, mr:5, ml: 5}}
             type="email"
             name="email"
             value={email}
@@ -63,8 +68,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
-          <input
+          <TextField
+              variant="outlined"
+              placeholder="Password"
+              sx={{ mb: 2, mr:5, ml: 5}}
             type="password"
             name="password"
             value={password}
@@ -74,7 +81,7 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <Button variant="contained"  sx={{ ml: 5}} onClick={registerUser}>Register</Button>
       </div>
     </form>
   );

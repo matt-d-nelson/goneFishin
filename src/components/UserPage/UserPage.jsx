@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./UserPage.css";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 // import UsersDesigns from "../UsersDesigns/UsersDesigns";
 // import AllDesigns from "../AllDesigns/AllDesigns";
@@ -43,31 +43,38 @@ function UserPage() {
   return (
     <div className="homePage">
       <div className="companyTitle">
-        RED WING LURE
+        {/* RED WING LURE
+        
         <br />
-        COMPANY
+        COMPANY */}
         {showFeed ? <p>{user.username}'s Designs</p> : <p>All Designs</p>}
         {showFeed ? (
-          <Designs designs={designs} />
+          <Designs designs={designs} showFeed={showFeed} />
         ) : (
-          <Designs designs={allPublic} />
+          <Designs designs={allPublic} showFeed={showFeed} />
         )}
       </div>
       <div className="buttonPlacement">
         <Button
           className="feedButton"
           variant="contained"
-          sx={{ fontSize: "25px", background: "#EDD892" }}
+          sx={{ mr: 4}}
+          color='primary'
           onClick={toggleFeed}
         >
+          <Typography variant="h4">
           {!showFeed ? "My Designs" : "Feed"}
+          </Typography>
         </Button>
         <Button
           variant="contained"
-          sx={{ fontSize: "25px", background: "#EDD892" }}
+          // sx={{ fontSize: "25px"}}
+          color='primary'
           onClick={newDesign}
         >
-          NEW
+          <Typography variant="h4">
+          New
+          </Typography>
         </Button>
       </div>
     </div>
