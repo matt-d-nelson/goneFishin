@@ -80,7 +80,7 @@
     display: inline-block
 }
 
-.slide {
+/* .slide {
     opacity: .2;
     transition-duration: 2s ease;
     background-color: white;
@@ -89,12 +89,12 @@
 
 .slide.active {
     opacity: 1;
-    transition-duration: 1s ;
+    transition-duration: 1s ; */
      /* background-color: "#A9E4EF"; */
-     transition: background-color "#A9E4EF";
+     /* transition: background-color "#A9E4EF"; */
     /* transform: scale(1.06); */
     
-}
+/* } */
 
 /* .left {
     transform: scale(.93);

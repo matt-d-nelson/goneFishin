@@ -181,9 +181,9 @@ function Edit(props) {
                 </div>
               </Grid>
               <Grid item>
-                <Button onClick={PreviewModel} style={{ marginRight: "110px" }}>
+                {/* <Button variant="contained" onClick={PreviewModel} style={{ marginRight: "110px" }}>
                   3D Preview
-                </Button>
+                </Button> */}
               </Grid>
             </Grid>
           </Grid>
@@ -253,9 +253,12 @@ function Edit(props) {
           {/* //------------BUTTONS------------// */}
           <Grid item>
             <Grid container>
-              <Button onClick={onCancel}>Cancel</Button>
-              <Button onClick={onSave}>Save</Button>
-              <Button component="label">
+            <Button variant="contained" onClick={PreviewModel} sx={{ mr: 1}}>
+                  3D Preview
+                </Button>
+              <Button variant="contained" sx={{ mr: 1}} onClick={onCancel}>Cancel</Button>
+              <Button variant="contained" sx={{ mr: 1}} onClick={onSave}>Save</Button>
+              <Button component="label" >
                 Public:
                 <Checkbox
                   label="public"
