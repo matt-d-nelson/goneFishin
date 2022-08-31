@@ -8,6 +8,7 @@ import { Button, Typography } from "@mui/material";
 // import UsersDesigns from "../UsersDesigns/UsersDesigns";
 // import AllDesigns from "../AllDesigns/AllDesigns";
 import Designs from "../Designs/Designs";
+import BuyPrinterBtn from "../BuyPrinterBtn/BuyPrinterBtn";
 
 function UserPage() {
   //---------------------reducer state---------------------//
@@ -66,10 +67,12 @@ function UserPage() {
           {!showFeed ? "My Designs" : "Feed"}
           </Typography>
         </Button>
+        <BuyPrinterBtn/>
         <Button
           variant="contained"
           // sx={{ fontSize: "25px"}}
           color='primary'
+          sx={{ ml: 4}}
           onClick={newDesign}
         >
           <Typography variant="h4">
