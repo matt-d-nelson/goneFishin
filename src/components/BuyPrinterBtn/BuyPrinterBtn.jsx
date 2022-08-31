@@ -1,13 +1,26 @@
 import { useState } from 'react';
 import { Button, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 function BuyPrinterBtn( props ){
-    // template hook
-    const [ hook, setHook ] = useState( null );
+    //---------------------imported methods---------------------//
+    const dispatch = useDispatch();
 
-    // handle click for adding printer to cart
+    //---------------------reducer state---------------------//
+    const user = useSelector((store) => store.user);
+    const cart = useSelector((store) => store.cart);
+
+    //---------------------event handlers---------------------//
+
+    // add a new printer to cart
     const addPrinter = () =>{
         console.log('in addPrinter');
+        dispatch({
+            type: "ADD_PRINTER_TO_CART",
+            payload: {
+                message: 'Lure printer added to cart'
+            }
+        });
     }
      
     return(
