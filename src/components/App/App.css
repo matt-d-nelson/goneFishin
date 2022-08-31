@@ -15,7 +15,8 @@ body,
   height: 100%;
 }
 
-body {font-family: "Delmon Delicate";
+body {
+  font-family: "Delmon Delicate";
   margin: 0px;
   background-color: #fcf1d296;
 }
@@ -30,7 +31,7 @@ Container
 -------------------------------------------------------------------------------- */
 
 .container {
-  padding: 20px;
+  padding: 10px;
 }
 
 /* --------------------------------------------------------------------------------
@@ -107,21 +108,17 @@ Form Treatment
 -------------------------------------------------------------------------------- */
 
 .formPanel {
-  
-    background: rgba(255, 255, 255, 0.33);
-    /* background: hsla(358, 60%, 32%, 0.192); */
-    border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3.8px);
-    -webkit-backdrop-filter: blur(4.8px);
-    border: 1px solid rgba(255, 255, 255, 1);
-    max-width: 300px;
-    padding: 25px;
-    margin: auto;
-    
+  background: rgba(255, 255, 255, 0.33);
+  /* background: hsla(358, 60%, 32%, 0.192); */
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.8px);
+  -webkit-backdrop-filter: blur(4.8px);
+  border: 1px solid rgba(255, 255, 255, 1);
+  max-width: 300px;
+  padding: 25px;
+  margin: auto;
 }
-
-
 
 input {
   margin: 5px;
