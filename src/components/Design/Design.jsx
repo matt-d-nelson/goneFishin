@@ -100,11 +100,21 @@ function Design() {
   const onSave = () => {
     // check to see if a user is logged in
     if (user.id === undefined) {
+      // if not open a register window
       dispatch({
         type: "OPEN_MODAL",
         payload: { type: "register", open: true },
       });
-      // if not open a register window
+      // check to ensure a title is entered
+    } else if (title === "") {
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: {
+          type: "error",
+          open: true,
+          message: "Please enter a title for your design",
+        },
+      });
     } else {
       // get the current svg HTML
       const svg = fishSVG.current.innerHTML;

@@ -118,46 +118,57 @@ function Edit(props) {
   };
 
   const onSave = () => {
-    // get the current svg HTML
-    const svg = fishSVG.current.innerHTML;
-    // create a blob of raw data from the svg
-    const blob = new Blob([svg], { type: "image/svg+xml" });
-    // create a URL for the svg blob data
-    const objectUrl = URL.createObjectURL(blob);
-    // create a new <image> element
-    let img = document.createElement("img");
-    // set it's source to the url of the svg blob
-    img.src = objectUrl;
-    // create a new <canvas> element
-    const pngCanvas = document.createElement(`canvas`);
-    // define its width and height to that of the svg (hard coded)
-    pngCanvas.width = 360;
-    pngCanvas.height = 504;
-    // set the canvas drawing context
-    let ctx = pngCanvas.getContext("2d");
-    // when the svg blob is loaded into the img element
-    img.onload = function () {
-      // draw the img (sourced with the svg blob) to the canvas
-      ctx.drawImage(img, 0, 0);
-      // convert the drawn image to a blob of data
-      pngCanvas.toBlob(function (blob) {
-        // create form data and append it with current values
-        const updateDesign = new FormData();
-        updateDesign.append("designPng", blob, "design.png");
-        updateDesign.append("bodyColor", bodyColor);
-        updateDesign.append("finColor", finColor);
-        updateDesign.append("dorsalColor", dorsalColor);
-        updateDesign.append("eyeColor", eyeColor);
-        updateDesign.append("description", description);
-        updateDesign.append("title", title);
-        updateDesign.append("public", publicDesign);
-        updateDesign.append("id", design[0].id);
-        updateDesign.append("user_id", design[0].user_id);
-
-        // send saga request to save the design to DB
-        dispatch({ type: "UPDATE_DESIGN", payload: updateDesign });
+    if (title === "") {
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: {
+          type: "error",
+          open: true,
+          message: "Please enter a title for your design",
+        },
       });
-    };
+    } else {
+      // get the current svg HTML
+      const svg = fishSVG.current.innerHTML;
+      // create a blob of raw data from the svg
+      const blob = new Blob([svg], { type: "image/svg+xml" });
+      // create a URL for the svg blob data
+      const objectUrl = URL.createObjectURL(blob);
+      // create a new <image> element
+      let img = document.createElement("img");
+      // set it's source to the url of the svg blob
+      img.src = objectUrl;
+      // create a new <canvas> element
+      const pngCanvas = document.createElement(`canvas`);
+      // define its width and height to that of the svg (hard coded)
+      pngCanvas.width = 360;
+      pngCanvas.height = 504;
+      // set the canvas drawing context
+      let ctx = pngCanvas.getContext("2d");
+      // when the svg blob is loaded into the img element
+      img.onload = function () {
+        // draw the img (sourced with the svg blob) to the canvas
+        ctx.drawImage(img, 0, 0);
+        // convert the drawn image to a blob of data
+        pngCanvas.toBlob(function (blob) {
+          // create form data and append it with current values
+          const updateDesign = new FormData();
+          updateDesign.append("designPng", blob, "design.png");
+          updateDesign.append("bodyColor", bodyColor);
+          updateDesign.append("finColor", finColor);
+          updateDesign.append("dorsalColor", dorsalColor);
+          updateDesign.append("eyeColor", eyeColor);
+          updateDesign.append("description", description);
+          updateDesign.append("title", title);
+          updateDesign.append("public", publicDesign);
+          updateDesign.append("id", design[0].id);
+          updateDesign.append("user_id", design[0].user_id);
+
+          // send saga request to save the design to DB
+          dispatch({ type: "UPDATE_DESIGN", payload: updateDesign });
+        });
+      };
+    }
   };
 
   //---------------------JSX return---------------------//
@@ -253,12 +264,16 @@ function Edit(props) {
           {/* //------------BUTTONS------------// */}
           <Grid item>
             <Grid container>
-            <Button variant="contained" onClick={PreviewModel} sx={{ mr: 1}}>
-                  3D Preview
-                </Button>
-              <Button variant="contained" sx={{ mr: 1}} onClick={onCancel}>Cancel</Button>
-              <Button variant="contained" sx={{ mr: 1}} onClick={onSave}>Save</Button>
-              <Button component="label" >
+              <Button variant="contained" onClick={PreviewModel} sx={{ mr: 1 }}>
+                3D Preview
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onSave}>
+                Save
+              </Button>
+              <Button component="label">
                 Public:
                 <Checkbox
                   label="public"
