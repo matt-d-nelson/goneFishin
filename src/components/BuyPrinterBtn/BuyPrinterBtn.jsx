@@ -13,8 +13,8 @@ function BuyPrinterBtn( props ){
     //---------------------event handlers---------------------//
 
     // add a new printer to cart
-    const addPrinter = () =>{
-        console.log('in addPrinter');
+    const newPrinter = () =>{
+        console.log('in newPrinter');
         dispatch({
             type: "ADD_PRINTER_TO_CART",
             payload: {
@@ -22,6 +22,31 @@ function BuyPrinterBtn( props ){
             }
         });
     }
+
+    // handle click for adding printer to cart
+    const addPrinter = () => {
+        // check if user already has a printer in their cart 
+        // design_id for the printer will always be -1. unlike lure design_id, it never changes
+        const found = cart.find((item) => {
+            if (item.design_id === -1) {
+                return item;
+            }
+        });
+        console.log("found:", found);
+        // if a printer is found in the user's cart, increment quantity of printers in the cart/database
+        // 'found' will be undefined if nothing was found
+        found
+            ? dispatch({
+                type: "UPDATE_CART_QTY",
+                payload: {
+                    id: found.id,
+                    qty: found.qty + 1,
+                    message: "Another printer added to cart"
+                }
+            })
+            : // if no printers are in the cart, add one to the cart
+            newPrinter();
+    };
      
     return(
         <div>
