@@ -36,6 +36,11 @@ function Designs(props) {
 
   //---------------------local state---------------------//
   const [current, setCurrent] = useState(1);
+  const [cards, setCards] = useState({
+    left: 0,
+    center: 1,
+    right: 2,
+  });
 
   //---------------------on mount---------------------//
   useEffect(() => {
@@ -44,7 +49,7 @@ function Designs(props) {
     console.log(props.designs);
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     setCurrent(1);
   }, [props.showFeed]);
 
@@ -108,13 +113,13 @@ function Designs(props) {
   const deleteDesign = (thisDesign) => {
     console.log("in deleteDesign", designs[thisDesign].id);
     dispatch({
-      type: 'OPEN_MODAL',
+      type: "OPEN_MODAL",
       payload: {
-        type: 'deleteDesign',
+        type: "deleteDesign",
         open: true,
-        message:'Are you sure you want to delete this design?',
+        message: "Are you sure you want to delete this design?",
         design_id: designs[thisDesign].id,
-      }
+      },
     });
   };
 
@@ -138,7 +143,7 @@ function Designs(props) {
         return (
           //INDEX BEFORE CURRENT
           <div className="designs" key={index}>
-            {index === current - 1 && (
+            {index === cards.left && (
               <div className="container">
                 <IconButton onClick={prevSlide}>
                   <ChevronLeftIcon
@@ -160,7 +165,7 @@ function Designs(props) {
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            updateCart(current - 1);
+                            updateCart(cards.left);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -169,21 +174,21 @@ function Designs(props) {
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            downloadDesign(current - 1);
+                            downloadDesign(cards.left);
                           }}
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            editDesign(current - 1);
+                            editDesign(cards.left);
                           }}
                         >
                           <EditIcon size="small">Edit</EditIcon>
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            deleteDesign(current - 1);
+                            deleteDesign(cards.left);
                           }}
                         >
                           <DeleteIcon size="small">Delete</DeleteIcon>
@@ -194,64 +199,64 @@ function Designs(props) {
                 </Card>
               </div>
             )}
-            <div className={index === current ? "slide active" : "slide"}>
-              {index === current && (
-                
-                  <Card elevation={4} 
-                  // style={cardStyle} 
-                  className="card">
-                    <CardHeader
-                      title={design.title}
-                      // subheader={index}
-                    />
-                    <Model
-                      texture={design.image}
-                      reference={"ref" + design.id}
-                      model={"/model/lureDesignsC.glb"}
-                    />
+            <div className={index === cards.center ? "slide active" : "slide"}>
+              {index === cards.center && (
+                <Card
+                  elevation={4}
+                  // style={cardStyle}
+                  className="card"
+                >
+                  <CardHeader
+                    title={design.title}
+                    // subheader={index}
+                  />
+                  <Model
+                    texture={design.image}
+                    reference={"ref" + design.id}
+                    model={"/model/lureDesignsC.glb"}
+                  />
 
-                    <div className="cardButtons">
-                      <div className="centerButton">
-                        <CardActions>
-                          <IconButton
-                            onClick={() => {
-                              updateCart(current);
-                            }}
-                          >
-                            <ShoppingCartIcon size="small">
-                              Add To Cart
-                            </ShoppingCartIcon>
-                          </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              downloadDesign(current);
-                            }}
-                          >
-                            <DownloadIcon size="small">Download</DownloadIcon>
-                          </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              editDesign(current);
-                            }}
-                          >
-                            <EditIcon size="small">Edit</EditIcon>
-                          </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              deleteDesign(current);
-                            }}
-                          >
-                            <DeleteIcon size="small">Delete</DeleteIcon>
-                          </IconButton>
-                        </CardActions>
-                      </div>
+                  <div className="cardButtons">
+                    <div className="centerButton">
+                      <CardActions>
+                        <IconButton
+                          onClick={() => {
+                            updateCart(cards.center);
+                          }}
+                        >
+                          <ShoppingCartIcon size="small">
+                            Add To Cart
+                          </ShoppingCartIcon>
+                        </IconButton>
+                        <IconButton
+                          onClick={() => {
+                            downloadDesign(cards.center);
+                          }}
+                        >
+                          <DownloadIcon size="small">Download</DownloadIcon>
+                        </IconButton>
+                        <IconButton
+                          onClick={() => {
+                            editDesign(cards.center);
+                          }}
+                        >
+                          <EditIcon size="small">Edit</EditIcon>
+                        </IconButton>
+                        <IconButton
+                          onClick={() => {
+                            deleteDesign(cards.center);
+                          }}
+                        >
+                          <DeleteIcon size="small">Delete</DeleteIcon>
+                        </IconButton>
+                      </CardActions>
                     </div>
-                  </Card>
-                
+                  </div>
+                </Card>
               )}
             </div>
 
-            {index === current + 1 && (
+            {index === cards.right && (
               <div className="container">
                 <IconButton onClick={nextSlide}>
                   <ChevronRightIcon
@@ -273,7 +278,7 @@ function Designs(props) {
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            updateCart(current + 1);
+                            updateCart(cards.right);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -282,21 +287,21 @@ function Designs(props) {
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            downloadDesign(current + 1);
+                            downloadDesign(cards.right);
                           }}
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            editDesign(current + 1);
+                            editDesign(cards.right);
                           }}
                         >
                           <EditIcon size="small">Edit</EditIcon>
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            deleteDesign(current + 1);
+                            deleteDesign(cards.right);
                           }}
                         >
                           <DeleteIcon size="small">Delete</DeleteIcon>
