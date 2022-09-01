@@ -64,6 +64,7 @@ function CartItem({ item, index }) {
           texture={item.image}
           reference={"ref" + index}
           model={`/model/lureCart${index}.glb`}
+          interaction="none"
         />
         }
       </Grid>
