@@ -12,6 +12,7 @@ import {
   Card
 } from "@mui/material";
 import Model from "../Model/Model";
+import "./CartItem.css";
 
 function CartItem({ item, index }) {
   //---------------------local state---------------------//
@@ -70,12 +71,17 @@ function CartItem({ item, index }) {
             justifyContent="flex-start"
             alignItems="top"
           >
-      <Grid item xs={3} >
-        <Model
+     
+      <Grid item xs={3}>
+        {/* if item is a printer, show plain image. If it's a lure, show 3D model */}
+        {item.design_id === -1 ?
+          <img className="printer-img-cart" src={item.image} alt="printer image" />
+          :
+          <Model
           texture={item.image}
           reference={"ref" + index}
           model={`/model/lureCart${index}.glb`}
-        />
+        />}
       </Grid >
       
       
@@ -103,6 +109,11 @@ function CartItem({ item, index }) {
             <MenuItem value={8}>8</MenuItem>
             <MenuItem value={9}>9</MenuItem>
             <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={11}>11</MenuItem>
+            <MenuItem value={12}>12</MenuItem>
+            <MenuItem value={13}>13</MenuItem>
+            <MenuItem value={14}>14</MenuItem>
+            <MenuItem value={15}>15</MenuItem>
           </Select>
         </FormControl>
         <Button sx={{ml:2}}  onClick={updateCartQty}>Update Qty</Button>
