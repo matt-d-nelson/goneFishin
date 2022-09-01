@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./UserPage.css";
 import { Button, Typography } from "@mui/material";
-
-// import UsersDesigns from "../UsersDesigns/UsersDesigns";
-// import AllDesigns from "../AllDesigns/AllDesigns";
 import Designs from "../Designs/Designs";
 import BuyPrinterBtn from "../BuyPrinterBtn/BuyPrinterBtn";
 
@@ -59,25 +56,23 @@ function UserPage() {
         <Button
           className="feedButton"
           variant="contained"
-          sx={{ mr: 4}}
-          color='primary'
+          sx={{ mr: 4 }}
+          color="primary"
           onClick={toggleFeed}
         >
           <Typography variant="h4">
-          {!showFeed ? "My Designs" : "Feed"}
+            {!showFeed ? "My Designs" : "Feed"}
           </Typography>
         </Button>
-        <BuyPrinterBtn/>
+        <BuyPrinterBtn />
         <Button
           variant="contained"
           // sx={{ fontSize: "25px"}}
-          color='primary'
-          sx={{ ml: 4}}
+          color="primary"
+          sx={{ ml: 4 }}
           onClick={newDesign}
         >
-          <Typography variant="h4">
-          New
-          </Typography>
+          <Typography variant="h4">New</Typography>
         </Button>
       </div>
     </div>
