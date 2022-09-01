@@ -212,20 +212,24 @@ function Designs(props) {
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            editDesign(cards.left);
-                          }}
-                        >
-                          <EditIcon size="small">Edit</EditIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            deleteDesign(cards.left);
-                          }}
-                        >
-                          <DeleteIcon size="small">Delete</DeleteIcon>
-                        </IconButton>
+                        {props.showFeed === true && (
+                          <>
+                            <IconButton
+                              onClick={() => {
+                                editDesign(cards.left);
+                              }}
+                            >
+                              <EditIcon size="small">Edit</EditIcon>
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+                                deleteDesign(cards.left);
+                              }}
+                            >
+                              <DeleteIcon size="small">Delete</DeleteIcon>
+                            </IconButton>
+                          </>
+                        )}
                       </CardActions>
                     </div>
                   </div>
@@ -270,20 +274,24 @@ function Designs(props) {
                           >
                             <DownloadIcon size="small">Download</DownloadIcon>
                           </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              editDesign(cards.center);
-                            }}
-                          >
-                            <EditIcon size="small">Edit</EditIcon>
-                          </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              deleteDesign(cards.center);
-                            }}
-                          >
-                            <DeleteIcon size="small">Delete</DeleteIcon>
-                          </IconButton>
+                          {props.showFeed === true && (
+                            <>
+                              <IconButton
+                                onClick={() => {
+                                  editDesign(cards.center);
+                                }}
+                              >
+                                <EditIcon size="small">Edit</EditIcon>
+                              </IconButton>
+                              <IconButton
+                                onClick={() => {
+                                  deleteDesign(cards.center);
+                                }}
+                              >
+                                <DeleteIcon size="small">Delete</DeleteIcon>
+                              </IconButton>
+                            </>
+                          )}
                         </CardActions>
                       </div>
                     </div>
@@ -321,20 +329,24 @@ function Designs(props) {
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            editDesign(cards.right);
-                          }}
-                        >
-                          <EditIcon size="small">Edit</EditIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            deleteDesign(cards.right);
-                          }}
-                        >
-                          <DeleteIcon size="small">Delete</DeleteIcon>
-                        </IconButton>
+                        {props.showFeed === true && (
+                          <>
+                            <IconButton
+                              onClick={() => {
+                                editDesign(cards.right);
+                              }}
+                            >
+                              <EditIcon size="small">Edit</EditIcon>
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+                                deleteDesign(cards.right);
+                              }}
+                            >
+                              <DeleteIcon size="small">Delete</DeleteIcon>
+                            </IconButton>
+                          </>
+                        )}
                       </CardActions>
                     </div>
                   </div>
