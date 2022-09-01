@@ -166,6 +166,7 @@ function GlobalModal() {
             texture={modalData.texture}
             reference={"refPreview"}
             model={"/model/lurePreview.glb"}
+            interaction="auto"
           />
           <Button onClick={handleClose}>Return</Button>
         </Dialog>
@@ -182,6 +183,22 @@ function GlobalModal() {
           }}
         >
           <Typography variant="h3">Loading...</Typography>
+        </Dialog>
+      );
+    case "error":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography variant="h3">Error...</Typography>
+          <Typography variant="h5">{modalData.message}</Typography>
+          <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     default:

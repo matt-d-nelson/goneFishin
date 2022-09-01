@@ -38,6 +38,7 @@ function Model(props) {
         src={props.model}
         ar
         ar-modes="webxr scene-viewer quick-look"
+        interaction-prompt={props.interaction}
         camera-controls
         camera-orbit="-33.96deg 85.37deg auto"
         shadow-intensity="1"

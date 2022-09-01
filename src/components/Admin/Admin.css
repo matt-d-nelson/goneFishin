@@ -1,0 +1,11 @@
+.backButtonAdmin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 35px;
+}
+
+.ordersHeader {
+    margin-left: 700px;
+    margin-bottom: 20px;
+}
