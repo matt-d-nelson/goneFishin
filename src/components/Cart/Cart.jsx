@@ -31,26 +31,15 @@ function Cart() {
   //---------------------JSX return---------------------//
   return (
     <div>
-      <Grid container 
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center">
-          <Grid item>
-            <Typography variant="h4" m={2} sx={{ml:95, mb:5}}>
-              {user.username}'s cart
-            </Typography>
-          </Grid>
-            <Grid item>
-              <BuyPrinterBtn/>
-            </Grid>
-      </Grid>
-      
-        {/* map through cart and create an item component for each */}
-        {cart.map((item, i) => (
-        <Card  elevation={4} sx={{  mb:2, ml:20, mr:20}}>
+      <Typography  align="center" variant="h4" m={2}>
+        {user.username}'s cart
+      </Typography>
+      {/* map through cart and create an item component for each */}
+      {cart.map((item, i) => (
+        <Card key={item.id} elevation={4} sx={{  mb:2, ml:20, mr:20}}>
             <CartItem item={item} index={i} />
           </Card>
-        ))}
+      ))}
       
       <Grid container justifyContent="center">
         <Grid item m={2}>
@@ -64,6 +53,9 @@ function Cart() {
               Back
             </Typography>
           </Button>
+        </Grid>
+        <Grid item m={2}>
+          <BuyPrinterBtn/>
         </Grid>
         <Grid item m={2}>
           <Button variant="contained" onClick={submitOrder}>
