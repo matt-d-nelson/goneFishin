@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { Button,  TextField } from "@mui/material";
 import "./LoginForm.css";
 
-
 function LoginForm() {
   //---------------------local state---------------------//
   const [username, setUsername] = useState("");
@@ -23,7 +22,7 @@ function LoginForm() {
         type: "LOGIN",
         payload: {
           username: username,
-          password: password,
+          password: password
         },
       });
     } else {
