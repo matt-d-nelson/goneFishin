@@ -30,24 +30,17 @@ function Cart() {
   //---------------------JSX return---------------------//
   return (
     <div>
-      <Typography variant="h4" m={2}>
+      <Typography variant="h4" m={2} sx={{ml:94, mb:5}}>
         {user.username}'s cart
       </Typography>
-      <Card>
+      
         {/* map through cart and create an item component for each */}
         {cart.map((item, i) => (
-          <Grid
-            container
-            key={item.id}
-            spacing={4}
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="top"
-          >
+        <Card  elevation={4} sx={{  mb:2, ml:20, mr:20}}>
             <CartItem item={item} index={i} />
-          </Grid>
+          </Card>
         ))}
-      </Card>
+      
       <Grid container justifyContent="center">
         <Grid item m={2}>
           <Button

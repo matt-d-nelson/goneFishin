@@ -9,6 +9,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Card
 } from "@mui/material";
 import Model from "../Model/Model";
 
@@ -51,17 +52,34 @@ function CartItem({ item, index }) {
     });
   };
 
+  const cardStyle = {
+    transitionDuration: "2.3s",
+    background: "#A9E4EF",
+    color: "black",
+  };
+
   //---------------------JSX return---------------------//
   return (
     <>
-      <Grid item xs={3}>
+    
+    < Grid
+           container
+            key={item.id}
+            spacing={4}
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="top"
+          >
+      <Grid item xs={3} >
         <Model
           texture={item.image}
           reference={"ref" + index}
           model={`/model/lureCart${index}.glb`}
         />
-      </Grid>
-      <Grid item xs={5} m={2}>
+      </Grid >
+      
+      
+      <Grid item xs={5} m={1} sx={{mt:5}} >
         <Typography variant="body1" p={1}>
           Title: {item.title} <br />
           Description: {item.description}
@@ -87,10 +105,23 @@ function CartItem({ item, index }) {
             <MenuItem value={10}>10</MenuItem>
           </Select>
         </FormControl>
-        <Button onClick={updateCartQty}>Update Qty</Button>
+        <Button sx={{ml:2}}  onClick={updateCartQty}>Update Qty</Button>
+        {/* <Button
+        
+        variant="contained"
+        sx={{ mt: 4}}
+          onClick={() => {
+            removeItem(item.id);
+          }}
+        >
+          Remove
+        </Button> */}
       </Grid>
-      <Grid item xs={2} m={2}>
+      <Grid item xs={2} m={2} sx={{ml:20, mt:6}} >
         <Button
+        
+        variant="contained"
+        sx={{ mt: 4}}
           onClick={() => {
             removeItem(item.id);
           }}
@@ -98,6 +129,9 @@ function CartItem({ item, index }) {
           Remove
         </Button>
       </Grid>
+      </Grid>
+      
+    
     </>
   );
 }

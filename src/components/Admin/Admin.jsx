@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import "./Admin.css";
 //MUI style imports
 import { Typography, Grid, Card, Button } from "@mui/material";
 
@@ -75,21 +76,30 @@ function Admin() {
   //---------------------JSX return---------------------//
   return (
     <div>
+    
       <Grid container direction="row" justifyContent="space-between">
+      <div className="ordersHeader">
         <Typography variant="h4">
           {fulfilled ? "Fulfilled Orders" : "Unfulfilled Orders"}
         </Typography>
-        <Button onClick={toggleView}>
+        </div>
+        <Button variant="contained" sx={{ mr: 18, mb: 3}} onClick={toggleView}>
+        <Typography variant="h8">
+         
+          
           {fulfilled ? "Show Unfulfilled" : "Show Fulfilled"}
+          </Typography>
         </Button>
       </Grid>
+      
 
-      <Card>
+      <Card elevation={4} >
         {/* render either fulfilled or unfulfilled orders depending on hook state. Items will
                 render only if fulfilled field from database matches hook */}
         {orders.map((order) => (
           <div key={order.id}>
             {fulfilled === order.fulfilled && (
+              
               <Grid
                 container
                 key={order.id}
@@ -97,7 +107,9 @@ function Admin() {
                 direction="row"
                 justifyContent="flex-start"
                 alignItems="center"
+                columnSpacing={2}
               >
+                
                 <Grid item xs={3}>
                   <img src={order.image} alt="lure image" />
                 </Grid>
@@ -118,6 +130,7 @@ function Admin() {
                 {/* render different buttons depending on selected view */}
                 <Grid item xs={2}>
                   <Button
+                  variant="contained"
                     onClick={() => {
                       downloadOrder(order);
                     }}
@@ -126,6 +139,8 @@ function Admin() {
                   </Button>
                   <br />
                   <Button
+                  sx={{ mt: 1}}
+                  variant="contained"
                     onClick={() => {
                       deleteOrder(order.id);
                     }}
@@ -134,6 +149,8 @@ function Admin() {
                   </Button>
                   <br />
                   <Button
+                  variant="contained"
+                  sx={{ mt: 1}}
                     onClick={() => {
                       fulfillOrder(order.id);
                     }}
@@ -146,13 +163,17 @@ function Admin() {
           </div>
         ))}
       </Card>
-      <Button
+      <div className="backButtonAdmin">
+      <Button variant="contained"
         onClick={() => {
           history.goBack();
         }}
       >
-        Back
+        <Typography variant="h4">
+          Back
+          </Typography>
       </Button>
+      </div>
     </div>
   );
 }
