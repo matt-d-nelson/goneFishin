@@ -28,14 +28,11 @@ function Designs(props) {
 
   //---------------------props---------------------//
   const designs = props.designs;
-  const length = designs.length;
 
   //---------------------reducer state---------------------//
-  const user = useSelector((store) => store.user);
   const cart = useSelector((store) => store.cart);
 
   //---------------------local state---------------------//
-  const [current, setCurrent] = useState(1);
   const [cards, setCards] = useState({
     left: 0,
     center: 1,
