@@ -30,7 +30,7 @@ function Cart() {
   //---------------------JSX return---------------------//
   return (
     <div>
-      <Typography variant="h4" m={2} sx={{ml:94, mb:5}}>
+      <Typography variant="h4" m={2} sx={{ml:95, mb:5}}>
         {user.username}'s cart
       </Typography>
       
