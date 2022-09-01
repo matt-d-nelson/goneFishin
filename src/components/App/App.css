@@ -124,3 +124,23 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+/* --------------------------------------------------------------------------------
+Color Inputs
+-------------------------------------------------------------------------------- */
+
+input::-webkit-color-swatch {
+  border: solid 2px #fcf1d296;
+  border-radius: 50%;
+}
+
+.colorInput {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+  height: 4em;
+  width: 4em;
+  border: none;
+  border-radius: 50%;
+}

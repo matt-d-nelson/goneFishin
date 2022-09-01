@@ -2,6 +2,8 @@
 import {
   Button,
   ButtonGroup,
+  Card,
+  CardContent,
   Checkbox,
   Grid,
   TextField,
@@ -161,107 +163,154 @@ function Design() {
   //---------------------JSX return---------------------//
   return (
     <div style={{ textAlign: "center" }}>
-      <h2>Design</h2>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={6} align="right">
-          <Grid container direction="column">
-            {/* //------------LURE SVG FLAT------------// */}
-            <Grid item>
-              <div ref={fishSVG}>
-                <LureSVG
-                  bodyColor={bodyColor}
-                  bodyShadeColor={bodyShadeColor}
-                  finColor={finColor}
-                  dorsalColor={dorsalColor}
-                  eyeColor={eyeColor}
-                />
-              </div>
+      <h1>Design</h1>
+      <div>
+        <Card
+          elevation={4}
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            maxWidth: "650px",
+            minWidth: "650px",
+            paddingTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <CardContent>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item align="center" xs={7}>
+                {/* //------------LURE SVG FLAT------------// */}
+                <div ref={fishSVG}>
+                  <LureSVG
+                    bodyColor={bodyColor}
+                    bodyShadeColor={bodyShadeColor}
+                    finColor={finColor}
+                    dorsalColor={dorsalColor}
+                    eyeColor={eyeColor}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={5}>
+                {/* //------------COLOR INPUTS------------// */}
+
+                <Grid item align="center">
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Body
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleBodyColorChange}
+                        value={bodyColor}
+                        name="body"
+                        className="colorInput"
+                      />
+                    </Grid>
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Eyes
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleEyeColorChange}
+                        value={eyeColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item align="left">
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Fins
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleFinColorChange}
+                        value={finColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Dorsal
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleDorsalColorChange}
+                        value={dorsalColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid container direction="column" spacing={2}>
+                  {/* //------------TEXT INPUTS------------// */}
+                  <Grid item align="center">
+                    <TextField
+                      label="title"
+                      onChange={handleTitleChange}
+                      value={title}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center">
+                    <TextField
+                      label="description"
+                      minRows={8}
+                      multiline
+                      onChange={handleDescriptionChange}
+                      value={description}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <Grid container direction="column" spacing={2}>
-            {/* //------------TEXT INPUTS------------// */}
-            <Grid item align="left">
-              <TextField label="title" onChange={handleTitleChange} />
-            </Grid>
-            <Grid item align="left">
-              <TextField
-                label="description"
-                minRows={8}
-                multiline
-                onChange={handleDescriptionChange}
-              />
-            </Grid>
-            {/* //------------COLOR INPUTS------------// */}
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleBodyColorChange}
-                  value={bodyColor}
-                  name="body"
-                />
-                : Body
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleFinColorChange}
-                  value={finColor}
-                />
-                : Fins
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleDorsalColorChange}
-                  value={dorsalColor}
-                />
-                : Dorsal
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleEyeColorChange}
-                  value={eyeColor}
-                />
-                : Eyes
-              </label>
-            </Grid>
-          </Grid>
-        </Grid>
+          </CardContent>
+        </Card>
         {/* //------------BUTTONS------------// */}
-        <Grid item>
-          <Grid container>
-            <Button onClick={PreviewModel} variant="contained" sx={{ mr: 1 }}>
-              3D Preview
-            </Button>
-            <Button onClick={onCancel} variant="contained" sx={{ mr: 1 }}>
-              Cancel
-            </Button>
-            <Button onClick={onSave} variant="contained" sx={{ mr: 1 }}>
-              Save
-            </Button>
-            <Button component="label" variant="contained" sx={{ mr: 1 }}>
-              Public:
-              <Checkbox
-                label="public"
-                onChange={updatePublic}
-                checked={publicDesign}
-                color="secondary"
-                disableRipple
-              />
-            </Button>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Grid container>
+              <Button variant="contained" onClick={PreviewModel} sx={{ mr: 1 }}>
+                3D Preview
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onSave}>
+                Save
+              </Button>
+              <Button component="label" variant="contained" sx={{ mr: 1 }}>
+                Public:
+                <Checkbox
+                  label="public"
+                  onChange={updatePublic}
+                  checked={publicDesign}
+                  color="secondary"
+                  disableRipple
+                />
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
     </div>
   );
 }
