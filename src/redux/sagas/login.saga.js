@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "LOGIN" actions
@@ -20,6 +20,20 @@ function* loginUser(action) {
     // after the user has logged in
     // get the user information from the server
     yield put({ type: 'FETCH_USER' });
+
+    // open success modal
+    yield put({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "success",
+        open: true,
+        success: "You're logged in. Welcome!"
+      }
+    });
+    // after a delay, close the modal
+    yield delay(1100);
+    yield put ({type: 'CLOSE_MODAL'});
+
   } catch (error) {
     console.log('Error with user login:', error);
     if (error.response.status === 401) {
