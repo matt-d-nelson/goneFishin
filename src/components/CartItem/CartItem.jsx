@@ -1,5 +1,5 @@
 //---------------------imports---------------------//
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Typography,
@@ -21,6 +21,12 @@ function CartItem({ item, index }) {
 
   //---------------------imported methods---------------------//
   const dispatch = useDispatch();
+
+  //---------------------on mount---------------------//
+  // when there's a change in cart item's quantity (usually from add printer btn), display new qty
+  useEffect(()=>{
+    setQty(item.qty);
+  }, [item.qty])
 
   //---------------------event handlers---------------------//
   // on click, opens modal to confirm delete from cart action
