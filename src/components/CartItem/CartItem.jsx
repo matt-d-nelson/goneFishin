@@ -11,6 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 import Model from "../Model/Model";
+import "./CartItem.css";
 
 function CartItem({ item, index }) {
   //---------------------local state---------------------//
@@ -55,12 +56,17 @@ function CartItem({ item, index }) {
   return (
     <>
       <Grid item xs={3}>
-        <Model
+        {/* if item is a printer, show plain image. If it's a lure, show 3D model */}
+        {item.design_id === -1 ?
+          <img className="printer-img-cart" src={item.image} alt="printer image" />
+          :
+          <Model
           texture={item.image}
           reference={"ref" + index}
           model={`/model/lureCart${index}.glb`}
           interaction="none"
         />
+        }
       </Grid>
       <Grid item xs={5} m={2}>
         <Typography variant="body1" p={1}>
@@ -86,6 +92,11 @@ function CartItem({ item, index }) {
             <MenuItem value={8}>8</MenuItem>
             <MenuItem value={9}>9</MenuItem>
             <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={11}>11</MenuItem>
+            <MenuItem value={12}>12</MenuItem>
+            <MenuItem value={13}>13</MenuItem>
+            <MenuItem value={14}>14</MenuItem>
+            <MenuItem value={15}>15</MenuItem>
           </Select>
         </FormControl>
         <Button onClick={updateCartQty}>Update Qty</Button>
