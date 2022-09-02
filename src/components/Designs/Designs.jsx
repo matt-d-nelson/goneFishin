@@ -177,7 +177,11 @@ function Designs(props) {
   };
 
   const setAnchor = (event, description) => {
-    setPopOverMessage(description);
+    if (description === "") {
+      setPopOverMessage("No description provided.");
+    } else {
+      setPopOverMessage(description);
+    }
     setPopOverOpen(true);
     setPopOverAnchor(event.currentTarget);
   };
