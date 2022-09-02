@@ -144,3 +144,23 @@ input::-webkit-color-swatch {
   border: none;
   border-radius: 50%;
 }
+
+/* --------------------------------------------------------------------------------
+Designs Popover
+-------------------------------------------------------------------------------- */
+
+.designTitle {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+.designTitle:hover {
+  color: white;
+  background-color: #c97c5d;
+}
+
+.popOverStyle {
+  padding: 10px;
+  width: 18em;
+}

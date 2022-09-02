@@ -11,6 +11,9 @@ import {
   CardMedia,
   Grid,
   Modal,
+  Popover,
+  Typography,
+  Button,
 } from "@mui/material";
 // import {Button} from '@mui/material'
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -33,6 +36,9 @@ function Designs(props) {
   const cart = useSelector((store) => store.cart);
 
   //---------------------local state---------------------//
+  const [popOverAnchor, setPopOverAnchor] = useState(null);
+  const [popOverOpen, setPopOverOpen] = useState(false);
+  const [popOverMessage, setPopOverMessage] = useState("");
   const [cards, setCards] = useState({
     left: 0,
     center: 1,
@@ -170,10 +176,36 @@ function Designs(props) {
     console.log(newIndex);
   };
 
+  const setAnchor = (event, description) => {
+    setPopOverMessage(description);
+    setPopOverOpen(true);
+    setPopOverAnchor(event.currentTarget);
+  };
+
+  const closePopOver = () => {
+    setPopOverOpen(false);
+    setPopOverAnchor(null);
+  };
+
   //---------------------JSX return---------------------//
   return (
     // Users Designs
     <div className="designs_container">
+      <Popover
+        open={popOverOpen}
+        anchorEl={popOverAnchor}
+        onClose={closePopOver}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Typography className="popOverStyle">{popOverMessage}</Typography>
+      </Popover>
       <IconButton onClick={prevSlide} className="icon-button">
         <ChevronLeftIcon sx={{ fontSize: "80px" }} className="arrow-button">
           Previous
@@ -186,7 +218,19 @@ function Designs(props) {
             {index === cards.left && (
               <div className="container">
                 <Card elevation={4} style={cardStyle} className="card">
-                  <CardHeader title={design.title}></CardHeader>
+                  <CardHeader
+                    title={
+                      <Typography
+                        onClick={(event) => {
+                          setAnchor(event, design.description);
+                        }}
+                        variant="h5"
+                        className="designTitle"
+                      >
+                        {design.title}
+                      </Typography>
+                    }
+                  ></CardHeader>
                   <Model
                     texture={design.image}
                     reference={"ref" + design.id}
@@ -245,7 +289,17 @@ function Designs(props) {
                     className="card"
                   >
                     <CardHeader
-                      title={design.title}
+                      title={
+                        <Typography
+                          onClick={(event) => {
+                            setAnchor(event, design.description);
+                          }}
+                          variant="h5"
+                          className="designTitle"
+                        >
+                          {design.title}
+                        </Typography>
+                      }
                       // subheader={index}
                     />
                     <Model
@@ -303,7 +357,19 @@ function Designs(props) {
             {index === cards.right && (
               <div className="container">
                 <Card elevation={4} style={cardStyle} className="card">
-                  <CardHeader title={design.title}></CardHeader>
+                  <CardHeader
+                    title={
+                      <Typography
+                        onClick={(event) => {
+                          setAnchor(event, design.description);
+                        }}
+                        variant="h5"
+                        className="designTitle"
+                      >
+                        {design.title}
+                      </Typography>
+                    }
+                  ></CardHeader>
                   <Model
                     texture={design.image}
                     reference={"ref" + design.id}
