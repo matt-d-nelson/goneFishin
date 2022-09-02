@@ -77,19 +77,22 @@ function Admin() {
   return (
     <div>
     
-      <Grid container direction="row" justifyContent="space-between">
-      <div className="ordersHeader">
-        <Typography variant="h4">
-          {fulfilled ? "Fulfilled Orders" : "Unfulfilled Orders"}
-        </Typography>
-        </div>
-        <Button variant="contained" sx={{ mr: 18, mb: 3}} onClick={toggleView}>
-        <Typography variant="h8">
-         
-          
-          {fulfilled ? "Show Unfulfilled" : "Show Fulfilled"}
+      <Grid container direction="row" justifyContent="space-between" >
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8} mb={1} >
+          <Typography variant="h4" align="center" >
+            {fulfilled ? "Fulfilled Orders" : "Unfulfilled Orders"}
           </Typography>
-        </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Button variant="contained"  onClick={toggleView}>
+          <Typography variant="h8">
+          
+            
+            {fulfilled ? "Show Unfulfilled" : "Show Fulfilled"}
+            </Typography>
+          </Button>
+        </Grid>
       </Grid>
       
 

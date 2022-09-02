@@ -1,5 +1,5 @@
 //---------------------imports---------------------//
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Typography,
@@ -21,6 +21,12 @@ function CartItem({ item, index }) {
 
   //---------------------imported methods---------------------//
   const dispatch = useDispatch();
+
+  //---------------------on mount---------------------//
+  // when there's a change in cart item's quantity (usually from add printer btn), display new qty
+  useEffect(()=>{
+    setQty(item.qty);
+  }, [item.qty])
 
   //---------------------event handlers---------------------//
   // on click, opens modal to confirm delete from cart action
@@ -68,11 +74,11 @@ function CartItem({ item, index }) {
             key={item.id}
             spacing={4}
             direction="row"
-            justifyContent="flex-start"
+            justifyContent="space-between"
             alignItems="top"
           >
      
-      <Grid item xs={3}>
+      <Grid item xs={2}>
         {/* if item is a printer, show plain image. If it's a lure, show 3D model */}
         {item.design_id === -1 ?
           <img className="printer-img-cart" src={item.image} alt="printer image" />
@@ -84,8 +90,7 @@ function CartItem({ item, index }) {
         />}
       </Grid >
       
-      
-      <Grid item xs={5} m={1} sx={{mt:5}} >
+      <Grid item xs={3} sx={{mt:5}} >
         <Typography variant="body1" p={1}>
           Title: {item.title} <br />
           Description: {item.description}
@@ -117,20 +122,10 @@ function CartItem({ item, index }) {
           </Select>
         </FormControl>
         <Button sx={{ml:2}}  onClick={updateCartQty}>Update Qty</Button>
-        {/* <Button
-        
-        variant="contained"
-        sx={{ mt: 4}}
-          onClick={() => {
-            removeItem(item.id);
-          }}
-        >
-          Remove
-        </Button> */}
       </Grid>
+      
       <Grid item xs={2} m={2} sx={{ml:20, mt:6}} >
         <Button
-        
         variant="contained"
         sx={{ mt: 4}}
           onClick={() => {
@@ -140,9 +135,8 @@ function CartItem({ item, index }) {
           Remove
         </Button>
       </Grid>
-      </Grid>
-      
-    
+
+    </Grid>
     </>
   );
 }

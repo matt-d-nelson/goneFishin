@@ -9,6 +9,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
 
+
 function GlobalModal() {
   //---------------------imported methods---------------------//
   const dispatch = useDispatch();
@@ -33,6 +34,16 @@ function GlobalModal() {
   const deleteCartItem = (cartID) => {
     dispatch({ type: "DELETE_ORDER", payload: cartID });
     handleClose();
+  };
+  // switches modal from register to login
+  const openLogin = () => {
+    dispatch({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "login",
+        open: true
+      }
+    })
   };
 
   //---------------------JSX return---------------------//
@@ -81,6 +92,17 @@ function GlobalModal() {
       return (
         <Dialog open={modalData.open}>
           <RegisterForm />
+          <Typography 
+            variant="h6" 
+            sx={{ml: 6.5, mt: 1}}>
+              Already have an account?
+          </Typography>
+          <Button 
+            variant="contained" 
+            sx={{ml: 15, mr: 15, mb: 1 }}
+            onClick={openLogin}>
+              Login
+          </Button>
           <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
