@@ -190,16 +190,16 @@ function LureSVG(props) {
         />
         {/* EYE LEFT */}
         <ellipse
+          id="path10872"
+          cx="41.461098"
+          cy="69.026711"
+          rx="1.9260963"
+          ry="1.9247077"
           style={{
             fill: "#000000",
             stroke: props.eyeColor,
             strokeWidth: "0.8",
           }}
-          id="path10872"
-          cx="40.461605"
-          cy="70.026451"
-          rx="1.9260963"
-          ry="1.9247077"
         />
         {/* -----------------------OBJECTS RIGHT------------------------ */}
         {/* BODY BKG RIGHT */}
@@ -256,17 +256,17 @@ function LureSVG(props) {
         />
         {/* EYE RIGHT */}
         <ellipse
+          id="path10872-9"
+          cx="-56.104095"
+          cy="69.088287"
+          rx="1.9260963"
+          ry="1.9247077"
+          transform="scale(-1,1)"
           style={{
             fill: "#000000",
             stroke: props.eyeColor,
             strokeWidth: "0.8",
           }}
-          id="path10872-9"
-          cx="-57.104355"
-          cy="70.088028"
-          rx="1.9260963"
-          ry="1.9247077"
-          transform="scale(-1,1)"
         />
 
         {/* -----------------------ANCHOR POINTS------------------------ */}
