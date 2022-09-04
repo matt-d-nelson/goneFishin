@@ -128,6 +128,8 @@ function Design() {
       let img = document.createElement("img");
       // set it's source to the url of the svg blob
       img.src = objectUrl;
+      // store a reference to the hidden grid img element
+      let imgGrid = document.getElementById("grid");
       // create a new <canvas> element
       const pngCanvas = document.createElement(`canvas`);
       // define its width and height to that of the svg (hard coded)
@@ -137,6 +139,8 @@ function Design() {
       let ctx = pngCanvas.getContext("2d");
       // when the svg blob is loaded into the img element
       img.onload = function () {
+        // draw the img (sourced with the grid) to the canvas
+        ctx.drawImage(imgGrid, 0, 0);
         // draw the img (sourced with the svg blob) to the canvas
         ctx.drawImage(img, 0, 0);
         // convert the drawn image to a blob of data
@@ -164,6 +168,8 @@ function Design() {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Design</h1>
+      {/* hidden grid png for saving lure design */}
+      <img src="/image/LureGrid.png" id="grid" style={{ display: "none" }} />
       <div>
         <Card
           elevation={4}

@@ -38,4 +38,4 @@ CREATE TABLE "favorite" (
 );
 
 INSERT INTO "design" (id, svg_colors, description, title, image, public) VALUES 
-	('-1', 'printer', 'Make your own custom lures', 'Lure printer', 'image/Image-coming-soon.png', 'false');
+	('-1', 'printer', 'Make your own custom lures', 'Lure printer', 'image/Printer.png', 'false');
