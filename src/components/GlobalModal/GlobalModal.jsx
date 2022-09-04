@@ -143,14 +143,16 @@ function GlobalModal() {
           }}
         >
           <p>{modalData.message}</p>
-          <Button
+          <Button variant="contained"
             onClick={() => {
               deleteCartItem(modalData.cart_id);
             }}
           >
             OK
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <br />
+          
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "preview":
