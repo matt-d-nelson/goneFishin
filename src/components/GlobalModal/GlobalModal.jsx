@@ -52,7 +52,7 @@ function GlobalModal() {
       return (
         <Dialog open={modalData.open}>
           <LoginForm />
-          <Button onClick={handleClose}>Close</Button>
+          <Button variant="contained" onClick={handleClose}>Close</Button>
         </Dialog>
       );
     case "success_nav":
@@ -69,7 +69,9 @@ function GlobalModal() {
           <CheckCircleOutlineIcon sx={{ fontSize: 40 }} />
           <br />
           {modalData.success}
-          <Button onClick={handleClose}>return</Button>
+          <br />
+          <br />
+          <Button variant="contained" onClick={handleClose}>return</Button>
         </Dialog>
       );
     case "success":
@@ -103,7 +105,7 @@ function GlobalModal() {
             onClick={openLogin}>
               Login
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteDesign":
@@ -118,14 +120,15 @@ function GlobalModal() {
           }}
         >
           <p>{modalData.message}</p>
-          <Button
+          <Button variant="contained"
             onClick={() => {
               deleteDesign(modalData.design_id);
             }}
           >
             Yes
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <br />
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteCartItem":
@@ -168,7 +171,7 @@ function GlobalModal() {
             model={"/model/lurePreview.glb"}
             interaction="auto"
           />
-          <Button onClick={handleClose}>Return</Button>
+          <Button variant="contained" onClick={handleClose}>Return</Button>
         </Dialog>
       );
     case "loading":
