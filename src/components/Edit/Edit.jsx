@@ -188,6 +188,7 @@ function Edit(props) {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Edit</h1>
+      {/* hidden grid png for saving lure design */}
       <img src="/image/LureGrid.png" id="grid" style={{ display: "none" }} />
       {design.length != 0 ? (
         <div>
