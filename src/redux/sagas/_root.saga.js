@@ -13,6 +13,7 @@ import cartItemsSaga from "./cart.saga";
 import submitOrderSaga from "./submit.order.saga";
 import feedSaga from "./feed.saga";
 import updateQtySaga from "./update.qty.saga";
+import addPrinterSaga from "./add.printer.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -37,5 +38,6 @@ export default function* rootSaga() {
     submitOrderSaga(), // submits a user's cart item as ordered
     feedSaga(), // get all public designs
     updateQtySaga(), // update quantity of item in a user's cart
+    addPrinterSaga(), // add a printer to a user's cart
   ]);
 }

@@ -6,6 +6,9 @@ import { useHistory } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import Model from "../Model/Model";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useEffect } from "react";
+
 
 function GlobalModal() {
   //---------------------imported methods---------------------//
@@ -32,6 +35,16 @@ function GlobalModal() {
     dispatch({ type: "DELETE_ORDER", payload: cartID });
     handleClose();
   };
+  // switches modal from register to login
+  const openLogin = () => {
+    dispatch({
+      type: "OPEN_MODAL",
+      payload: {
+        type: "login",
+        open: true
+      }
+    })
+  };
 
   //---------------------JSX return---------------------//
   switch (modalData.type) {
@@ -39,7 +52,26 @@ function GlobalModal() {
       return (
         <Dialog open={modalData.open}>
           <LoginForm />
-          <Button onClick={handleClose}>Close</Button>
+          <Button variant="contained" onClick={handleClose}>Close</Button>
+        </Dialog>
+      );
+    case "success_nav":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <CheckCircleOutlineIcon sx={{ fontSize: 40 }} />
+          <br />
+          {modalData.success}
+          <br />
+          <br />
+          <Button variant="contained" onClick={handleClose}>return</Button>
         </Dialog>
       );
     case "success":
@@ -53,15 +85,27 @@ function GlobalModal() {
             },
           }}
         >
+          <CheckCircleOutlineIcon sx={{ fontSize: 40 }} />
+          <br />
           {modalData.success}
-          <Button onClick={handleClose}>Close</Button>
         </Dialog>
       );
     case "register":
       return (
         <Dialog open={modalData.open}>
           <RegisterForm />
-          <Button onClick={handleClose}>Close</Button>
+          <Typography 
+            variant="h6" 
+            sx={{ml: 6.5, mt: 1}}>
+              Already have an account?
+          </Typography>
+          <Button 
+            variant="contained" 
+            sx={{ml: 15, mr: 15, mb: 1 }}
+            onClick={openLogin}>
+              Login
+          </Button>
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteDesign":
@@ -76,14 +120,15 @@ function GlobalModal() {
           }}
         >
           <p>{modalData.message}</p>
-          <Button
+          <Button variant="contained"
             onClick={() => {
               deleteDesign(modalData.design_id);
             }}
           >
             Yes
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <br />
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "deleteCartItem":
@@ -98,14 +143,16 @@ function GlobalModal() {
           }}
         >
           <p>{modalData.message}</p>
-          <Button
+          <Button variant="contained"
             onClick={() => {
               deleteCartItem(modalData.cart_id);
             }}
           >
             OK
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <br />
+          
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     case "preview":
@@ -124,8 +171,9 @@ function GlobalModal() {
             texture={modalData.texture}
             reference={"refPreview"}
             model={"/model/lurePreview.glb"}
+            interaction="auto"
           />
-          <Button onClick={handleClose}>Return</Button>
+          <Button variant="contained" onClick={handleClose}>Return</Button>
         </Dialog>
       );
     case "loading":
@@ -140,6 +188,22 @@ function GlobalModal() {
           }}
         >
           <Typography variant="h3">Loading...</Typography>
+        </Dialog>
+      );
+    case "error":
+      return (
+        <Dialog
+          open={modalData.open}
+          PaperProps={{
+            sx: {
+              p: "8% 8%",
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography variant="h3">Error...</Typography>
+          <Typography variant="h5">{modalData.message}</Typography>
+          <Button onClick={handleClose}>Cancel</Button>
         </Dialog>
       );
     default:

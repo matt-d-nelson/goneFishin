@@ -2,6 +2,8 @@
 import {
   Button,
   ButtonGroup,
+  Card,
+  CardContent,
   Checkbox,
   Grid,
   TextField,
@@ -100,11 +102,21 @@ function Design() {
   const onSave = () => {
     // check to see if a user is logged in
     if (user.id === undefined) {
+      // if not open a register window
       dispatch({
         type: "OPEN_MODAL",
         payload: { type: "register", open: true },
       });
-      // if not open a register window
+      // check to ensure a title is entered
+    } else if (title === "") {
+      dispatch({
+        type: "OPEN_MODAL",
+        payload: {
+          type: "error",
+          open: true,
+          message: "Please enter a title for your design",
+        },
+      });
     } else {
       // get the current svg HTML
       const svg = fishSVG.current.innerHTML;
@@ -116,6 +128,8 @@ function Design() {
       let img = document.createElement("img");
       // set it's source to the url of the svg blob
       img.src = objectUrl;
+      // store a reference to the hidden grid img element
+      let imgGrid = document.getElementById("grid");
       // create a new <canvas> element
       const pngCanvas = document.createElement(`canvas`);
       // define its width and height to that of the svg (hard coded)
@@ -125,6 +139,8 @@ function Design() {
       let ctx = pngCanvas.getContext("2d");
       // when the svg blob is loaded into the img element
       img.onload = function () {
+        // draw the img (sourced with the grid) to the canvas
+        ctx.drawImage(imgGrid, 0, 0);
         // draw the img (sourced with the svg blob) to the canvas
         ctx.drawImage(img, 0, 0);
         // convert the drawn image to a blob of data
@@ -151,99 +167,156 @@ function Design() {
   //---------------------JSX return---------------------//
   return (
     <div style={{ textAlign: "center" }}>
-      <h2>Design</h2>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={6} align="right">
-          <Grid container direction="column">
-            {/* //------------LURE SVG FLAT------------// */}
-            <Grid item>
-              <div ref={fishSVG}>
-                <LureSVG
-                  bodyColor={bodyColor}
-                  bodyShadeColor={bodyShadeColor}
-                  finColor={finColor}
-                  dorsalColor={dorsalColor}
-                  eyeColor={eyeColor}
-                />
-              </div>
+      <h1>Design</h1>
+      {/* hidden grid png for saving lure design */}
+      <img src="/image/LureGrid.png" id="grid" style={{ display: "none" }} />
+      <div>
+        <Card
+          elevation={4}
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            maxWidth: "650px",
+            minWidth: "650px",
+            paddingTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <CardContent>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item align="center" xs={7}>
+                {/* //------------LURE SVG FLAT------------// */}
+                <div ref={fishSVG}>
+                  <LureSVG
+                    bodyColor={bodyColor}
+                    bodyShadeColor={bodyShadeColor}
+                    finColor={finColor}
+                    dorsalColor={dorsalColor}
+                    eyeColor={eyeColor}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={5}>
+                {/* //------------COLOR INPUTS------------// */}
+
+                <Grid item align="center">
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Body
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleBodyColorChange}
+                        value={bodyColor}
+                        name="body"
+                        className="colorInput"
+                      />
+                    </Grid>
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Eyes
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleEyeColorChange}
+                        value={eyeColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item align="left">
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Fins
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleFinColorChange}
+                        value={finColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                    <Grid item align="center">
+                      <Typography
+                        variant="h5"
+                        sx={{ textDecoration: "underline" }}
+                      >
+                        Dorsal
+                      </Typography>
+                      <input
+                        type="color"
+                        onChange={handleDorsalColorChange}
+                        value={dorsalColor}
+                        className="colorInput"
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid container direction="column" spacing={2}>
+                  {/* //------------TEXT INPUTS------------// */}
+                  <Grid item align="center">
+                    <TextField
+                      label="title"
+                      onChange={handleTitleChange}
+                      value={title}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center">
+                    <TextField
+                      label="description"
+                      minRows={8}
+                      multiline
+                      onChange={handleDescriptionChange}
+                      value={description}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Button onClick={PreviewModel} style={{ marginRight: "110px" }}>
+          </CardContent>
+        </Card>
+        {/* //------------BUTTONS------------// */}
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Grid container>
+              <Button variant="contained" onClick={PreviewModel} sx={{ mr: 1 }}>
                 3D Preview
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button variant="contained" sx={{ mr: 1 }} onClick={onSave}>
+                Save
+              </Button>
+              <Button component="label" variant="contained" sx={{ mr: 1 }}>
+                Public:
+                <Checkbox
+                  label="public"
+                  onChange={updatePublic}
+                  checked={publicDesign}
+                  color="secondary"
+                  disableRipple
+                />
               </Button>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Grid container direction="column" spacing={2}>
-            {/* //------------TEXT INPUTS------------// */}
-            <Grid item align="left">
-              <TextField label="title" onChange={handleTitleChange} />
-            </Grid>
-            <Grid item align="left">
-              <TextField
-                label="description"
-                minRows={8}
-                multiline
-                onChange={handleDescriptionChange}
-              />
-            </Grid>
-            {/* //------------COLOR INPUTS------------// */}
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleBodyColorChange}
-                  value={bodyColor}
-                  name="body"
-                />
-                : Body
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleFinColorChange}
-                  value={finColor}
-                />
-                : Fins
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleDorsalColorChange}
-                  value={dorsalColor}
-                />
-                : Dorsal
-              </label>
-            </Grid>
-            <Grid item align="left">
-              <label>
-                <input
-                  type="color"
-                  onChange={handleEyeColorChange}
-                  value={eyeColor}
-                />
-                : Eyes
-              </label>
-            </Grid>
-          </Grid>
-        </Grid>
-        {/* //------------BUTTONS------------// */}
-        <Grid item>
-          <Grid container>
-            <Button onClick={onCancel}>Cancel</Button>
-            <Button onClick={onSave}>Save</Button>
-            <Button component="label">
-              Public:
-              <Checkbox label="public" onChange={updatePublic} />
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
+      </div>
     </div>
   );
 }

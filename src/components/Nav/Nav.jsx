@@ -13,7 +13,12 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <div className="navLogo">
+        {/* <img className="navLogo" src="./image/redwing-lures-mark.transparent.png" alt="" /> */}
+        </div>
+        <h2 className="nav-title">Red Wing Lure Company
+        </h2>
+        
       </Link>
       <div>
         {/* If no user is logged in, show these links */}

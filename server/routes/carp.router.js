@@ -7,7 +7,7 @@ const {
 
 // GET all designs for the logged in user
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const query = `SELECT * FROM "design" WHERE user_id=$1;`;
+  const query = `SELECT * FROM "design" WHERE user_id=$1 ORDER BY id DESC;`;
   const value = [req.user.id];
   pool
     .query(query, value)

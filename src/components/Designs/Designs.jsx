@@ -11,6 +11,9 @@ import {
   CardMedia,
   Grid,
   Modal,
+  Popover,
+  Typography,
+  Button,
 } from "@mui/material";
 // import {Button} from '@mui/material'
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -28,14 +31,19 @@ function Designs(props) {
 
   //---------------------props---------------------//
   const designs = props.designs;
-  const length = designs.length;
 
   //---------------------reducer state---------------------//
-  const user = useSelector((store) => store.user);
   const cart = useSelector((store) => store.cart);
 
   //---------------------local state---------------------//
-  const [current, setCurrent] = useState(0);
+  const [popOverAnchor, setPopOverAnchor] = useState(null);
+  const [popOverOpen, setPopOverOpen] = useState(false);
+  const [popOverMessage, setPopOverMessage] = useState("");
+  const [cards, setCards] = useState({
+    left: 0,
+    center: 1,
+    right: 2,
+  });
 
   //---------------------on mount---------------------//
   useEffect(() => {
@@ -44,10 +52,19 @@ function Designs(props) {
     console.log(props.designs);
   }, []);
 
+  // innitialize card index state when toggling between feed and my designs
+  useEffect(() => {
+    setCards({
+      left: 0,
+      center: 1,
+      right: 2,
+    });
+  }, [props.showFeed]);
+
   const cardStyle = {
-    transitionDuration: "2.3s",
-    background: "#B1BCA7",
-    color: "white",
+    // transitionDuration: "2.3s",
+    // background: "#A9E4EF",
+    // color: "black",
   };
 
   //---------------------event handlers---------------------//
@@ -56,14 +73,6 @@ function Designs(props) {
     // const today = new Date().toLocaleDateString();
     // console.log(today);
     dispatch({ type: "ADD_DESIGN_TO_CART", payload: designs[thisDesign] });
-    dispatch({
-      type: "OPEN_MODAL",
-      payload: {
-        type: "success",
-        open: true,
-        success: "Design Added To Cart",
-      },
-    });
   };
 
   // handle click for adding to cart
@@ -108,58 +117,136 @@ function Designs(props) {
     history.push(`/edit/${designs[thisDesign].id}`);
   };
 
+  // opens modal to confrim delete design action
   const deleteDesign = (thisDesign) => {
-    console.log("in deleteDesign", designs[thisDesign].id, "userID", user.id);
+    console.log("in deleteDesign", designs[thisDesign].id);
     dispatch({
-      type: "DELETE_DESIGN",
-      payload: designs[thisDesign].id,
-      id: designs[thisDesign].user_id,
+      type: "OPEN_MODAL",
+      payload: {
+        type: "deleteDesign",
+        open: true,
+        message: "Are you sure you want to delete this design?",
+        design_id: designs[thisDesign].id,
+      },
     });
   };
 
   const nextSlide = () => {
     console.log("in nextSlide");
-    setCurrent(current === length - 1 ? 0 : current + 1);
-    console.log(current);
+    // declare helper object
+    let newIndex = {
+      left: 0,
+      center: 1,
+      right: 2,
+    };
+    // loop through each property in the cards object state
+    for (const thisCard in cards) {
+      // if adding 3 to this cards index will result in a number greater than the designs array length
+      if (cards[thisCard] + 3 > designs.length - 1) {
+        // set this cards index to the remainder to wrap it around
+        newIndex[thisCard] = (cards[thisCard] + 3) % designs.length;
+      } else {
+        // else add 3, it's no prob
+        newIndex[thisCard] = cards[thisCard] + 3;
+      }
+    }
+    // set the state using the helper obj
+    setCards(newIndex);
+    console.log(newIndex);
   };
 
   const prevSlide = () => {
+    // similar to nextSlide except...
     console.log("in prevSlide");
-    setCurrent(current === 0 ? length - 1 : current - 1);
-    console.log(current);
+    let newIndex = {
+      left: 0,
+      center: 1,
+      right: 2,
+    };
+    for (const thisCard in cards) {
+      // check if subtracting 3 would result in an index that is less than 0
+      if (cards[thisCard] - 3 < 0) {
+        // if so, add that negative value to the length to set the new index
+        newIndex[thisCard] = cards[thisCard] - 3 + designs.length;
+      } else {
+        newIndex[thisCard] = cards[thisCard] - 3;
+      }
+    }
+    setCards(newIndex);
+    console.log(newIndex);
+  };
+
+  const setAnchor = (event, description) => {
+    if (description === "") {
+      setPopOverMessage("No description provided.");
+    } else {
+      setPopOverMessage(description);
+    }
+    setPopOverOpen(true);
+    setPopOverAnchor(event.currentTarget);
+  };
+
+  const closePopOver = () => {
+    setPopOverOpen(false);
+    setPopOverAnchor(null);
   };
 
   //---------------------JSX return---------------------//
   return (
     // Users Designs
-    <div>
+    <div className="designs_container">
+      <Popover
+        open={popOverOpen}
+        anchorEl={popOverAnchor}
+        onClose={closePopOver}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Typography className="popOverStyle">{popOverMessage}</Typography>
+      </Popover>
+      <IconButton onClick={prevSlide} className="icon-button">
+        <ChevronLeftIcon sx={{ fontSize: "80px" }} className="arrow-button">
+          Previous
+        </ChevronLeftIcon>
+      </IconButton>
       {designs.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
           <div className="designs" key={index}>
-            {index === current - 1 && (
+            {index === cards.left && (
               <div className="container">
-                <IconButton onClick={prevSlide}>
-                  <ChevronLeftIcon
-                    sx={{ fontSize: "80px" }}
-                    className="left-button"
-                  >
-                    Previous
-                  </ChevronLeftIcon>
-                </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  <CardHeader title={design.title}></CardHeader>
+                  <CardHeader
+                    title={
+                      <Typography
+                        onClick={(event) => {
+                          setAnchor(event, design.description);
+                        }}
+                        variant="h5"
+                        className="designTitle"
+                      >
+                        {design.title}
+                      </Typography>
+                    }
+                  ></CardHeader>
                   <Model
                     texture={design.image}
                     reference={"ref" + design.id}
                     model={"/model/lureDesignsL.glb"}
+                    interaction="none"
                   />
                   <div className="cardButtons">
                     <div className="centerButton">
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            updateCart(current - 1);
+                            updateCart(cards.left);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -168,43 +255,62 @@ function Designs(props) {
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            downloadDesign(current - 1);
+                            downloadDesign(cards.left);
                           }}
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            editDesign(current - 1);
-                          }}
-                        >
-                          <EditIcon size="small">Edit</EditIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            deleteDesign(current - 1);
-                          }}
-                        >
-                          <DeleteIcon size="small">Delete</DeleteIcon>
-                        </IconButton>
+                        {props.showFeed === true && (
+                          <>
+                            <IconButton
+                              onClick={() => {
+                                editDesign(cards.left);
+                              }}
+                            >
+                              <EditIcon size="small">Edit</EditIcon>
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+                                deleteDesign(cards.left);
+                              }}
+                            >
+                              <DeleteIcon size="small">Delete</DeleteIcon>
+                            </IconButton>
+                          </>
+                        )}
                       </CardActions>
                     </div>
                   </div>
                 </Card>
               </div>
             )}
-            <div className={index === current ? "slide active" : "slide"}>
-              {index === current && (
+            <div className={index === cards.center ? "slide active" : "slide"}>
+              {index === cards.center && (
                 <div className="container">
-                  <Card elevation={4} style={cardStyle} className="card">
+                  <Card
+                    elevation={4}
+                    // style={cardStyle}
+                    className="card"
+                  >
                     <CardHeader
-                      title={design.title}
+                      title={
+                        <Typography
+                          onClick={(event) => {
+                            setAnchor(event, design.description);
+                          }}
+                          variant="h5"
+                          className="designTitle"
+                        >
+                          {design.title}
+                        </Typography>
+                      }
                       // subheader={index}
                     />
                     <Model
                       texture={design.image}
                       reference={"ref" + design.id}
                       model={"/model/lureDesignsC.glb"}
+                      interaction="none"
                     />
 
                     <div className="cardButtons">
@@ -212,7 +318,7 @@ function Designs(props) {
                         <CardActions>
                           <IconButton
                             onClick={() => {
-                              updateCart(current);
+                              updateCart(cards.center);
                             }}
                           >
                             <ShoppingCartIcon size="small">
@@ -221,25 +327,29 @@ function Designs(props) {
                           </IconButton>
                           <IconButton
                             onClick={() => {
-                              downloadDesign(current);
+                              downloadDesign(cards.center);
                             }}
                           >
                             <DownloadIcon size="small">Download</DownloadIcon>
                           </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              editDesign(current);
-                            }}
-                          >
-                            <EditIcon size="small">Edit</EditIcon>
-                          </IconButton>
-                          <IconButton
-                            onClick={() => {
-                              deleteDesign(current);
-                            }}
-                          >
-                            <DeleteIcon size="small">Delete</DeleteIcon>
-                          </IconButton>
+                          {props.showFeed === true && (
+                            <>
+                              <IconButton
+                                onClick={() => {
+                                  editDesign(cards.center);
+                                }}
+                              >
+                                <EditIcon size="small">Edit</EditIcon>
+                              </IconButton>
+                              <IconButton
+                                onClick={() => {
+                                  deleteDesign(cards.center);
+                                }}
+                              >
+                                <DeleteIcon size="small">Delete</DeleteIcon>
+                              </IconButton>
+                            </>
+                          )}
                         </CardActions>
                       </div>
                     </div>
@@ -248,29 +358,34 @@ function Designs(props) {
               )}
             </div>
 
-            {index === current + 1 && (
+            {index === cards.right && (
               <div className="container">
-                <IconButton onClick={nextSlide}>
-                  <ChevronRightIcon
-                    sx={{ fontSize: "80px" }}
-                    className="right-button"
-                  >
-                    Next
-                  </ChevronRightIcon>
-                </IconButton>
                 <Card elevation={4} style={cardStyle} className="card">
-                  <CardHeader title={design.title}></CardHeader>
+                  <CardHeader
+                    title={
+                      <Typography
+                        onClick={(event) => {
+                          setAnchor(event, design.description);
+                        }}
+                        variant="h5"
+                        className="designTitle"
+                      >
+                        {design.title}
+                      </Typography>
+                    }
+                  ></CardHeader>
                   <Model
                     texture={design.image}
                     reference={"ref" + design.id}
                     model={"/model/lureDesignsR.glb"}
+                    interaction="none"
                   />
                   <div className="cardButtons">
                     <div className="centerButton">
                       <CardActions>
                         <IconButton
                           onClick={() => {
-                            updateCart(current + 1);
+                            updateCart(cards.right);
                           }}
                         >
                           <ShoppingCartIcon size="small">
@@ -279,25 +394,29 @@ function Designs(props) {
                         </IconButton>
                         <IconButton
                           onClick={() => {
-                            downloadDesign(current + 1);
+                            downloadDesign(cards.right);
                           }}
                         >
                           <DownloadIcon size="small">Download</DownloadIcon>
                         </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            editDesign(current + 1);
-                          }}
-                        >
-                          <EditIcon size="small">Edit</EditIcon>
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            deleteDesign(current + 1);
-                          }}
-                        >
-                          <DeleteIcon size="small">Delete</DeleteIcon>
-                        </IconButton>
+                        {props.showFeed === true && (
+                          <>
+                            <IconButton
+                              onClick={() => {
+                                editDesign(cards.right);
+                              }}
+                            >
+                              <EditIcon size="small">Edit</EditIcon>
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+                                deleteDesign(cards.right);
+                              }}
+                            >
+                              <DeleteIcon size="small">Delete</DeleteIcon>
+                            </IconButton>
+                          </>
+                        )}
                       </CardActions>
                     </div>
                   </div>
@@ -307,6 +426,11 @@ function Designs(props) {
           </div>
         );
       })}
+      <IconButton onClick={nextSlide} className="icon-button">
+        <ChevronRightIcon sx={{ fontSize: "80px" }} className="arrow-button">
+          Next
+        </ChevronRightIcon>
+      </IconButton>
     </div>
   );
 }

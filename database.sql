@@ -17,7 +17,8 @@ CREATE TABLE "cart_items" (
 	"user_id" INT,
 	"order_date" DATE,
 	"fulfilled" BOOLEAN DEFAULT false,
-	"ordered" BOOLEAN DEFAULT false
+	"ordered" BOOLEAN DEFAULT false,
+	"qty" INT DEFAULT 1
 );
 
 CREATE TABLE "design" (
@@ -36,7 +37,5 @@ CREATE TABLE "favorite" (
 	"design_id" INT
 );
 
-INSERT INTO "design" (user_id, svg_colors, description, title, image, public) VALUES 
-	('1', 'svg colors go here', 'here is a lure yall!', 'lil lure', 'https://static01.nyt.com/images/2013/03/10/magazine/10wmt1/10wmt1-jumbo-v3.jpg', 'true'),
-	('1', 'svg colors go here', 'another lure yall!', 'lil lure2', 'https://static01.nyt.com/images/2013/03/10/magazine/10wmt1/10wmt1-jumbo-v3.jpg', 'false'),
-	('2', 'svg colors go here', 'I guess here is a lure too', 'allure', 'https://static01.nyt.com/images/2013/03/10/magazine/10wmt1/10wmt1-jumbo-v3.jpg', 'true');
+INSERT INTO "design" (id, svg_colors, description, title, image, public) VALUES 
+	('-1', 'printer', 'Make your own custom lures', 'Lure printer', 'image/Printer.png', 'false');

@@ -42,6 +42,21 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST a printer to the user's cart
+router.post("/printer", rejectUnauthenticated, (req, res) => {
+  const queryString = `INSERT INTO cart_items ( design_id, user_id) VALUES ( $1, $2 );`;
+  const values = [-1, req.user.id];
+  pool
+    .query(queryString, values)
+    .then((results)=>{
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
+
 // DELETE item from cart, works for admin and users
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
   // Delete an item from cart_items where id = id (serial key)

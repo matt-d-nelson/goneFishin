@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeEvery } from "redux-saga/effects";
+import { put, takeEvery, delay } from "redux-saga/effects";
 
 function* updateDesign(action) {
   try {
@@ -8,7 +8,7 @@ function* updateDesign(action) {
       type: "OPEN_MODAL",
       payload: {
         type: "loading",
-        open: "true",
+        open: true,
       },
     });
     // send update request
@@ -21,8 +21,8 @@ function* updateDesign(action) {
     yield put({
       type: "OPEN_MODAL",
       payload: {
-        type: "success",
-        open: "true",
+        type: "success_nav",
+        open: true,
         success: "Your Design Was Updated",
         history: "/home",
       },

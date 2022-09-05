@@ -8,7 +8,7 @@ const {
 // GET all public designs
 router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
-  const queryString = `SELECT * FROM "design" WHERE public = true;`;
+  const queryString = `SELECT * FROM "design" WHERE public = true ORDER BY id DESC;`;
   pool
     .query(queryString)
     .then((result) => {

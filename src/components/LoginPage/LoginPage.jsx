@@ -15,7 +15,7 @@ function LoginPage() {
   const onRegister = () => {
     dispatch({
       type: "OPEN_MODAL",
-      payload: { type: "register", open: "true" },
+      payload: { type: "register", open: true },
     });
   };
 
@@ -32,8 +32,8 @@ function LoginPage() {
       <LoginForm />
 
       <center>
-        <Button onClick={onRegister}>Register</Button>
-        <Button onClick={onDesign}>Design</Button>
+        <Button variant="contained"  sx={{ mr: 2, mt:2}} onClick={onRegister}>Register</Button>
+        <Button  variant="contained"  sx={{ mt:2}}onClick={onDesign}>Design</Button>
       </center>
     </div>
   );

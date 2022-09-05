@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { Button,  TextField } from "@mui/material";
+import "./LoginForm.css";
 
 function LoginForm() {
   //---------------------local state---------------------//
@@ -20,7 +22,7 @@ function LoginForm() {
         type: "LOGIN",
         payload: {
           username: username,
-          password: password,
+          password: password
         },
       });
     } else {
@@ -39,8 +41,10 @@ function LoginForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
-          <input
+          <TextField
+          variant="outlined"
+          placeholder="Username"
+          sx={{ mb: 2}}
             type="text"
             name="username"
             required
@@ -51,8 +55,9 @@ function LoginForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
-          <input
+          <TextField
+          variant="outlined"
+          placeholder="Password"
             type="password"
             name="password"
             required
@@ -62,7 +67,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <Button onClick={login} variant="contained" sx={{ mt: 3}}>Log In</Button>
       </div>
     </form>
   );
