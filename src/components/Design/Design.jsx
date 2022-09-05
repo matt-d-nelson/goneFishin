@@ -28,12 +28,12 @@ function Design() {
   //---------------------local state---------------------//
 
   // lure colors
-  const [bodyColor, setBodyColor] = useState("#00FF00");
+  const [bodyColor, setBodyColor] = useState("#7BAB6D");
   const [bodyShadeColor, setBodyShadeColor] = useState(
-    chroma("#00FF00").darken()
+    chroma("#7BAB6D").darken()
   );
-  const [finColor, setFinColor] = useState("#FF0000");
-  const [dorsalColor, setDorsalColor] = useState("#3C2210");
+  const [finColor, setFinColor] = useState("#D0AC5D");
+  const [dorsalColor, setDorsalColor] = useState("#D1691F");
   const [eyeColor, setEyeColor] = useState("#FFFF00");
 
   // inputs
