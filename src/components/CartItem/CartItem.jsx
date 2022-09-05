@@ -81,8 +81,9 @@ function CartItem({ item, index }) {
         {item.design_id === -1 ? (
           <Grid item xs={2}>
             <model-viewer
+              style={{ maxWidth: "100%", height: "200px" }}
               src="/model/PrinterImage.glb"
-              camera-orbit="0deg 200deg auto"
+              camera-orbit="45deg 94.69deg auto"
               camera-target="3.445m 15.98m 100m"
               interaction-prompt="none"
               camera-controls
