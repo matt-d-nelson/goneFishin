@@ -34,6 +34,7 @@ function Model(props) {
   return (
     <div style={{ height: "200px" }}>
       <model-viewer
+        style={{ maxWidth: "100%" }}
         id={props.reference}
         src={props.model}
         ar
