@@ -77,31 +77,31 @@ function CartItem({ item, index }) {
         justifyContent="space-between"
         alignItems="top"
       >
-        <Grid item xs={2}>
-          {/* if item is a printer, show plain image. If it's a lure, show 3D model */}
-          {item.design_id === -1 ? (
-            <div style={{ height: "200px" }}>
-              <model-viewer
-                src="/model/PrinterImage.glb"
-                camera-orbit="0deg 200deg auto"
-                camera-target="3.445m 15.98m 100m"
-                interaction-prompt="none"
-                camera-controls
-                ar
-                ar-modes="webxr scene-viewer quick-look"
-              ></model-viewer>
-            </div>
-          ) : (
+        {/* if item is a printer, show plain image. If it's a lure, show 3D model */}
+        {item.design_id === -1 ? (
+          <Grid item xs={2}>
+            <model-viewer
+              src="/model/PrinterImage.glb"
+              camera-orbit="0deg 200deg auto"
+              camera-target="3.445m 15.98m 100m"
+              interaction-prompt="none"
+              camera-controls
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+            ></model-viewer>
+          </Grid>
+        ) : (
+          <Grid item xs={2}>
             <Model
               texture={item.image}
               reference={"ref" + index}
               model={`/model/lureCart${index}.glb`}
               interaction="none"
             />
-          )}
-        </Grid>
+          </Grid>
+        )}
 
-        <Grid item xs={3} sx={{ mt: 5 }}>
+        <Grid item xs={8} sx={{ mt: 5 }}>
           <Typography variant="body1" p={1}>
             Title: {item.title} <br />
             Description: {item.description}
@@ -137,7 +137,7 @@ function CartItem({ item, index }) {
           </Button>
         </Grid>
 
-        <Grid item xs={2} m={2} sx={{ ml: 20, mt: 6 }}>
+        <Grid item xs={2} sx={{ mt: 6 }}>
           <Button
             variant="contained"
             sx={{ mt: 4 }}
