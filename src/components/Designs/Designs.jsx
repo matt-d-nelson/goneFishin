@@ -210,11 +210,13 @@ function Designs(props) {
       >
         <Typography className="popOverStyle">{popOverMessage}</Typography>
       </Popover>
-      <IconButton onClick={prevSlide} className="icon-button">
-        <ChevronLeftIcon sx={{ fontSize: "80px" }} className="arrow-button">
-          Previous
-        </ChevronLeftIcon>
-      </IconButton>
+      {designs.length > 3 && (
+        <IconButton onClick={prevSlide} className="icon-button">
+          <ChevronLeftIcon sx={{ fontSize: "80px" }} className="arrow-button">
+            Previous
+          </ChevronLeftIcon>
+        </IconButton>
+      )}
       {designs.map((design, index) => {
         return (
           //INDEX BEFORE CURRENT
@@ -426,11 +428,13 @@ function Designs(props) {
           </div>
         );
       })}
-      <IconButton onClick={nextSlide} className="icon-button">
-        <ChevronRightIcon sx={{ fontSize: "80px" }} className="arrow-button">
-          Next
-        </ChevronRightIcon>
-      </IconButton>
+      {designs.length > 3 && (
+        <IconButton onClick={nextSlide} className="icon-button">
+          <ChevronRightIcon sx={{ fontSize: "80px" }} className="arrow-button">
+            Next
+          </ChevronRightIcon>
+        </IconButton>
+      )}
     </div>
   );
 }
