@@ -6,10 +6,6 @@ This App was created as part of the curriculum for Prime Academy's Full Stack So
 
 ![home](https://user-images.githubusercontent.com/98720000/189007625-c881e7b3-629d-488b-bc69-6a14172c1781.png)
 
-Visit the hosted app:
-------
-https://redwinglurecompany.herokuapp.com/
-
 Usage
 ======
 Design
